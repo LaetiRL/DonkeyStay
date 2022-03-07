@@ -41,7 +41,6 @@
 </head>
 
 <body>
-
     <div class="container-fluid" style="height:100vh">
         <nav class="bg-primaryX text-lightX navbar navbar-expand-xl navbar-dark  navbar-togglable  fixed-top">
 
