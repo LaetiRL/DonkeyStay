@@ -13,7 +13,7 @@ require_once "_connec.php";
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>DonkeyStay</title>
     <style>
         @media(min-width: 768px) {
             section {
@@ -45,45 +45,42 @@ require_once "_connec.php";
 </head>
 
 <body>
-    <header>
-        <div class="container-fluid" style="height:100vh">
-            <nav class="bg-primaryX text-lightX navbar navbar-expand-xl navbar-dark  navbar-togglable  fixed-top">
+    <header class="container-fluid" style="height:100vh">
+        <nav class="bg-primaryX text-lightX navbar navbar-expand-xl navbar-dark  navbar-togglable  fixed-top">
 
-                <div class="container">
+            <div class="container">
 
-                    <!-- Brand -->
-                    <a class="navbar-brand" href="index.html">
-                        Airbnb
-                    </a>
+                <!-- Brand -->
+                <a class="navbar-brand" href="index.html">
+                    DonkeyStay
+                </a>
 
-                    <!-- Toggler -->
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                <!-- Toggler -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                    <!-- Collapse -->
-                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                <!-- Collapse -->
+                <div class="collapse navbar-collapse" id="navbarCollapse">
 
-                        <!-- Links -->
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item active mx-4">
-                                <a class="nav-link" href="#">Become a host</a>
-                            </li>
-                            <li class="nav-item mx-4">
-                                <a class="nav-link" href="#">Help</a>
-                            </li>
-                            <li class="nav-item mx-4">
-                                <a class="nav-link" href="#">Sign up</a>
-                            </li>
-                            <li class="nav-item mx-4">
-                                <a class="nav-link" href="#">Login</a>
-                            </li>
-                        </ul>
+                    <!-- Links -->
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active mx-4">
+                            <a class="nav-link" href="#">Become a host</a>
+                        </li>
+                        <li class="nav-item mx-4">
+                            <a class="nav-link" href="#">Help</a>
+                        </li>
+                        <li class="nav-item mx-4">
+                            <a class="nav-link" href="#">Sign up</a>
+                        </li>
+                        <li class="nav-item mx-4">
+                            <a class="nav-link" href="#">Login</a>
+                        </li>
+                    </ul>
 
 
-                    </div> <!-- / .navbar-collapse -->
+                </div> <!-- / .navbar-collapse -->
 
-                </div> <!-- / .container -->
-            </nav>
-    </header>
-    <main>
+            </div> <!-- / .container -->
+        </nav>

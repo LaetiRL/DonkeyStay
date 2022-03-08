@@ -38,8 +38,7 @@
             <div class="row">
                 <div class="col-sm-5">
                     <div class="card border-0">
-                        <div class="card-body">
-                            <h1 class="h3 mb-3">Book homes, hotels, and more on Airbnb</h1>
+                            <h1 class="h3 mb-3">Book homes, hotels, and more on DonkeyStay</h1>
                             <form>
                                 <div class="form-group">
                                     <div class="row px-3">
@@ -102,23 +101,12 @@
                             <a href="#" class="btn btn-danger btn-block">Search</a>
                         </div>
                     </div>
-                    <div class="card my-4 p-2 small border-0">
-                        <div class="row no-gutters">
-                            <div class="col-md-7 d-flex align-items-center">
-                                <p class="my-0 px-3">Earn up to <strong>$5530/month</strong> hosting your place in Rome</p>
-                            </div>
-                            <div class="col-md-5 border-left border-secondary">
-                                <div class="card-body">
-                                    <p class="card-text">Become a host <span>&gt;</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
         </div>
-
+</header>
+<main>
         <div class="container-fluid container py-3 mt-4">
             <h2 class="h3">What guests are saying about homes in the United States</h2>
             <div class="row mt-4">

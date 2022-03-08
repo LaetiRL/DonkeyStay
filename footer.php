@@ -1,5 +1,5 @@
 </main>
-    <footer class="container pt-4 my-md-5 pt-md-5">
+<footer class="container pt-4 my-md-5 pt-md-5">
         <div class="row">
             <div class="col-6 col-md">
                 <h5 class="h6">AirBnB Clone</h5>
@@ -89,6 +89,6 @@
             }
         });
     </script>
-</body>
+    </body>
 
-</html>
+    </html>
