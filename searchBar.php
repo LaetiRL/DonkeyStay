@@ -1,3 +1,7 @@
+<?php 
+require_once "header.php";
+?>
+
 <main>
     <section style="padding-top: 0px;">
 
