@@ -1,3 +1,7 @@
+<?php 
+require_once "header.php";
+?>
+
 <main>
     <section class="section section-top section-full">
 
