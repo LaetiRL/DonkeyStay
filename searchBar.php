@@ -1,7 +1,3 @@
-<?php 
-require_once "header.php";
-?>
-
 <main>
     <section style="padding-top: 0px;">
 
@@ -20,7 +16,7 @@ require_once "header.php";
             </div>
         </div>
 
-
+        
         <!-- Overlay -->
         <div class="bg-overlay"></div>
 
