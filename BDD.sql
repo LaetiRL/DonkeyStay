@@ -193,4 +193,5 @@ USE `DonkeyStay`;
 INSERT INTO `DonkeyStay`.`room` (`id`, `roomtype_id`, `hometype_id`, `description`, `capacity`, `nb_bedroom`, `nb_bathroom`, `price`, `adress`, `city`, `has_tv`, `has_wifi`, `has_kitchen`, `has_aircon`, `user_id`) VALUES (1, 1, 2, 'mon super manoir', 4, 2, 2, 150, '1007 Mountain Drive', 'Gotham City', 1, 1, 1, 1, 1);
 INSERT INTO `DonkeyStay`.`room` (`id`, `roomtype_id`, `hometype_id`, `description`, `capacity`, `nb_bedroom`, `nb_bathroom`, `price`, `adress`, `city`, `has_tv`, `has_wifi`, `has_kitchen`, `has_aircon`, `user_id`) VALUES (2, 2, 1, 'un appartement cosi', 2, 1, 1, 50, '20 rue somewhere 75020', 'paris', 0, 1, 1, 0, 2);
 
+
 COMMIT;
