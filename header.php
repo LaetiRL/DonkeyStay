@@ -12,8 +12,7 @@ require_once "_connec.php";
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <title>DonkeyStay</title>
+    <title><?php echo $title ?></title>
     <style>
         @media(min-width: 768px) {
             section {
@@ -51,7 +50,7 @@ require_once "_connec.php";
             <div class="container">
 
                 <!-- Brand -->
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="index.php">
                     DonkeyStay
                 </a>
 
@@ -84,3 +83,4 @@ require_once "_connec.php";
 
             </div> <!-- / .container -->
         </nav>
+    </header>
