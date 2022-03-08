@@ -2,15 +2,20 @@
     <section class="section section-top section-full">
 
         <!-- Cover -->
-        <div class="bg-cover" style="background-image: url(https://images.unsplash.com/photo-1542833278-f4deb3180291?ixlib=rb-1.2.1&auto=format&fit=crop&w=1487&q=80);
-                                         position: absolute;
-                                         top: 0;
-                                         left: 0;
-                                         right: 0;
-                                         bottom: 0;
-                                         background-repeat: no-repeat;
-                                         background-position: 50%;
-                                         background-size: cover;"></div>
+        <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="1000">
+                    <img src="/img/caroussel/louvre_paris.jpg" class="d-block w-100" alt="pyramide du Louvre">
+                </div>
+                <div class="carousel-item" data-bs-interval="1000">
+                    <img src="/img/caroussel/marseille_calanque.jpg" class="d-block w-100" alt="calanque de Marseille">
+                </div>
+                <div class="carousel-item" data-bs-interval="1000">
+                    <img src="/img/caroussel/mont_saint_michel.jpg" class="d-block w-100" alt="Mont Saint-Michel">
+                </div>
+            </div>
+        </div>
+
 
         <!-- Overlay -->
         <div class="bg-overlay"></div>
