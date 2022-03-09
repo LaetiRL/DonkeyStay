@@ -1,17 +1,12 @@
 <?php
 require_once "pdo.php";
-
-if (isset($_POST['email'])) {
-    $_SESSION['email'] = $_POST['email'];
-} else {
-    $_SESSION['email'] = '';
+if (isset($_POST['validate'])) {
+    if (isset($_POST['email'])) {
+        $_SESSION['email'] = $_POST['email'];
+    } else {
+        $_SESSION['email'] = '';
+    }
 }
-
-/* if(isset($_POST['validate']))
-  if(isset($_POST['email']) && !empty($_POST['email']))
-  {
-    header("location: index.php");
-  } */
 
 ?>
 
@@ -26,7 +21,8 @@ if (isset($_POST['email'])) {
     <!-- Bootstrap CSS -->
     <link href="/css/style.css" rel="stylesheet">
 
-    <title><?php echo $title ?></title>
+    <title><?php echo $titleWeb ?></title>
+
 
     <!-- Bundle Popper and Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
