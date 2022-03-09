@@ -89,7 +89,7 @@ $rooms = $querySearch->fetchAll(PDO::FETCH_ASSOC);
         <div class="row mt-4">
             <div class="col-md-4">
                 <div class="card mb-3 border-0">
-                    <svg style="fill:#60B6B5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="64" height="64">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="64" height="64">
                         <path d="M0 0h24v24H0z" fill="none" />
                         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                     </svg>
@@ -101,7 +101,7 @@ $rooms = $querySearch->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="col-md-4">
                 <div class="card mb-3 border-0">
-                    <svg style="fill:#60B6B5" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24">
                         <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                         <path d="M0 0h24v24H0z" fill="none" />
                     </svg>
@@ -113,7 +113,7 @@ $rooms = $querySearch->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="col-md-4">
                 <div class="card mb-3 border-0">
-                    <svg style="fill:#60B6B5" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" clip-rule="evenodd" fill="none" d="M0 0h24v24H0z" />
                         <g fill-rule="evenodd" clip-rule="evenodd">
                             <path d="M9 17l3-2.94c-.39-.04-.68-.06-1-.06-2.67 0-8 1.34-8 4v2h9l-3-3zm2-5c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4" />
