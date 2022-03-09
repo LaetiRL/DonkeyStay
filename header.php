@@ -1,17 +1,12 @@
 <?php
 require_once "pdo.php";
-
-if (isset($_POST['email'])) {
-    $_SESSION['email'] = $_POST['email'];
-} else {
-    $_SESSION['email'] = '';
+if (isset($_POST['validate'])) {
+    if (isset($_POST['email'])) {
+        $_SESSION['email'] = $_POST['email'];
+    } else {
+        $_SESSION['email'] = '';
+    }
 }
-
-/* if(isset($_POST['validate']))
-  if(isset($_POST['email']) && !empty($_POST['email']))
-  {
-    header("location: index.php");
-  } */
 
 ?>
 
@@ -26,11 +21,8 @@ if (isset($_POST['email'])) {
     <!-- Bootstrap CSS -->
     <link href="/css/style.css" rel="stylesheet">
 
-    <title><?php echo $title ?></title>
+    <title><?php echo $titleWeb ?></title>
 
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script> -->
 </head>
 
 <body>

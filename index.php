@@ -1,5 +1,5 @@
 <?php
-$title = "DonkeyStay";
+$titleWeb = "DonkeyStay";
 require_once "searchBar.php";
 
 $sql = "SELECT room.*, hometype.hname, roomtype.rname FROM room INNER JOIN hometype ON room.hometype_id = hometype.id INNER JOIN roomtype ON room.roomtype_id = roomtype.id";
