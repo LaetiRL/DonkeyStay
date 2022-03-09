@@ -1,40 +1,44 @@
 @import "bootstrap/bootstrap.scss";
 
-@media(min-width: 768px) {
-    section {
-        padding-top: 0;
-    }
+@media (min-width: 768px) {
+  section {
+    padding-top: 0;
+  }
 
-    section {
-        padding-bottom: 7.5rem;
-    }
+  section {
+    padding-bottom: 7.5rem;
+  }
 }
 
 .br0,
-.gj-datepicker-bootstrap [role=right-icon] button,
+.gj-datepicker-bootstrap [role="right-icon"] button,
 .form-control {
-    border-radius: 0 !important
+  border-radius: 0 !important;
 }
 
 .card-img-top {
-    max-height: 160px;
-    min-height: 160px;
-    object-fit: cover
+  max-height: 160px;
+  min-height: 160px;
+  object-fit: cover;
 }
 
 .d-flex {
-    display: flex;
-    justify-content:center;
+  display: flex;
+  justify-content: center;
 }
 
 .div-addform {
-    width: 80%; 
-    border: solid 1px black; 
-    padding: 2%;
+  width: 80%;
+  border: solid 1px black;
+  padding: 2%;
 }
 
 svg {
     fill: #60B6B5;
+}
+
+.collapse {
+  flex-grow: 0;
 }
 
 // SearchBar Position
@@ -65,4 +69,3 @@ svg {
         margin-bottom: 10px;
     }
 }
-

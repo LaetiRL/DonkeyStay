@@ -11151,7 +11151,11 @@ textarea.form-control-lg {
 }
 
 svg {
-  fill: #60B6B5;
+  fill: #60b6b5;
+}
+
+.collapse {
+  flex-grow: 0;
 }
 
 .search-bar {

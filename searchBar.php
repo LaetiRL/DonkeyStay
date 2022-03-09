@@ -8,13 +8,13 @@ require_once 'header.php';
         <!-- Carousel -->
         <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="4000">
+                <div class="carousel-item active" data-bs-interval="5000">
                     <img src="/img/caroussel/louvre_paris.jpg" class="d-block w-100" alt="pyramide du Louvre">
                 </div>
-                <div class="carousel-item" data-bs-interval="4000">
+                <div class="carousel-item" data-bs-interval="5000">
                     <img src="/img/caroussel/marseille_calanque.jpg" class="d-block w-100" alt="calanque de Marseille">
                 </div>
-                <div class="carousel-item" data-bs-interval="4000">
+                <div class="carousel-item" data-bs-interval="5000">
                     <img src="/img/caroussel/mont_saint_michel.jpg" class="d-block w-100" alt="Mont Saint-Michel">
                 </div>
             </div>
