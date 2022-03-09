@@ -3,6 +3,9 @@ $titleWeb = "Ajouter un logement";
 require_once "header.php";
 
 if (isset($_POST['validate'])) {
+    $homeTypeId = $_POST['home_type'];
+    $roomTypeId = $_POST['room_type'];
+    $userId = $_SESSION['user_id'];
     if (!empty($_POST['title'])) {
         $title = $_POST['title'];
     } else {
@@ -14,7 +17,7 @@ if (isset($_POST['validate'])) {
         $imgErr = "* veuillez ajouter une image";
     }
     if (!empty($_POST['capacity'])) {
-        $capacity = $_POST['capacity'];
+        $capacity_id = $_POST['capacity'];
     } else {
         $capacityErr = "* veuillez ajouter la capacité maximale";
     }
@@ -92,8 +95,11 @@ if (isset($_POST['validate'])) {
         && !isset($end_dispoErr) && !isset($priceErr)
     ) {
 
-        $queryInsert = $dbh->prepare("INSERT INTO room (`title`, `capacity_id` ,`nb_bedroom`, `nb_bathroom`, `description`,`has_tv`, `has_wifi`, `has_kitchen`, `has_aircon`, `adress`, `city`, `start_dispo`, `end_dispo`, `price`) VALUES (:title, 2, :nb_bedroom, :nb_bathroom, :description, :has_tv, :has_wifi, :has_kitchen, :has_aircon, :adress, :city, :start_dispo, :end_dispo, :price)");
+        $queryInsert = $dbh->prepare("INSERT INTO room (`roomtype_id`, `hometype_id`, `user_id`, `title`, `capacity_id` ,`nb_bedroom`, `nb_bathroom`, `description`,`has_tv`, `has_wifi`, `has_kitchen`, `has_aircon`, `adress`, `city`, `start_dispo`, `end_dispo`, `price`) VALUES (:roomTypeId, : homeTypeId, :userId, :title, :capacity, :nb_bedroom, :nb_bathroom, :description, :has_tv, :has_wifi, :has_kitchen, :has_aircon, :adress, :city, :start_dispo, :end_dispo, :price)");
 
+        $queryInsert->bindValue(":roomTypeId", $roomTypeId, PDO::PARAM_INT);
+        $queryInsert->bindValue(":homeTypeId", $homeTypeId, PDO::PARAM_INT);
+        $queryInsert->bindValue(":userId", $userId, PDO::PARAM_INT);
         $queryInsert->bindValue(":title", $title, PDO::PARAM_STR);
         $queryInsert->bindValue(":capacity", $capacity, PDO::PARAM_INT);
         $queryInsert->bindValue(":nb_bedroom", $nb_bedroom, PDO::PARAM_INT);
