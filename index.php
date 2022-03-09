@@ -46,7 +46,7 @@ $rooms = $querySearch->fetchAll(PDO::FETCH_ASSOC);
                                     echo '<div class="card-body">';
                                         echo '<h5 class="card-title">'.$row_lastestAdd['title'].'</h5>';
                                         echo '<p class="card-text">'.$row_lastestAdd['price'].'€ / nuit</p>';
-                                        echo '<a href="" class="btn btn-outline-success btn-sm">Voir</a>';
+                                        echo '<a href="lodging_info.php?id='.$row_lastestAdd['id'].'" class="btn btn-outline-success btn-sm">Voir</a>';
 
                                     echo '</div>';
                                 echo '</div>';
