@@ -20,7 +20,7 @@ if (isset($_POST['validate'])) {
         endforeach;
 
     } else {
-        $_SESSION['email'] = '';
+        $_SESSION['name'] = '';
     }
 }
 

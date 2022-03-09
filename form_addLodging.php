@@ -35,25 +35,25 @@ if (isset($_POST['validate'])) {
     } elseif (is_numeric($_POST['nb_bathroom']) == false) {
         $nb_bathroomErr = "* veuillez n'entrer que des chiffres";
     }
-    if (!empty($_POST['has_tv'])) {
-        $has_tv = 1;
-    } else {
+    if (empty($_POST['has_tv'])) {
         $has_tv = 0;
-    }
-    if (!empty($_POST['has_wifi'])) {
-        $has_wifi = 1;
     } else {
+        $has_tv = 1;
+    }
+    if (empty($_POST['has_wifi'])) {
         $has_wifi = 0;
-    }
-    if (!empty($_POST['has_kitchen'])) {
-        $has_kitchen = 1;
     } else {
+        $has_wifi = 1;
+    }
+    if (empty($_POST['has_kitchen'])) {
         $has_kitchen = 0;
-    }
-    if (!empty($_POST['has_aircon'])) {
-        $has_aircon = 1;
     } else {
+        $has_kitchen = 1;
+    }
+    if (empty($_POST['has_aircon'])) {
         $has_aircon = 0;
+    } else {
+        $has_aircon = 1;
     }
     if (!empty($_POST['description'])) {
         $description = $_POST['description'];
@@ -95,7 +95,7 @@ if (isset($_POST['validate'])) {
         && !isset($end_dispoErr) && !isset($priceErr)
     ) {
 
-        $queryInsert = $dbh->prepare("INSERT INTO room (`roomtype_id`, `hometype_id`, `user_id`, `title`, `capacity_id` ,`nb_bedroom`, `nb_bathroom`, `description`,`has_tv`, `has_wifi`, `has_kitchen`, `has_aircon`, `adress`, `city`, `start_dispo`, `end_dispo`, `price`) VALUES (:roomTypeId, : homeTypeId, :userId, :title, :capacity, :nb_bedroom, :nb_bathroom, :description, :has_tv, :has_wifi, :has_kitchen, :has_aircon, :adress, :city, :start_dispo, :end_dispo, :price)");
+        $queryInsert = $dbh->prepare("INSERT INTO room (`roomtype_id`, `hometype_id`, `user_id`, `title`, `capacity_id` ,`nb_bedroom`, `nb_bathroom`, `description`,`has_tv`, `has_wifi`, `has_kitchen`, `has_aircon`, `adress`, `city`, `start_dispo`, `end_dispo`, `price`) VALUES (:roomTypeId, :homeTypeId, :userId, :title, :capacity, :nb_bedroom, :nb_bathroom, :description, :has_tv, :has_wifi, :has_kitchen, :has_aircon, :adress, :city, :start_dispo, :end_dispo, :price)");
 
         $queryInsert->bindValue(":roomTypeId", $roomTypeId, PDO::PARAM_INT);
         $queryInsert->bindValue(":homeTypeId", $homeTypeId, PDO::PARAM_INT);
@@ -105,27 +105,27 @@ if (isset($_POST['validate'])) {
         $queryInsert->bindValue(":nb_bedroom", $nb_bedroom, PDO::PARAM_INT);
         $queryInsert->bindValue(":nb_bathroom", $nb_bathroom, PDO::PARAM_INT);
         $queryInsert->bindValue(":description", $description, PDO::PARAM_STR);
-        $queryInsert->bindValue(":has_tv", $has_tv, PDO::PARAM_INT);
-        $queryInsert->bindValue(":has_wifi", $has_wifi, PDO::PARAM_INT);
-        $queryInsert->bindValue(":has_kitchen", $has_kitchen, PDO::PARAM_INT);
-        $queryInsert->bindValue(":has_aircon", $has_aircon, PDO::PARAM_INT);
+        $queryInsert->bindValue(":has_tv", $has_tv, PDO::PARAM_STR);
+        $queryInsert->bindValue(":has_wifi", $has_wifi, PDO::PARAM_STR);
+        $queryInsert->bindValue(":has_kitchen", $has_kitchen, PDO::PARAM_STR);
+        $queryInsert->bindValue(":has_aircon", $has_aircon, PDO::PARAM_STR);
         $queryInsert->bindValue(":adress", $adress, PDO::PARAM_STR);
         $queryInsert->bindValue(":city", $city, PDO::PARAM_STR);
         $queryInsert->bindValue(":start_dispo", $start_dispo, PDO::PARAM_STR);
         $queryInsert->bindValue(":end_dispo", $end_dispo, PDO::PARAM_STR);
-        $queryInsert->bindValue(":price", $price, PDO::PARAM_STR);
+        $queryInsert->bindValue(":price", $price, PDO::PARAM_INT);
 
         $queryInsert->execute();
 
-        $user_id = $dbh->lastInsertId();
+        /* $user_id = $dbh->lastInsertId();
 
-        $queryInsertImg = $dbh->prepare("INSERT INTO image (img, user_id) VALUES (:img, $user_id)");
+        $queryInsertImg = $dbh->prepare("INSERT INTO image (`img`, `user_id`) VALUES (:img, $user_id)");
 
         $queryInsertImg->bindValue(":img", $img, PDO::PARAM_STR);
 
-        $queryInsertImg->execute();
+        $queryInsertImg->execute(); */
 
-        //header('location: index.php');
+        header('location: index.php');
     }
 }
 ?>
@@ -230,6 +230,8 @@ if (isset($_POST['validate'])) {
             <button type="submit" name="validate">+ Ajouter</button>
         </div>
     </form>
+
+    <?php var_dump($_POST, $_SESSION) ?>
 
     <style>
         body {
