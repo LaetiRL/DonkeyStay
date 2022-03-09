@@ -1,8 +1,24 @@
 <?php
 require_once "pdo.php";
 if (isset($_POST['validate'])) {
-    if (isset($_POST['email'])) {
-        $_SESSION['email'] = $_POST['email'];
+    if (isset($_POST['email']) && isset($_POST['password'])) {
+        $userEmail = $_POST['email'];
+        $userPassword = $_POST['password'];
+
+        $sql = "SELECT * FROM user WHERE email = :userEmail AND password = :userPassword";
+        $queryUser = $dbh->prepare($sql);
+
+        $queryUser->bindValue(':userEmail', $userEmail, PDO::PARAM_STR);
+        $queryUser->bindValue(':userPassword', $userPassword, PDO::PARAM_STR);
+
+        $queryUser->execute();
+        $userArray = $queryUser->fetchAll(PDO::FETCH_OBJ);
+
+        foreach ($userArray as $user) :
+            $_SESSION['user_id'] = $user->id;
+            $_SESSION['name'] = $user->firstname; 
+        endforeach;
+
     } else {
         $_SESSION['email'] = '';
     }
@@ -62,8 +78,8 @@ if (isset($_POST['validate'])) {
                             <a class="nav-link" href="/logout.php">Se déconnecter</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link disabled active"><?php if (isset($_SESSION['email']) && !empty($_SESSION['email'])) {
-                                                                    echo 'Hi ' . $_SESSION['email'] . ' !';
+                            <a class="nav-link disabled active"><?php if (isset($_SESSION['name']) && !empty($_SESSION['name'])) {
+                                                                    echo 'Hi ' . $_SESSION['name'] . ' !';
                                                                 } else {
                                                                     echo 'Hi Traveler !';
                                                                 }; ?> </a>
