@@ -5,8 +5,8 @@ require_once "header.php";
 <section>
     <h1>Ajouter un logement</h1>
     <hr>
-    <form style="display: flex; justify-content:center;">
-        <div style="width: 80%; border: solid 1px black; padding: 2%;">
+    <form class="d-flex">
+        <div class="div-addform">
             <div class="row">
                 <div class="col">
                     <label for="title">Titre</label>

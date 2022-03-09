@@ -3,7 +3,7 @@ require_once 'header.php';
 ?>
 
 <main>
-    <section style="padding-top: 0px;">
+    <section>
 
         <!-- Cover -->
         <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
