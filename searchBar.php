@@ -39,49 +39,49 @@ require_once 'header.php';
 
         <!-- SearchBar -->
         <div class="container search-bar">
-        <div class="row">
-            <div class="col-sm-5">
-                <div class="card border-0">
-                    <h1 class="h3 mb-3">Rechercher votre prochain voyage avec DonkeyStay</h1>
-                    <form method="POST">
-                        <div class="row">
-                            <div class="form-group">
-                                <label for="request">Ville</label>
-                                <input type="text" class="form-control w-100 br0" id="request" name="request" aria-describedby="locationInputHelp" placeholder="Ville Française">
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="card border-0">
+                        <h1 class="h3 mb-3">Rechercher votre prochain voyage avec DonkeyStay</h1>
+                        <form method="POST">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label for="request">Ville</label>
+                                    <input type="text" class="form-control w-100 br0" id="request" name="request" aria-describedby="locationInputHelp" placeholder="Ville Française">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-12 col-lg-6">
-                                <label for="startDate">Départ:</label><br>
-                                <input type="date" id="startDate" />
+                            <div class="row">
+                                <div class="col-md-12 col-lg-6">
+                                    <label for="startDate">Départ:</label><br>
+                                    <input type="date" id="startDate" />
+                                </div>
+                                <div class="col-md-12 col-lg-6">
+                                    <label for="endDate">Retour:</label><br>
+                                    <input type="date" id="endDate" />
+                                </div>
                             </div>
-                            <div class="col-md-12 col-lg-6">
-                                <label for="endDate">Retour:</label><br>
-                                <input type="date" id="endDate" />
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="form-group">
-                                <label for="exampleFormControlSelect1">Voyageurs</label>
-                                <select class="form-control" id="exampleFormControlSelect1">
-                                    <?php
-                                        $capacityQuery = $dbh->query('SELECT * FROM capacity ORDER BY id');
-                                        $capacity= $capacityQuery->fetchAll(PDO::FETCH_ASSOC);
+                            <div class="row">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Voyageurs</label>
+                                    <select class="form-control" id="exampleFormControlSelect1">
+                                        <?php
+                                            $capacityQuery = $dbh->query('SELECT * FROM capacity ORDER BY id');
+                                            $capacity= $capacityQuery->fetchAll(PDO::FETCH_ASSOC);
 
-                                        foreach ($capacity as $row_capacity) {
-                                            echo '<option value="'.$row_capacity['id'].'">'.$row_capacity['nb_traveler'].'</option>';
-                                        }
-                                    ?>
-                                </select>
+                                            foreach ($capacity as $row_capacity) {
+                                                echo '<option value="'.$row_capacity['id'].'">'.$row_capacity['nb_traveler'].'</option>';
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <button class="btn btn-danger btn-block" type="submit" name="search">Search</button>
-                    </form>
+                            <button class="btn btn-danger btn-block" type="submit" name="search">Search</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
     </section>
