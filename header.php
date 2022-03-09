@@ -1,5 +1,5 @@
 <?php
-require_once "_connec.php";
+require_once "pdo.php";
 ?>
 
 <!doctype html>
