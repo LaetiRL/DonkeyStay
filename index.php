@@ -21,127 +21,42 @@ if (!empty($_POST['request'])) {
 $querySearch->execute();
 $rooms = $querySearch->fetchAll(PDO::FETCH_ASSOC);
 ?>
-    <?php foreach ($rooms as $room) : ?>
+    <!-- <?php foreach ($rooms as $room) : ?>
         <h3><?php echo $room['hname'] ?></h3>
         <p><?php echo $room['rname'] ?></p>
         <h4><?php echo $room['description'] ?></h4>
-    <?php endforeach; ?>
+    <?php endforeach; ?> -->
 
     <section>
-        <!-- <?php
-            foreach ($lodgings as $lodging) {
-                echo '<div style="display: flex;">';
-                    echo '<div>';
-                        echo '<img src="'.$lodging['img'].'" width="300px" height="auto" alt="">';
-                    echo '</div>';
-                    echo '<div>';
-                        echo '<div><span>'.$lodging['hometype_id'].': '.$lodging['roomtype_id'].' - '.$lodging['city'].'</span></div>';
-                        echo '<div><h2>'.$lodging['title'].'</h2></div>';
-                        echo '<div><span>'.$lodging['capacity'].' - '.$lodging['nb_bedroom'].' - '.$lodging['nb_bathroom'].'</span></div>';
-                        echo '<div><span>'.$lodging['has_wifi'].' - '.$lodging['has_kitchen'].'</span></div>';
-                        echo '<span><a href="form_mod2.php?id='.$lodging['id'].'" class="bouton">Modifier</a><a href="form_del.php?id='.$lodging['id'].'" class="bouton">Supprimer</a></span>';
-                        echo '<span>'.'Prix/nuit: '.$lodging['price'].'€'.'</span>';
-                    echo '</div>';
-                echo '</div>';
-            }
-            echo '<span><a href="form_addLodging.php?id='.$lodging['id'].'" class="bouton">+ Ajouter</a></span>';
-        ?> -->
-        
+
         <div>
             <div class="container">
+                <h2 class="h3">Derniers logements ajoutés</h2>
                 <div class="row">
-                    <div class="col-lg-4 mb-4">
-                        <div class="card">
-                            <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60" alt="" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">Sunset</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum similique repellat a laborum, rerum voluptates ipsam eos quo tempore iusto dolore modi dolorum in pariatur. Incidunt repellendus praesentium quae!</p>
-                                <a href="" class="btn btn-outline-success btn-sm">Read More</a>
-                                <a href="" class="btn btn-outline-danger btn-sm"><i class="far fa-heart"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <div class="card">
-                            <img src="https://images.unsplash.com/photo-1516214104703-d870798883c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60" alt="" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">Sunset</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum similique repellat a laborum, rerum voluptates ipsam eos quo tempore iusto dolore modi dolorum in pariatur. Incidunt repellendus praesentium quae!</p>
-                                <a href="" class="btn btn-outline-success btn-sm">Read More</a>
-                                <a href="" class="btn btn-outline-danger btn-sm"><i class="far fa-heart"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <div class="card">
-                            <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60" alt="" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">Sunset</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum similique repellat a laborum, rerum voluptates ipsam eos quo tempore iusto dolore modi dolorum in pariatur. Incidunt repellendus praesentium quae!</p>
-                                <a href="" class="btn btn-outline-success btn-sm">Read More</a>
-                                <a href="" class="btn btn-outline-danger btn-sm"><i class="far fa-heart"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+                        $lastestAddQuery = $dbh->query('SELECT room.*,img FROM room INNER JOIN image ON image.room_id = room.id ORDER BY id DESC LIMIT 4;');
+                        $lastestAdd = $lastestAddQuery->fetchAll(PDO::FETCH_ASSOC);
+                    
+                        foreach ($lastestAdd as $row_lastestAdd) {
+                            
+                            echo '<div class="col-lg-3 mb-3">';
+                                echo '<div class="card">';
+                                    echo '<img src="'.$row_lastestAdd['img'].'" alt="" class="card-img-top">';
+                                    echo '<small>'.$row_lastestAdd['hometype_id'].' - '.$row_lastestAdd['city'].'</small>';
+                                    echo '<div class="card-body">';
+                                        echo '<h5 class="card-title">'.$row_lastestAdd['title'].'</h5>';
+                                        echo '<p class="card-text">'.$row_lastestAdd['price'].'€ / nuit</p>';
+                                        echo '<a href="" class="btn btn-outline-success btn-sm">Voir</a>';
+
+                                    echo '</div>';
+                                echo '</div>';
+                            echo '</div>';
+                        }
+                    ?>
                 </div>
-            </div>
+            </div>  
         </div>
-
-        <!-- -->
-        <div class="container-fluid container">
-            <h2 class="h3">Derniers logements ajoutés</h2>
-            <div class="row mt-4">
-                <div class="col-md-3">
-                    <div class="card mb-3 border-0">
-                        <img src="https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" class="card-img-top br0" alt="...">
-                        <p class="small text-uppercase pb-0">Entire house, Joshua Tree</p>
-                        <div class="card-body p-0">
-                            <h5 class="card-title">The Joshua Tree House</h5>
-                            <p class="card-text m-0">$290/night</p>
-                            <p class="small m-0 text-info">&#9733;&#9733;&#9733;&#9733;&#9733;<span class="text-secondary"> 465, Superhost</span></p>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card mb-3 border-0">
-                        <img src="https://images.unsplash.com/photo-1489171078254-c3365d6e359f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1489&q=80" class="card-img-top br0" alt="...">
-                        <p class="small text-uppercase pb-0">Dome house, Aptos</p>
-                        <div class="card-body p-0">
-                            <h5 class="card-title">Mushroom Dome Cabin: #1 on airbnb in the world</h5>
-                            <p class="card-text m-0">$130/night</p>
-                            <p class="small m-0 text-info">&#9733;&#9733;&#9733;&#9733;&#9733;<span class="text-secondary"> 1383, Superhost</span></p>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card mb-3 border-0">
-                        <img src="https://images.unsplash.com/photo-1505577058444-a3dab90d4253?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" class="card-img-top br0" alt="...">
-                        <p class="small text-uppercase pb-0">Earth House, Orondo</p>
-                        <div class="card-body p-0">
-                            <h5 class="card-title">Underground Hygge</h5>
-                            <p class="card-text m-0">$150/night</p>
-                            <p class="small m-0 text-info">&#9733;&#9733;&#9733;&#9733;&#9733;<span class="text-secondary"> 544, Superhost</span></p>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card mb-3 border-0">
-                        <img src="https://images.unsplash.com/photo-1505576391880-b3f9d713dc4f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" class="card-img-top br0" alt="...">
-                        <p class="small text-uppercase pb-0">Entire House, Pioneertown</p>
-                        <div class="card-body p-0">
-                            <h5 class="card-title">Off-grid itHouse</h5>
-                            <p class="card-text m-0">$400/night</p>
-                            <p class="small m-0 text-info">&#9733;&#9733;&#9733;&#9733;&#9733;<span class="text-secondary"> 254</span></p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    </section>  
 
     <section>
         <div class="container-fluid container py-3 mt-4">
