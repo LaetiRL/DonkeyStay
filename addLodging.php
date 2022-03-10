@@ -26,21 +26,21 @@ if (isset($_POST['add'])) {
     } elseif (empty($_POST['capacity'])) {
         $capacity_id = " * champ obligatoire";
     } elseif (is_numeric($_POST['capacity']) == false) {
-        $capacity_id = "* veuillez n'entrer que des chiffres";
+        $capacity_id = " * veuillez n'entrer que des chiffres";
     }
     if (!empty($_POST['nb_bedroom']) && is_numeric($_POST['nb_bedroom'])) {
         $nb_bedroom = $_POST['nb_bedroom'];
     } elseif (empty($_POST['nb_bedroom'])) {
         $nb_bedroomErr = " * champ obligatoire";
     } elseif (is_numeric($_POST['nb_bedroom']) == false) {
-        $nb_bedroomErr = "* veuillez n'entrer que des chiffres";
+        $nb_bedroomErr = " * veuillez n'entrer que des chiffres";
     }
     if (!empty($_POST['nb_bathroom']) && is_numeric($_POST['nb_bathroom'])) {
         $nb_bathroom = $_POST['nb_bathroom'];
     } elseif (empty($_POST['nb_bathroom'])) {
         $nb_bathroomErr = " * champ obligatoire";
     } elseif (is_numeric($_POST['nb_bathroom']) == false) {
-        $nb_bathroomErr = "* veuillez n'entrer que des chiffres";
+        $nb_bathroomErr = " * veuillez n'entrer que des chiffres";
     }
     if (!empty($_POST['has_tv'])) {
         $has_tv = 1;
