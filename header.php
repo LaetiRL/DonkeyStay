@@ -36,9 +36,7 @@ if (isset($_POST['validate'])) {
 
     <!-- Bootstrap CSS -->
     <link href="/css/style.css" rel="stylesheet">
-
     <title><?php echo $titleWeb ?></title>
-
 
     <!-- Bundle Popper and Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -65,31 +63,35 @@ if (isset($_POST['validate'])) {
 
                     <!-- Links -->
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active mx-6">
-                            <a class="nav-link" href="#">Devenez hôte</a>
-                        </li>
-                        <li class="nav-item mx-4">
+                        <li class="nav-item">
 
-                            <button type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#modalForm">
-                                Se connecter
-                            </button>
+                            <!-- Link once connected my lodging and my travel -->
+                            <?php if (isset($_SESSION['name']) && !empty($_SESSION['name'])) {
+                                echo "<a class='nav-link active' href='#'>Mes logements</a>";
+                            } ?>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/logout.php">Se déconnecter</a>
+                            <?php if (isset($_SESSION['name']) && !empty($_SESSION['name'])) {
+                                echo "<a class='nav-link active' href='#'>Mes Voyages</a>";
+                            } ?>
                         </li>
+                        <?php if (isset($_SESSION['name']) && !empty($_SESSION['name'])) {
+                            echo "<a class='nav-link active' href='/logout.php'>Se déconnecter</a>";
+                        } else {
+                            echo "<li class='nav-item'><button type='button' class='btn nav-link active' data-bs-toggle='modal' data-bs-target='#modalForm'>Se connecter</button></li>";
+                        }  ?>
                         <li class="nav-item">
+                            <!-- Connection user -->
                             <a class="nav-link disabled active"><?php if (isset($_SESSION['name']) && !empty($_SESSION['name'])) {
                                                                     echo 'Hi ' . $_SESSION['name'] . ' !';
                                                                 } else {
                                                                     echo 'Hi Traveler !';
-                                                                };?></a>
-
+                                                                }; ?></a>
                         </li>
                     </ul>
                 </div> <!-- / .navbar-collapse -->
             </div> <!-- / .container -->
         </nav>
-
         <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -120,5 +122,4 @@ if (isset($_POST['validate'])) {
                 </div>
             </div>
         </div>
-
     </header>
