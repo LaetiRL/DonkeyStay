@@ -21,7 +21,7 @@ $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
                     echo '<div><h2>'.$lodging['title'].'</h2></div>';
                     echo '<div><span>'.$lodging['capacity'].' - '.$lodging['nb_bedroom'].' - '.$lodging['nb_bathroom'].'</span></div>';
                     echo '<div><span>'.$lodging['has_wifi'].' - '.$lodging['has_kitchen'].'</span></div>';
-                    echo '<span><a href="form_mod2.php?id='.$lodging['id'].'" class="bouton">Modifier</a><a href="form_del.php?id='.$lodging['id'].'" class="bouton">Supprimer</a></span>';
+                    echo '<span><a href="modifyLodging.php?id='.$lodging['id'].'" class="bouton">Modifier</a><a href="deleteLodging.php?id='.$lodging['id'].'" class="bouton">Supprimer</a></span>';
                     echo '<span>'.'Prix/nuit: '.$lodging['price'].'€'.'</span>';
                 echo '</div>';
             echo '</div>';

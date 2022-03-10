@@ -248,9 +248,9 @@ INSERT INTO `DonkeyStay`.`image` (`id`, `img`, `room_id`) VALUES (1, '/img/logem
 INSERT INTO `DonkeyStay`.`image` (`id`, `img`, `room_id`) VALUES (2, '/img/logements/kyleAppt.png', 2);
 INSERT INTO `DonkeyStay`.`image` (`id`, `img`, `room_id`) VALUES (3, '/img/logements/yackAtypical.jpg', 4);
 INSERT INTO `DonkeyStay`.`image` (`id`, `img`, `room_id`) VALUES (4, '/img/logements/thepoohAtypical.jpg', 3);
-INSERT INTO `DonkeyStay`.`image` (`id`, `img`, `room_id`) VALUES (5, '/img/logements/wayneManor2.jpg', 1);
+INSERT INTO `DonkeyStay`.`image` (`id`, `img`, `room_id`) VALUES (5, '/img/logements/wayneManor2.jpeg', 1);
 INSERT INTO `DonkeyStay`.`image` (`id`, `img`, `room_id`) VALUES (6, '/img/logements/wayneManor3.jpg', 1);
-INSERT INTO `DonkeyStay`.`image` (`id`, `img`, `room_id`) VALUES (7, '/img/logements/wayneManor4.jpg', 1);
+INSERT INTO `DonkeyStay`.`image` (`id`, `img`, `room_id`) VALUES (7, '/img/logements/wayneManor4.png', 1);
 INSERT INTO `DonkeyStay`.`image` (`id`, `img`, `room_id`) VALUES (8, '/img/logements/wayneManor5.jpg', 1);
 INSERT INTO `DonkeyStay`.`image` (`id`, `img`, `room_id`) VALUES (9, '/img/logements/wayneManor6.jpg', 1);
 INSERT INTO `DonkeyStay`.`image` (`id`, `img`, `room_id`) VALUES (10, '/img/logements/wayneManor7.jpg', 1);

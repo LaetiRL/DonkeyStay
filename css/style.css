@@ -11158,6 +11158,10 @@ svg {
   flex-grow: 0;
 }
 
+.lodging-img {
+  height: 200px;
+}
+
 .search-bar {
   position: absolute;
   top: 30%;
