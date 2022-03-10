@@ -6,21 +6,20 @@ $idUrl = $_GET['id'];
 $lodgingInfoQuery = $dbh->query("SELECT room.*,img,rname,hname,nb_traveler  FROM room INNER JOIN image ON image.room_id = room.id INNER JOIN roomtype ON roomtype.id = room.roomtype_id INNER JOIN hometype ON hometype.id = room.hometype_id INNER JOIN capacity ON capacity.id = room.capacity_id WHERE room.id = $idUrl");
 $lodgingInfos = $lodgingInfoQuery->fetch();
 
-$imageQuery = $dbh->query("SELECT * FROM image WHERE room_id = $idUrl");
+$imageQuery = $dbh->query("SELECT * FROM image WHERE room_id = $idUrl ORDER BY RAND()");
 $images = $imageQuery->fetchAll(PDO::FETCH_ASSOC);
-
-
-
-$res = $images[rand(0, count($images) - 1)]['img'];
+$nbImg = count($images);
 
 
 
 ?>
 
     <section>
+
         <div class="container">
             <h1><?php echo $lodgingInfos['title']?></h1>
             <small><?php echo $lodgingInfos['city'].", disponible du ".$lodgingInfos['start_dispo']." au ".$lodgingInfos['end_dispo']?></small>
+            <!-- start user lodging gallery -->
             <div class="row">
                 <div class="col-md-4 mt-3 col-lg-6">
                     <img src="<?php echo $lodgingInfos['img']?>" class="img-fluid w-100 h-100" alt="image">
@@ -29,31 +28,33 @@ $res = $images[rand(0, count($images) - 1)]['img'];
                     <div class="row">
                         <div class="col-md-4 mt-3 col-lg-6">
                             <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active" data-bs-interval="4000">
-                                        <img src="<?php echo $res ?>" class="d-block w-100" alt="pyramide du Louvre">
-                                    </div>
-                                    <div class="carousel-item" data-bs-interval="4000">
-                                        <img src="/img/caroussel/marseille_calanque.jpg" class="d-block w-100" alt="calanque de Marseille">
-                                    </div>
-                                    <div class="carousel-item" data-bs-interval="4000">
-                                        <img src="/img/caroussel/mont_saint_michel.jpg" class="d-block w-100" alt="Mont Saint-Michel">
-                                    </div>
-                                </div>
+                                <div class="carousel-inner lodging-img">
+                                    <?php
+                                        echo '<div class="carousel-item h-100 active" data-bs-interval="4000">';
+                                            echo '<img src="'.$images[rand(0, $nbImg - 1)]['img'].'" class="d-block w-100 h-100" alt="pyramide du Louvre">';
+                                        echo '</div>';
+                                        foreach ($images as $image) {
+                                            echo '<div class="carousel-item h-100" data-bs-interval="4000">';
+                                                echo '<img src="'.$images[rand(0, $nbImg - 1)]['img'].'" class="d-block w-100 h-100" alt="calanque de Marseille">';
+                                            echo '</div>';
+                                        }
+                                    ?>
+                                </div>  
                             </div>
                         </div>
                         <div class="col-md-4 mt-3 col-lg-6">
                             <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active" data-bs-interval="3000">
-                                        <img src="/img/caroussel/louvre_paris.jpg" class="d-block w-100" alt="pyramide du Louvre">
-                                    </div>
-                                    <div class="carousel-item" data-bs-interval="3000">
-                                        <img src="/img/caroussel/marseille_calanque.jpg" class="d-block w-100" alt="calanque de Marseille">
-                                    </div>
-                                    <div class="carousel-item" data-bs-interval="3000">
-                                        <img src="/img/caroussel/mont_saint_michel.jpg" class="d-block w-100" alt="Mont Saint-Michel">
-                                    </div>
+                                <div class="carousel-inner lodging-img">
+                                    <?php
+                                        echo '<div class="carousel-item h-100 active" data-bs-interval="3000">';
+                                            echo '<img src="'.$images[rand(0, $nbImg - 1)]['img'].'" class="d-block w-100 h-100" alt="pyramide du Louvre">';
+                                        echo '</div>';
+                                        foreach ($images as $image) {
+                                            echo '<div class="carousel-item h-100" data-bs-interval="3000">';
+                                                echo '<img src="'.$images[rand(0, $nbImg - 1)]['img'].'" class="d-block w-100 h-100" alt="calanque de Marseille">';
+                                            echo '</div>';
+                                        }
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -61,38 +62,42 @@ $res = $images[rand(0, count($images) - 1)]['img'];
                     <div class="row">
                         <div class="col-md-4 mt-3 col-lg-6">
                             <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active" data-bs-interval="6000">
-                                        <img src="/img/caroussel/louvre_paris.jpg" class="d-block w-100" alt="pyramide du Louvre">
-                                    </div>
-                                    <div class="carousel-item" data-bs-interval="6000">
-                                        <img src="/img/caroussel/marseille_calanque.jpg" class="d-block w-100" alt="calanque de Marseille">
-                                    </div>
-                                    <div class="carousel-item" data-bs-interval="6000">
-                                        <img src="/img/caroussel/mont_saint_michel.jpg" class="d-block w-100" alt="Mont Saint-Michel">
-                                    </div>
+                                <div class="carousel-inner lodging-img">
+                                    <?php
+                                        echo '<div class="carousel-item h-100 active" data-bs-interval="5000">';
+                                            echo '<img src="'.$images[rand(0, $nbImg - 1)]['img'].'" class="d-block w-100 h-100" alt="pyramide du Louvre">';
+                                        echo '</div>';
+                                        foreach ($images as $image) {
+                                            echo '<div class="carousel-item h-100" data-bs-interval="5000">';
+                                                echo '<img src="'.$images[rand(0, $nbImg - 1)]['img'].'" class="d-block w-100 h-100" alt="calanque de Marseille">';
+                                            echo '</div>';
+                                        }
+                                    ?>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4 mt-3 col-lg-6">
                             <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active" data-bs-interval="5000">
-                                        <img src="/img/caroussel/louvre_paris.jpg" class="d-block w-100" alt="pyramide du Louvre">
-                                    </div>
-                                    <div class="carousel-item" data-bs-interval="5000">
-                                        <img src="/img/caroussel/marseille_calanque.jpg" class="d-block w-100" alt="calanque de Marseille">
-                                    </div>
-                                    <div class="carousel-item" data-bs-interval="5000">
-                                        <img src="/img/caroussel/mont_saint_michel.jpg" class="d-block w-100" alt="Mont Saint-Michel">
-                                    </div>
+                                <div class="carousel-inner lodging-img">
+                                    <?php
+                                        echo '<div class="carousel-item active h-100" data-bs-interval="6000">';
+                                            echo '<img src="'.$images[rand(0, $nbImg - 1)]['img'].'" class="d-block w-100 h-100" alt="pyramide du Louvre">';
+                                        echo '</div>';
+                                        foreach ($images as $image) {
+                                            echo '<div class="carousel-item h-100" data-bs-interval="6000">';
+                                                echo '<img src="'.$images[rand(0, $nbImg - 1)]['img'].'" class="d-block w-100 h-100" alt="calanque de Marseille">';
+                                            echo '</div>';
+                                        }
+                                    ?>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- end user lodging gallery -->
         </div>
+
         <div class="container mt-4">
             <div class="row">
                 <div class="col-lg-8">
@@ -157,6 +162,7 @@ $res = $images[rand(0, count($images) - 1)]['img'];
                 </div>
             </div>
         </div>
+        
     </section>
 
     <hr>
