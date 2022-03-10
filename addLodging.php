@@ -24,9 +24,9 @@ if (isset($_POST['add'])) {
     if (!empty($_POST['capacity']) && is_numeric($_POST['capacity'])) {
         $capacity_id = $_POST['capacity'];
     } elseif (empty($_POST['capacity'])) {
-        $capacity_id = " * champ obligatoire";
+        $capacityErr = " * champ obligatoire";
     } elseif (is_numeric($_POST['capacity']) == false) {
-        $capacity_id = " * veuillez n'entrer que des chiffres";
+        $capacityErr = " * veuillez n'entrer que des chiffres";
     }
     if (!empty($_POST['nb_bedroom']) && is_numeric($_POST['nb_bedroom'])) {
         $nb_bedroom = $_POST['nb_bedroom'];
@@ -123,6 +123,8 @@ if (isset($_POST['add'])) {
         $queryInsertImg->bindValue(":img", $img, PDO::PARAM_STR);
 
         $queryInsertImg->execute();
+
+        echo "<script type='text/javascript'>document.location.replace('index.php');</script>";
     }
 }
 ?>
