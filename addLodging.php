@@ -123,7 +123,7 @@ if (isset($_POST['add'])) {
         $queryInsertImg->bindValue(":img", $img, PDO::PARAM_STR);
 
         $queryInsertImg->execute();
-        
+
         echo "<script type='text/javascript'>document.location.replace('index.php');</script>";
     }
 }
