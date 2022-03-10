@@ -2,90 +2,89 @@
 $titleWeb = "Ajouter un logement";
 require_once "header.php";
 
-if (isset($_POST['validate'])) {
+$has_tv = 0;
+$has_wifi = 0;
+$has_kitchen = 0;
+$has_aircon = 0;
+
+if (isset($_POST['add'])) {
     $homeTypeId = $_POST['home_type'];
     $roomTypeId = $_POST['room_type'];
     $userId = $_SESSION['user_id'];
     if (!empty($_POST['title'])) {
         $title = $_POST['title'];
     } else {
-        $titleErr = "* veuillez ajouter un titre";
+        $titleErr = " * champ obligatoire";
     }
     if (!empty($_POST['img'])) {
         $img = $_POST['img'];
     } else {
-        $imgErr = "* veuillez ajouter une image";
+        $imgErr = " * champ obligatoire";
     }
-    if (!empty($_POST['capacity'])) {
+    if (!empty($_POST['capacity']) && is_numeric($_POST['capacity'])) {
         $capacity_id = $_POST['capacity'];
-    } else {
-        $capacityErr = "* veuillez ajouter la capacité maximale";
+    } elseif (empty($_POST['capacity'])) {
+        $capacity_id = " * champ obligatoire";
+    } elseif (is_numeric($_POST['capacity']) == false) {
+        $capacity_id = "* veuillez n'entrer que des chiffres";
     }
     if (!empty($_POST['nb_bedroom']) && is_numeric($_POST['nb_bedroom'])) {
         $nb_bedroom = $_POST['nb_bedroom'];
     } elseif (empty($_POST['nb_bedroom'])) {
-        $nb_bedroomErr = "* veuillez indiquer le nombre de chambre";
+        $nb_bedroomErr = " * champ obligatoire";
     } elseif (is_numeric($_POST['nb_bedroom']) == false) {
         $nb_bedroomErr = "* veuillez n'entrer que des chiffres";
     }
     if (!empty($_POST['nb_bathroom']) && is_numeric($_POST['nb_bathroom'])) {
         $nb_bathroom = $_POST['nb_bathroom'];
     } elseif (empty($_POST['nb_bathroom'])) {
-        $nb_bathroomErr = "* veuillez indiquer le nombre de salle de bain";
+        $nb_bathroomErr = " * champ obligatoire";
     } elseif (is_numeric($_POST['nb_bathroom']) == false) {
         $nb_bathroomErr = "* veuillez n'entrer que des chiffres";
     }
-    if (empty($_POST['has_tv'])) {
-        $has_tv = 0;
-    } else {
+    if (!empty($_POST['has_tv'])) {
         $has_tv = 1;
     }
-    if (empty($_POST['has_wifi'])) {
-        $has_wifi = 0;
-    } else {
+    if (!empty($_POST['has_wifi'])) {
         $has_wifi = 1;
     }
-    if (empty($_POST['has_kitchen'])) {
-        $has_kitchen = 0;
-    } else {
+    if (!empty($_POST['has_kitchen'])) {
         $has_kitchen = 1;
     }
-    if (empty($_POST['has_aircon'])) {
-        $has_aircon = 0;
-    } else {
+    if (!empty($_POST['has_aircon'])) {
         $has_aircon = 1;
     }
     if (!empty($_POST['description'])) {
         $description = $_POST['description'];
     } else {
-        $descriptionErr = "* veuillez ajouter une description";
+        $descriptionErr = " * champ obligatoire";
     }
     if (!empty($_POST['adress'])) {
         $adress = $_POST['adress'];
     } else {
-        $adressErr = "* veuillez ajouter une adresse";
+        $adressErr = " * champ obligatoire";
     }
     if (!empty($_POST['city'])) {
         $city = $_POST['city'];
     } else {
-        $cityErr = "* veuillez ajouter une ville";
+        $cityErr = " * champ obligatoire";
     }
     if (!empty($_POST['start_dispo'])) {
         $start_dispo = $_POST['start_dispo'];
     } else {
-        $start_dispoErr = "* veuillez indiquer la première disponibilité";
+        $start_dispoErr = " * champ obligatoire";
     }
     if (!empty($_POST['end_dispo'])) {
         $end_dispo = $_POST['end_dispo'];
     } else {
-        $end_dispoErr = "* veuillez indiquer la dernière disponibilité";
+        $end_dispoErr = " * champ obligatoire";
     }
     if (!empty($_POST['price']) && is_numeric($_POST['price'])) {
-        $prix = $_POST['price'];
+        $price = $_POST['price'];
     } elseif (empty($_POST['price'])) {
-        $priceErr = "* veuillez entrer un prix";
+        $priceErr = " * champ obligatoire";
     } elseif (is_numeric($_POST['price']) == false) {
-        $priceErr = "* veuillez n'entrer que des chiffres";
+        $priceErr = " * veuillez n'entrer que des chiffres";
     }
 
     if (
@@ -101,7 +100,7 @@ if (isset($_POST['validate'])) {
         $queryInsert->bindValue(":homeTypeId", $homeTypeId, PDO::PARAM_INT);
         $queryInsert->bindValue(":userId", $userId, PDO::PARAM_INT);
         $queryInsert->bindValue(":title", $title, PDO::PARAM_STR);
-        $queryInsert->bindValue(":capacity", $capacity, PDO::PARAM_INT);
+        $queryInsert->bindValue(":capacity", $capacity_id, PDO::PARAM_INT);
         $queryInsert->bindValue(":nb_bedroom", $nb_bedroom, PDO::PARAM_INT);
         $queryInsert->bindValue(":nb_bathroom", $nb_bathroom, PDO::PARAM_INT);
         $queryInsert->bindValue(":description", $description, PDO::PARAM_STR);
@@ -113,19 +112,17 @@ if (isset($_POST['validate'])) {
         $queryInsert->bindValue(":city", $city, PDO::PARAM_STR);
         $queryInsert->bindValue(":start_dispo", $start_dispo, PDO::PARAM_STR);
         $queryInsert->bindValue(":end_dispo", $end_dispo, PDO::PARAM_STR);
-        $queryInsert->bindValue(":price", $price, PDO::PARAM_INT);
+        $queryInsert->bindValue(":price", $price, PDO::PARAM_STR);
 
         $queryInsert->execute();
 
-        /* $user_id = $dbh->lastInsertId();
+        $room_id = $dbh->lastInsertId();
 
-        $queryInsertImg = $dbh->prepare("INSERT INTO image (`img`, `user_id`) VALUES (:img, $user_id)");
+        $queryInsertImg = $dbh->prepare("INSERT INTO image (`img`, `room_id`) VALUES (:img, $room_id)");
 
         $queryInsertImg->bindValue(":img", $img, PDO::PARAM_STR);
 
-        $queryInsertImg->execute(); */
-
-        header('location: index.php');
+        $queryInsertImg->execute();
     }
 }
 ?>
@@ -133,18 +130,18 @@ if (isset($_POST['validate'])) {
 <section>
     <h1>Ajouter un logement</h1>
     <hr>
-    <form method="POST" action="form_addLodging.php" class="d-flex">
+    <form method="POST" class="d-flex">
         <div class="div-addform">
             <div class="row">
                 <div class="col">
-                    <label for="title">Titre</label>
-                    <input type="text" class="form-control" id="title" name="title">
+                    <label for="title">Titre</label><small class="error"><?php if(isset($titleErr)) echo $titleErr ?></small>
+                    <input type="text" class="form-control" id="title" name="title" value="<?php if(isset($title)) echo $title ?>">
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <label for="img">Images</label>
-                    <input type="text" class="form-control" id="img" name="img">
+                    <label for="img">Images</label><small class="error"><?php if(isset($imgErr)) echo $imgErr ?></small>
+                    <input type="text" class="form-control" id="img" name="img" value="<?php if(isset($img)) echo $img ?>">
                 </div>
             </div>
             <div class="row">
@@ -167,71 +164,69 @@ if (isset($_POST['validate'])) {
             </div>
             <div class="row">
                 <div class="col">
-                    <label for="capacity">Capacité</label>
-                    <input type="text" class="form-control" id="capacity" name="capacity">
+                    <label for="capacity">Capacité</label><small class="error"><?php if(isset($capacityErr)) echo $capacityErr ?></small>
+                    <input type="text" class="form-control" id="capacity" name="capacity" value="<?php if (isset($capacity_id)) echo $capacity_id ?>">
                 </div>
                 <div class="col">
-                    <label for="nb_bedroom">nb de Chambres</label>
-                    <input type="text" class="form-control" id="nb_bedroom" name="nb_bedroom">
+                    <label for="nb_bedroom">nb de Chambres</label><small class="error"><?php if(isset($nb_bedroomErr)) echo $nb_bedroomErr ?></small>
+                    <input type="text" class="form-control" id="nb_bedroom" name="nb_bedroom" value="<?php if (isset($nb_bedroom)) echo $nb_bedroom ?>">
                 </div>
                 <div class="col">
-                    <label for="nb_bathroom">nb de Salles de bain</label>
-                    <input type="text" class="form-control" id="nb_bathroom" name="nb_bathroom">
+                    <label for="nb_bathroom">nb de Salles de bain</label><small class="error"><?php if(isset($nb_bathroomErr)) echo $nb_bathroomErr ?></small>
+                    <input type="text" class="form-control" id="nb_bathroom" name="nb_bathroom" value="<?php if (isset($nb_bathroom)) echo $nb_bathroom ?>">
                 </div>
             </div>
             <div class="row">
                 <div class="col form-check">
-                    <input class="form-check-input" type="checkbox" id="has_tv" name="has_tv">
+                    <input class="form-check-input" type="checkbox" id="has_tv" name="has_tv" <?php if($has_tv == 1) {?> checked <?php }?>>
                     <label class="form-check-label" for="has_tv"> TV </label>
                 </div>
                 <div class="col form-check">
-                    <input class="form-check-input" type="checkbox" id="has_wifi" name="has_wifi">
+                    <input class="form-check-input" type="checkbox" id="has_wifi" name="has_wifi" <?php if($has_wifi == 1) {?> checked <?php }?>>
                     <label class="form-check-label" for="has_wifi"> Wifi </label>
                 </div>
                 <div class="col form-check">
-                    <input class="form-check-input" type="checkbox" id="has_kitchen" name="has_kitchen">
+                    <input class="form-check-input" type="checkbox" id="has_kitchen" name="has_kitchen" <?php if($has_kitchen == 1) {?> checked <?php }?>>
                     <label class="form-check-label" for="has_kitchen">Cuisine</label>
                 </div>
                 <div class="col form-check">
-                    <input class="form-check-input" type="checkbox" id="has_aircon" name="has_aircon">
+                    <input class="form-check-input" type="checkbox" id="has_aircon" name="has_aircon" <?php if($has_aircon == 1) {?> checked <?php }?>>
                     <label class="form-check-label" for="has_aircon">Climatisation</label>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" rows="3"></textarea>
+                    <label for="description" class="form-label">Description</label><small class="error"><?php if(isset($descriptionErr)) echo $descriptionErr ?></small>
+                    <textarea class="form-control" id="description" name="description" rows="3"><?php if (isset($description)) echo $description ?></textarea>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-8">
-                    <label for="adress">Adresse</label>
-                    <input type="text" class="form-control" id="adress" name="adress">
+                    <label for="adress">Adresse</label><small class="error"><?php if(isset($adressErr)) echo $adressErr ?></small>
+                    <input type="text" class="form-control" id="adress" name="adress" value="<?php if(isset($adress)) echo $adress ?>">
                 </div>
                 <div class="col-sm-4">
-                    <label for="city">Ville</label>
-                    <input type="text" class="form-control" id="city" name="city">
+                    <label for="city">Ville</label><small class="error"><?php if(isset($cityErr)) echo $cityErr ?></small>
+                    <input type="text" class="form-control" id="city" name="city" value="<?php if(isset($city)) echo $city ?>">
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <label for="start_dispo">Première disponibilité</label><br>
-                    <input type="date" id="start_dispo" name="start_dispo">
+                    <label for="start_dispo">Première disponibilité</label><small class="error"><?php if(isset($start_dispoErr)) echo $start_dispoErr ?></small><br>
+                    <input type="date" id="start_dispo" name="start_dispo" value="<?php if(isset($start_dispo)) echo $start_dispo ?>">
                 </div>
                 <div class="col">
-                    <label for="end_dispo">Dernière disponibilité</label><br>
-                    <input type="date" id="end_dispo" name="end_dispo">
+                    <label for="end_dispo">Dernière disponibilité</label><small class="error"><?php if(isset($end_dispoErr)) echo $end_dispoErr ?></small><br>
+                    <input type="date" id="end_dispo" name="end_dispo" value="<?php if(isset($end_dispo)) echo $end_dispo ?>">
                 </div>
                 <div class="col">
-                    <label for="price">Prix/nuit</label>
-                    <input type="text" class="form-control" id="price" name="price">
+                    <label for="price">Prix/nuit</label><small class="error"><?php if(isset($priceErr)) echo $priceErr ?></small>
+                    <input type="text" class="form-control" id="price" name="price" value="<?php if(isset($price)) echo $price ?>">
                 </div>
             </div>
-            <button type="submit" name="validate">+ Ajouter</button>
+            <button type="submit" name="add">+ Ajouter</button>
         </div>
     </form>
-
-    <?php var_dump($_POST, $_SESSION) ?>
 
     <style>
         body {

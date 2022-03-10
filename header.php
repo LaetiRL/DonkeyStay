@@ -1,5 +1,6 @@
 <?php
 require_once "pdo.php";
+
 if (isset($_POST['validate'])) {
     if (isset($_POST['email']) && isset($_POST['password'])) {
         $userEmail = $_POST['email'];
@@ -16,9 +17,8 @@ if (isset($_POST['validate'])) {
 
         foreach ($userArray as $user) :
             $_SESSION['user_id'] = $user->id;
-            $_SESSION['name'] = $user->firstname; 
+            $_SESSION['name'] = $user->firstname;
         endforeach;
-
     } else {
         $_SESSION['name'] = '';
     }
@@ -82,7 +82,7 @@ if (isset($_POST['validate'])) {
                                                                     echo 'Hi ' . $_SESSION['name'] . ' !';
                                                                 } else {
                                                                     echo 'Hi Traveler !';
-                                                                }; ?> </a>
+                                                                };?></a>
 
                         </li>
                     </ul>

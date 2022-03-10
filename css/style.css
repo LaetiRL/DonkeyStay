@@ -11151,7 +11151,7 @@ textarea.form-control-lg {
 }
 
 svg {
-  fill: #60b6b5;
+  fill: #60B6B5;
 }
 
 .collapse {
@@ -11183,6 +11183,10 @@ svg {
 }
 .card div {
   margin-bottom: 10px;
+}
+
+.error {
+  color: red;
 }
 
 /*# sourceMappingURL=style.css.map */
