@@ -22,11 +22,11 @@ if (isset($_POST['add'])) {
         $imgErr = " * champ obligatoire";
     }
     if (!empty($_POST['capacity']) && is_numeric($_POST['capacity'])) {
-        $capacity_id = $_POST['capacity'];
+        $capacityErr = $_POST['capacity'];
     } elseif (empty($_POST['capacity'])) {
-        $capacity_id = " * champ obligatoire";
+        $capacityErr = " * champ obligatoire";
     } elseif (is_numeric($_POST['capacity']) == false) {
-        $capacity_id = " * veuillez n'entrer que des chiffres";
+        $capacityErr = " * veuillez n'entrer que des chiffres";
     }
     if (!empty($_POST['nb_bedroom']) && is_numeric($_POST['nb_bedroom'])) {
         $nb_bedroom = $_POST['nb_bedroom'];
@@ -123,6 +123,8 @@ if (isset($_POST['add'])) {
         $queryInsertImg->bindValue(":img", $img, PDO::PARAM_STR);
 
         $queryInsertImg->execute();
+        
+        echo "<script type='text/javascript'>document.location.replace('index.php');</script>";
     }
 }
 ?>
@@ -148,17 +150,27 @@ if (isset($_POST['add'])) {
                 <div class="col">
                     <label for="home_type">Logement</label>
                     <select class="form-control" id="home_type" name="home_type">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                        <?php
+                            $hometypeQuery = $dbh->query('SELECT * FROM hometype');
+                            $hometype= $hometypeQuery->fetchAll(PDO::FETCH_ASSOC);
+
+                            foreach ($hometype as $row_hometype) {
+                                echo '<option value="'.$row_hometype['id'].'">'.$row_hometype['hname'].'</option>';
+                            }
+                        ?>
                     </select>
                 </div>
                 <div class="col">
                     <label for="room_type">Type de logement</label>
                     <select class="form-control" id="room_type" name="room_type">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                        <?php
+                            $roomtypeQuery = $dbh->query('SELECT * FROM roomtype');
+                            $roomtype= $roomtypeQuery->fetchAll(PDO::FETCH_ASSOC);
+
+                            foreach ($roomtype as $row_roomtype) {
+                                echo '<option value="'.$row_roomtype['id'].'">'.$row_roomtype['rname'].'</option>';
+                            }
+                        ?>
                     </select>
                 </div>
             </div>
