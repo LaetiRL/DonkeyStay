@@ -2,6 +2,10 @@
 $titleWeb = 'Modifier un livre';
 require_once 'header.php';
 
+if(!isset($_SESSION['name'])) {
+    echo "<script type='text/javascript'>document.location.replace('index.php');</script>";
+}
+
 $lodgingId = $_GET['id'];
 
 $queryLodging = $dbh->prepare("SELECT room.*, image.img, image.id FROM room INNER JOIN image ON room.id = image.room_id WHERE room.id =:lodgingId");
@@ -113,7 +117,7 @@ if (isset($_POST['modify'])) {
 
     $queryUpdateImg->execute();
 
-    echo "<script type='text/javascript'>document.location.replace('index.php');</script>";
+    echo "<script type='text/javascript'>document.location.replace('lodging.php');</script>";
 }
 
 ?>

@@ -2,12 +2,16 @@
 $titleWeb = "Ajouter un logement";
 require_once "header.php";
 
+if(!isset($_SESSION['name'])) {
+    echo "<script type='text/javascript'>document.location.replace('index.php');</script>";
+}
+
 $has_tv = 0;
 $has_wifi = 0;
 $has_kitchen = 0;
 $has_aircon = 0;
 
-if (isset($_POST['add'])) {
+if (isset($_POST['add']) && isset($_SESSION['name'])) {
     $homeTypeId = $_POST['home_type'];
     $roomTypeId = $_POST['room_type'];
     $userId = $_SESSION['user_id'];
@@ -165,9 +169,9 @@ if (isset($_POST['add'])) {
             $statusMsg = 'Please select a file to upload.'; 
         } 
     
-        echo "<script type='text/javascript'>document.location.replace('index.php');</script>";
+        echo "<script type='text/javascript'>document.location.replace('lodging.php');</script>";
     }
-}
+} 
 ?>
 
 <section>
