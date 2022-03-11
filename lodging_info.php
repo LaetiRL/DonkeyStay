@@ -1,10 +1,13 @@
 <?php
+$titleWeb ='En savoir plus';
 require "searchBar.php";
 
 $idUrl = $_GET['id'];
 
 $lodgingInfoQuery = $dbh->query("SELECT room.*,img,rname,hname,nb_traveler  FROM room INNER JOIN image ON image.room_id = room.id INNER JOIN roomtype ON roomtype.id = room.roomtype_id INNER JOIN hometype ON hometype.id = room.hometype_id INNER JOIN capacity ON capacity.id = room.capacity_id WHERE room.id = $idUrl");
 $lodgingInfos = $lodgingInfoQuery->fetch();
+
+
 
 $imageQuery = $dbh->query("SELECT * FROM image WHERE room_id = $idUrl ORDER BY RAND()");
 $images = $imageQuery->fetchAll(PDO::FETCH_ASSOC);
@@ -155,7 +158,7 @@ $nbImg = count($images);
                                 </div>
                             </div>
                             <div class="row">
-                                <button class="btn btn-danger btn-block" type="submit" name="search">Search</button> 
+                                <button class="btn btn-danger btn-block" type="submit" name="search">Réserver</button> 
                             </div>
                         </form>
                     </div>

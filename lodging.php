@@ -16,8 +16,9 @@ $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
 <section>
     <h1>Mes logements</h1>
     <?php
-    foreach ($lodgings as $lodging) {
+    foreach ($lodgings as $lodging) :
         echo '<div style="display: flex;">';
+
             echo '<div>';
                 $lastestAddImgQuery = $dbh->query('SELECT * FROM image WHERE room_id ='.$lodging['id'].' LIMIT 1');
                 $lastestAddImg = $lastestAddImgQuery->fetchall(PDO::FETCH_ASSOC);
@@ -54,12 +55,13 @@ $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">X Annuler</button>
-            <button type="button" class="btn btn-secondary"><a href="deleteLodging.php?id=' . $lodging['id'] . '">&#x2713; Confirmer</a></button>
+            <button type="button" class="btn btn-secondary"><a href="deleteLodging.php?id='.$lodging['id'].'">&#x2713; Confirmer</a></button>
           </div>
             </div>
         </div>
         </div>';
-    }
+        endforeach;
+    
     echo '<span><a href="addLodging.php" class="bouton">+ Ajouter</a></span>';
     ?>
 </section>
