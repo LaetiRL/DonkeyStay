@@ -11124,7 +11124,7 @@ textarea.form-control-lg {
   }
 
   section {
-    padding-bottom: 7.5rem;
+    padding-bottom: 50px;
   }
 }
 .br0,
@@ -11151,7 +11151,7 @@ textarea.form-control-lg {
 }
 
 svg {
-  fill: #60B6B5;
+  fill: #60b6b5;
 }
 
 .collapse {
@@ -11191,6 +11191,11 @@ svg {
 
 .error {
   color: red;
+}
+
+.h2-index {
+  text-align: center;
+  margin-bottom: 100px;
 }
 
 /*# sourceMappingURL=style.css.map */

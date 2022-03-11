@@ -31,7 +31,7 @@ $rooms = $querySearch->fetchAll(PDO::FETCH_ASSOC);
 
         <div>
             <div class="container">
-                <h2 class="h3">Derniers logements ajoutés</h2>
+                <h2 class="h2-index">Derniers logements ajoutés</h2>
                 <div class="row">
                     <?php
                         $lastestAddQuery = $dbh->query('SELECT room.id,room.price,room.title,room.city,img,rname,nb_traveler FROM room INNER JOIN image ON room.id = image.room_id INNER JOIN roomtype ON roomtype.id = room.roomtype_id INNER JOIN capacity ON capacity.id = room.capacity_id ORDER BY room.id DESC LIMIT 4');

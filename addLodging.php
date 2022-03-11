@@ -165,7 +165,6 @@ if (isset($_POST['add'])) {
             $statusMsg = 'Please select a file to upload.'; 
         } 
     
-        
         echo "<script type='text/javascript'>document.location.replace('index.php');</script>";
     }
 }

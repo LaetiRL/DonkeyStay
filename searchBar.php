@@ -50,7 +50,6 @@ require_once 'header.php';
                                     <input type="text" class="form-control w-100 br0" id="request" name="request" aria-describedby="locationInputHelp" placeholder="Ville Française">
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-md-12 col-lg-6">
                                     <label for="startDate">Départ:</label><br>
@@ -61,18 +60,17 @@ require_once 'header.php';
                                     <input type="date" id="endDate" />
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Voyageurs</label>
                                     <select class="form-control" id="exampleFormControlSelect1">
                                         <?php
-                                            $capacityQuery = $dbh->query('SELECT * FROM capacity ORDER BY id');
-                                            $capacity= $capacityQuery->fetchAll(PDO::FETCH_ASSOC);
+                                        $capacityQuery = $dbh->query('SELECT * FROM capacity ORDER BY id');
+                                        $capacity = $capacityQuery->fetchAll(PDO::FETCH_ASSOC);
 
-                                            foreach ($capacity as $row_capacity) {
-                                                echo '<option value="'.$row_capacity['id'].'">'.$row_capacity['nb_traveler'].'</option>';
-                                            }
+                                        foreach ($capacity as $row_capacity) {
+                                            echo '<option value="' . $row_capacity['id'] . '">' . $row_capacity['nb_traveler'] . '</option>';
+                                        }
                                         ?>
                                     </select>
                                 </div>
