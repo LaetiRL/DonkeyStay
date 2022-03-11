@@ -1,4 +1,5 @@
 <?php
+$titleWeb = "Mes logements";
 require "searchBar.php";
 
 $lodgingQuery = $dbh->query('SELECT room.*,img FROM room INNER JOIN image ON image.room_id = room.id');
@@ -19,7 +20,7 @@ $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
                 echo '<div>';
                     echo '<div><span>'.$lodging['hometype_id'].': '.$lodging['roomtype_id'].' - '.$lodging['city'].'</span></div>';
                     echo '<div><h2>'.$lodging['title'].'</h2></div>';
-                    echo '<div><span>'.$lodging['capacity'].' - '.$lodging['nb_bedroom'].' - '.$lodging['nb_bathroom'].'</span></div>';
+                    echo '<div><span>'.$lodging['capacity_id'].' - '.$lodging['nb_bedroom'].' - '.$lodging['nb_bathroom'].'</span></div>';
                     echo '<div><span>'.$lodging['has_wifi'].' - '.$lodging['has_kitchen'].'</span></div>';
                     echo '<span><a href="modifyLodging.php?id='.$lodging['id'].'" class="bouton">Modifier</a><a href="deleteLodging.php?id='.$lodging['id'].'" class="bouton">Supprimer</a></span>';
                     echo '<span>'.'Prix/nuit: '.$lodging['price'].'€'.'</span>';

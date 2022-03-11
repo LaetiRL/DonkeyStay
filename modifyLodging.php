@@ -14,7 +14,7 @@ $lodgings = $queryLodging->fetchAll(PDO::FETCH_OBJ);
 
 foreach ($lodgings as $lodging) :
     $lodgingRoomtype = $lodging->roomtype_id;
-    $lodgingRoomtype = $lodging->hometype_id;
+    $lodgingHometype = $lodging->hometype_id;
     $lodgingTitle = $lodging->title;
     $lodgingCapacity = $lodging->capacity_id;
     $lodgingBedroom = $lodging->nb_bedroom;
@@ -139,17 +139,27 @@ if (isset($_POST['modify'])) {
                 <div class="col">
                     <label for="home_type">Logement</label>
                     <select class="form-control" id="home_type" name="home_type">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                    <?php
+                            $hometypeQuery = $dbh->query('SELECT * FROM hometype');
+                            $hometype= $hometypeQuery->fetchAll(PDO::FETCH_ASSOC);
+
+                            foreach ($hometype as $row_hometype) {
+                                echo '<option value="'.$row_hometype['id'].'">'.$row_hometype['hname'].'</option>';
+                            }
+                        ?>
                     </select>
                 </div>
                 <div class="col">
                     <label for="room_type">Type de logement</label>
                     <select class="form-control" id="room_type" name="room_type">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                    <?php
+                            $roomtypeQuery = $dbh->query('SELECT * FROM roomtype');
+                            $roomtype= $roomtypeQuery->fetchAll(PDO::FETCH_ASSOC);
+
+                            foreach ($roomtype as $row_roomtype) {
+                                echo '<option value="'.$row_roomtype['id'].'">'.$row_roomtype['rname'].'</option>';
+                            }
+                        ?>
                     </select>
                 </div>
             </div>
