@@ -38,12 +38,17 @@ require_once 'header.php';
         </div> <!-- / .container -->
 
         <!-- SearchBar -->
+        <?php
+
+        $currentDate = date('Y-m-d');
+        $minimumDepartureDate = date('Y-m-d', strtotime(date('Y-m-d') . ' + 1 days'));
+        ?>
         <div class="container search-bar">
             <div class="row">
                 <div class="col-sm-5">
                     <div class="card border-0">
                         <h1 class="h3 mb-3">Rechercher votre prochain voyage avec DonkeyStay</h1>
-                        <form method="POST">
+                        <form action="" method="POST" autocomplete="off">
                             <div class="row">
                                 <div class="form-group">
                                     <label for="request">Ville</label>
@@ -53,11 +58,11 @@ require_once 'header.php';
                             <div class="row">
                                 <div class="col-md-12 col-lg-6">
                                     <label for="startDate">Départ:</label><br>
-                                    <input type="date" id="startDate" />
+                                    <input type="date" id="startDate" min='<?= $currentDate; ?>' value='<?= $currentDate; ?>' />
                                 </div>
                                 <div class="col-md-12 col-lg-6">
                                     <label for="endDate">Retour:</label><br>
-                                    <input type="date" id="endDate" />
+                                    <input type="date" id="endDate" min='<?= $minimumDepartureDate; ?>' value='<?= $minimumDepartureDate; ?>' />
                                 </div>
                             </div>
                             <div class="row">
@@ -75,7 +80,7 @@ require_once 'header.php';
                                     </select>
                                 </div>
                             </div>
-                            <button class="btn btn-danger btn-block" type="submit" name="search">Search</button>
+                            <button class="btn btn-danger btn-block" type="submit" name="search">Chercher</button>
                         </form>
                     </div>
                 </div>
