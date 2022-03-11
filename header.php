@@ -60,33 +60,34 @@ if (isset($_POST['validate'])) {
                                                         }; ?></a>
 
                 <!-- Toggler -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <!-- Collapse -->
-                <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="collapse navbar-collapse  " id="navbarCollapse">
+
 
                     <!-- Links -->
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item ms-auto">
 
                             <!-- Link once connected my lodging and my travel -->
                             <?php if (isset($_SESSION['name']) && !empty($_SESSION['name'])) {
-                                echo "<a class='nav-link active' href='/lodging.php'>Mes logements</a>";
+                                echo "<a class='nav-link active ' href='/lodging.php'>Mes logements</a>";
                             } ?>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item ms-auto">
                             <?php if (isset($_SESSION['name']) && !empty($_SESSION['name'])) {
                                 echo "<a class='nav-link active' href='#'>Mes Voyages</a>";
                             } ?>
                         </li>
-                        <li>
-                        <?php if (isset($_SESSION['name']) && !empty($_SESSION['name'])) {
-                            echo "<a class='nav-link active' href='/logout.php'>Se déconnecter</a>";
-                        } else {
-                            echo "<li class='nav-item'><button type='button' class='btn nav-link active' data-bs-toggle='modal' data-bs-target='#modalForm'>Se connecter</button></li>";
-                        }  ?>
+                        <li class="nav-item ms-auto">
+                            <?php if (isset($_SESSION['name']) && !empty($_SESSION['name'])) {
+                                echo "<a class='nav-link active ' href='/logout.php'>Se déconnecter</a>";
+                            } else {
+                                echo "<button type='button' class='btn nav-link active' data-bs-toggle='modal' data-bs-target='#modalForm'>Se connecter</button>";
+                            }  ?>
                         </li>
                     </ul>
                 </div> <!-- / .navbar-collapse -->
@@ -102,24 +103,20 @@ if (isset($_POST['validate'])) {
                     <div class="modal-body">
                         <form method="POST">
                             <div class="mb-3">
-                                <label class="form-label">Email Address</label>
+                                <label class="form-label">Adresse email</label>
                                 <input type="text" class="form-control" id="email" name="email" placeholder="email" />
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Password" />
-                            </div>
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="rememberMe" />
-                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                                <label class="form-label">Mot de passe</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" />
                             </div>
                             <div class="modal-footer d-block">
-                                <p class="float-start">Not yet account <a href="#">Sign Up</a></p>
-                                <button type="submit" class="btn btn-warning float-end" name="validate">Submit</button>
+                                <button type="submit" class="btn btn-warning float-end" name="validate">Connexion</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+
     </header>
