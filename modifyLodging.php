@@ -2,6 +2,10 @@
 $titleWeb = 'Modifier un livre';
 require_once 'header.php';
 
+if(!isset($_SESSION['name'])) {
+    echo "<script type='text/javascript'>document.location.replace('index.php');</script>";
+}
+
 $lodgingId = $_GET['id'];
 
 $queryLodging = $dbh->prepare("SELECT room.*, image.img, image.id FROM room INNER JOIN image ON room.id = image.room_id WHERE room.id =:lodgingId");
@@ -32,7 +36,7 @@ foreach ($lodgings as $lodging) :
     $lodgingImg = $lodging->img;
 endforeach;
 
-if (isset($_POST['modify']) && isset($_SESSION['name'])) {
+if (isset($_POST['modify'])) {
     $homeTypeId = $_POST['home_type'];
     $roomTypeId = $_POST['room_type'];
     $userId = $_SESSION['user_id'];
@@ -114,8 +118,6 @@ if (isset($_POST['modify']) && isset($_SESSION['name'])) {
     $queryUpdateImg->execute();
 
     echo "<script type='text/javascript'>document.location.replace('lodging.php');</script>";
-} else {
-    echo "<script type='text/javascript'>document.location.replace('index.php');</script>"; 
 }
 
 ?>

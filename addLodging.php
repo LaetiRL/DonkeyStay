@@ -2,6 +2,10 @@
 $titleWeb = "Ajouter un logement";
 require_once "header.php";
 
+if(!isset($_SESSION['name'])) {
+    echo "<script type='text/javascript'>document.location.replace('index.php');</script>";
+}
+
 $has_tv = 0;
 $has_wifi = 0;
 $has_kitchen = 0;
@@ -167,9 +171,7 @@ if (isset($_POST['add']) && isset($_SESSION['name'])) {
     
         echo "<script type='text/javascript'>document.location.replace('lodging.php');</script>";
     }
-} else {
-    echo "<script type='text/javascript'>document.location.replace('index.php');</script>";
-}
+} 
 ?>
 
 <section>

@@ -16,7 +16,7 @@ $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
 <section>
     <h1>Mes logements</h1>
     <?php
-    foreach ($lodgings as $lodging) {
+    foreach ($lodgings as $lodging) :
         echo '<div style="display: flex;">';
         echo '<div>';
         echo '<img src="' . $lodging['img'] . '" width="300px" height="auto" alt="">';
@@ -26,9 +26,8 @@ $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
         echo '<div><h2>' . $lodging['title'] . '</h2></div>';
         echo '<div><span>' . $lodging['capacity_id'] . ' - ' . $lodging['nb_bedroom'] . ' - ' . $lodging['nb_bathroom'] . '</span></div>';
         echo '<div><span>' . $lodging['has_wifi'] . ' - ' . $lodging['has_kitchen'] . '</span></div>';
-        echo '<span><button type="button" class="btn btn-secondary"><a href="modifyLodging.php?id=' . $lodging['id'] . '">Modifier</a></button><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    Supprimer
-                  </button></span>';
+        echo '<span><button type="button" class="btn btn-secondary"><a href="modifyLodging.php?id=' . $lodging['id'] . '">Modifier</a></button><button type="button" class="btn btn-danger">
+        <a href="deleteLodging.php?id= '.$lodging['id'].'" onclick="return confirm('Etes vous sur ?');">Supprimer</a></button></span>';
         echo '<span>' . 'Prix/nuit: ' . $lodging['price'] . '€' . '</span>';
         echo '</div>';
         echo '</div>';
@@ -45,12 +44,13 @@ $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">X Annuler</button>
-            <button type="button" class="btn btn-secondary"><a href="deleteLodging.php?id=' . $lodging['id'] . '">&#x2713; Confirmer</a></button>
+            <button type="button" class="btn btn-secondary"><a href="deleteLodging.php?id='.$lodging['id'].'">&#x2713; Confirmer</a></button>
           </div>
             </div>
         </div>
         </div>';
-    }
+        endforeach;
+    
     echo '<span><a href="addLodging.php" class="bouton">+ Ajouter</a></span>';
     ?>
 </section>
