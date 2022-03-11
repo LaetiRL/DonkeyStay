@@ -34,9 +34,11 @@ $rooms = $querySearch->fetchAll(PDO::FETCH_ASSOC);
                 <h2 class="h2-index">Derniers logements ajoutés</h2>
                 <div class="row">
                     <?php
+
                         $lastestAddQuery = $dbh->query('SELECT room.*,rname,nb_traveler FROM room INNER JOIN roomtype ON roomtype.id = room.roomtype_id INNER JOIN capacity ON capacity.id = room.capacity_id ORDER BY id DESC LIMIT 4');
 
                         $lastestAdd = $lastestAddQuery->fetchall(PDO::FETCH_ASSOC);
+
                     
                         foreach ($lastestAdd as $row_lastestAdd) {
                             
@@ -45,6 +47,7 @@ $rooms = $querySearch->fetchAll(PDO::FETCH_ASSOC);
 
                             echo '<div class="col-lg-3 mb-3">';
                                 echo '<div class="card">';
+
                                     foreach ($lastestAddImg as $row_lastestAddImg) {
                                         if ($row_lastestAddImg['room_id'] === $row_lastestAdd['id'] ) {
                                             

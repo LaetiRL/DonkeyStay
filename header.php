@@ -52,6 +52,12 @@ if (isset($_POST['validate'])) {
                 <a class="navbar-brand" href="index.php">
                     DonkeyStay
                 </a>
+                <!-- Connection user -->
+                <a class="navbar-brand disabled active"><?php if (isset($_SESSION['name']) && !empty($_SESSION['name'])) {
+                                                            echo 'Hi ' . $_SESSION['name'] . ' !';
+                                                        } else {
+                                                            echo 'Hi Traveler !';
+                                                        }; ?></a>
 
                 <!-- Toggler -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +73,7 @@ if (isset($_POST['validate'])) {
 
                             <!-- Link once connected my lodging and my travel -->
                             <?php if (isset($_SESSION['name']) && !empty($_SESSION['name'])) {
-                                echo "<a class='nav-link active' href='#'>Mes logements</a>";
+                                echo "<a class='nav-link active' href='/lodging.php'>Mes logements</a>";
                             } ?>
                         </li>
                         <li class="nav-item">
@@ -75,18 +81,12 @@ if (isset($_POST['validate'])) {
                                 echo "<a class='nav-link active' href='#'>Mes Voyages</a>";
                             } ?>
                         </li>
+                        <li>
                         <?php if (isset($_SESSION['name']) && !empty($_SESSION['name'])) {
                             echo "<a class='nav-link active' href='/logout.php'>Se déconnecter</a>";
                         } else {
                             echo "<li class='nav-item'><button type='button' class='btn nav-link active' data-bs-toggle='modal' data-bs-target='#modalForm'>Se connecter</button></li>";
                         }  ?>
-                        <li class="nav-item">
-                            <!-- Connection user -->
-                            <a class="nav-link disabled active"><?php if (isset($_SESSION['name']) && !empty($_SESSION['name'])) {
-                                                                    echo 'Hi ' . $_SESSION['name'] . ' !';
-                                                                } else {
-                                                                    echo 'Hi Traveler !';
-                                                                }; ?></a>
                         </li>
                     </ul>
                 </div> <!-- / .navbar-collapse -->
