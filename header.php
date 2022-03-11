@@ -73,7 +73,7 @@ if (isset($_POST['validate'])) {
 
                             <!-- Link once connected my lodging and my travel -->
                             <?php if (isset($_SESSION['name']) && !empty($_SESSION['name'])) {
-                                echo "<a class='nav-link active' href='#'>Mes logements</a>";
+                                echo "<a class='nav-link active' href='/lodging.php'>Mes logements</a>";
                             } ?>
                         </li>
                         <li class="nav-item">
