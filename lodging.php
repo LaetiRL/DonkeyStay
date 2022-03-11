@@ -1,8 +1,12 @@
 <?php
 $titleWeb = "Mes logements";
 require "searchBar.php";
+$user_id = $_SESSION['user_id'];
 
-$lodgingQuery = $dbh->query('SELECT room.*,img FROM room INNER JOIN image ON image.room_id = room.id');
+$lodgingQuery = $dbh->prepare("SELECT room.*,img FROM room INNER JOIN image ON image.room_id = room.id WHERE room.user_id =:userId");
+
+$lodgingQuery->bindValue(":userId", $user_id, PDO::PARAM_INT);
+$lodgingQuery->execute();
 
 $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -27,7 +31,7 @@ $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
                 echo '</div>';
             echo '</div>';
         }
-        echo '<span><a href="form_addLodging.php?id='.$lodging['id'].'" class="bouton">+ Ajouter</a></span>';
+        echo '<span><a href="addLodging.php" class="bouton">+ Ajouter</a></span>';
     ?>
 </section>
 

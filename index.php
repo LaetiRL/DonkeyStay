@@ -43,12 +43,12 @@ $rooms = $querySearch->fetchAll(PDO::FETCH_ASSOC);
                             
                             echo '<div class="col-lg-3 mb-3">';
                                 echo '<div class="card">';
-                                    echo '<img src="'.$row_lastestAdd['img'][0].'" alt="" class="card-img-top">';
-                                    echo '<small>'.$row_lastestAdd['rname'].' - '.$row_lastestAdd['nb_traveler'].' - '.$row_lastestAdd['room.city'].'</small>';
+                                    echo '<img src="'.$row_lastestAdd['img'].'" alt="" class="card-img-top">';
+                                    echo '<small>'.$row_lastestAdd['rname'].' - '.$row_lastestAdd['nb_traveler'].' - '.$row_lastestAdd['city'].'</small>';
                                     echo '<div class="card-body">';
-                                        echo '<h5 class="card-title">'.$row_lastestAdd['room.title'].'</h5>';
-                                        echo '<p class="card-text">'.$row_lastestAdd['room.price'].'€ / nuit</p>';
-                                        echo '<a href="lodging_info.php?id='.$row_lastestAdd['room.id'].'" class="btn btn-outline-success btn-sm">Voir</a>';
+                                        echo '<h5 class="card-title">'.$row_lastestAdd['title'].'</h5>';
+                                        echo '<p class="card-text">'.$row_lastestAdd['price'].'€ / nuit</p>';
+                                        echo '<a href="lodging_info.php?id='.$row_lastestAdd['id'].'" class="btn btn-outline-success btn-sm">Voir</a>';
 
                                     echo '</div>';
                                 echo '</div>';
