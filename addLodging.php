@@ -16,13 +16,13 @@ if (isset($_POST['add'])) {
     } else {
         $titleErr = " * champ obligatoire";
     }
-    if (!empty($_POST['img'])) {
+   /*  if (!empty($_POST['img'])) {
         $img = $_POST['img'];
     } else {
         $imgErr = " * champ obligatoire";
-    }
+    } */
     if (!empty($_POST['capacity']) && is_numeric($_POST['capacity'])) {
-        $capacityErr = $_POST['capacity'];
+        $capacity_id = $_POST['capacity'];
     } elseif (empty($_POST['capacity'])) {
         $capacityErr = " * champ obligatoire";
     } elseif (is_numeric($_POST['capacity']) == false) {
@@ -118,12 +118,53 @@ if (isset($_POST['add'])) {
 
         $room_id = $dbh->lastInsertId();
 
-        $queryInsertImg = $dbh->prepare("INSERT INTO image (`img`, `room_id`) VALUES (:img, $room_id)");
-
-        $queryInsertImg->bindValue(":img", $img, PDO::PARAM_STR);
-
-        $queryInsertImg->execute();
-
+        $targetDir = "img/logements/"; 
+        $allowTypes = array('jpg','png','jpeg'); 
+        
+        $statusMsg = $errorMsg = $insertValuesSQL = $errorUpload = $errorUploadType = ''; 
+        $fileNames = array_filter($_FILES['img']['name']); 
+        if(!empty($fileNames)){ 
+            foreach($_FILES['img']['name'] as $key=>$val){ 
+                // File upload path 
+                $fileName = basename($_FILES['img']['name'][$key]); 
+                $targetFilePath = $targetDir . $fileName; 
+                
+                // Check whether file type is valid 
+                $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION); 
+                if(in_array($fileType, $allowTypes)){ 
+                    // Upload file to server 
+                    if(move_uploaded_file($_FILES["img"]["tmp_name"][$key], $targetFilePath)){ 
+                        // Image db insert sql 
+                        $insertValuesSQL .= "('".$targetDir.$fileName."',".$room_id."),"; 
+                    }else{ 
+                        $errorUpload .= $_FILES['img']['name'][$key].' | '; 
+                    } 
+                }else{ 
+                    $errorUploadType .= $_FILES['img']['name'][$key].' | '; 
+                } 
+            } 
+            
+            // Error message 
+            $errorUpload = !empty($errorUpload)?'Upload Error: '.trim($errorUpload, ' | '):''; 
+            $errorUploadType = !empty($errorUploadType)?'File Type Error: '.trim($errorUploadType, ' | '):''; 
+            $errorMsg = !empty($errorUpload)?'<br/>'.$errorUpload.'<br/>'.$errorUploadType:'<br/>'.$errorUploadType; 
+            
+            if(!empty($insertValuesSQL)){ 
+                $insertValuesSQL = trim($insertValuesSQL, ','); 
+                // Insert image file name into database 
+                $insert = $dbh->query("INSERT INTO image (img, room_id) VALUES $insertValuesSQL"); 
+                if($insert){ 
+                    $statusMsg = "Files are uploaded successfully.".$errorMsg; 
+                }else{ 
+                    $statusMsg = "Sorry, there was an error uploading your file."; 
+                } 
+            }else{ 
+                $statusMsg = "Upload failed! ".$errorMsg; 
+            } 
+        }else{ 
+            $statusMsg = 'Please select a file to upload.'; 
+        } 
+    
         echo "<script type='text/javascript'>document.location.replace('index.php');</script>";
     }
 }
@@ -132,7 +173,7 @@ if (isset($_POST['add'])) {
 <section>
     <h1>Ajouter un logement</h1>
     <hr>
-    <form method="POST" class="d-flex">
+    <form method="POST" class="d-flex" enctype="multipart/form-data">
         <div class="div-addform">
             <div class="row">
                 <div class="col">
@@ -143,7 +184,9 @@ if (isset($_POST['add'])) {
             <div class="row">
                 <div class="col">
                     <label for="img">Images</label><small class="error"><?php if(isset($imgErr)) echo $imgErr ?></small>
-                    <input type="text" class="form-control" id="img" name="img" value="<?php if(isset($img)) echo $img ?>">
+                    <input type="file" id="img" name="img[]" multiple value="<?php if(isset($img)) echo $img ?>">
+                    <!-- <label for="img">Images</label><small class="error"><?php if(isset($imgErr)) echo $imgErr ?></small>
+                    <input type="text" class="form-control" id="img" name="img" value="<?php if(isset($img)) echo $img ?>"> -->
                 </div>
             </div>
             <div class="row">
