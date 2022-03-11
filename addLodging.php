@@ -167,9 +167,7 @@ if (isset($_POST['add']) && isset($_SESSION['name'])) {
     
         echo "<script type='text/javascript'>document.location.replace('lodging.php');</script>";
     }
-} else {
-    echo "<script type='text/javascript'>document.location.replace('index.php');</script>";
-}
+} 
 ?>
 
 <section>
