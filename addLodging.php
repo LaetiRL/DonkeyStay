@@ -22,7 +22,7 @@ if (isset($_POST['add'])) {
         $imgErr = " * champ obligatoire";
     }
     if (!empty($_POST['capacity']) && is_numeric($_POST['capacity'])) {
-        $capacityErr = $_POST['capacity'];
+        $capacity_id = $_POST['capacity'];
     } elseif (empty($_POST['capacity'])) {
         $capacityErr = " * champ obligatoire";
     } elseif (is_numeric($_POST['capacity']) == false) {
