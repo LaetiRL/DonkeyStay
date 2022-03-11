@@ -34,23 +34,29 @@ $rooms = $querySearch->fetchAll(PDO::FETCH_ASSOC);
                 <h2 class="h2-index">Derniers logements ajoutés</h2>
                 <div class="row">
                     <?php
-                        $lastestAddQuery = $dbh->query('SELECT room.id,room.price,room.title,room.city,img,rname,nb_traveler FROM room INNER JOIN image ON room.id = image.room_id INNER JOIN roomtype ON roomtype.id = room.roomtype_id INNER JOIN capacity ON capacity.id = room.capacity_id ORDER BY room.id DESC LIMIT 4');
-                        
-                        $lastestAdd = $lastestAddQuery->fetch(PDO::FETCH_ASSOC);
+                        $lastestAddQuery = $dbh->query('SELECT room.*,rname,nb_traveler FROM room INNER JOIN roomtype ON roomtype.id = room.roomtype_id INNER JOIN capacity ON capacity.id = room.capacity_id ORDER BY id DESC LIMIT 4');
 
-                        var_dump($lastestAdd);
-                        die;
+                        $lastestAdd = $lastestAddQuery->fetchall(PDO::FETCH_ASSOC);
                     
                         foreach ($lastestAdd as $row_lastestAdd) {
                             
+                            $lastestAddImgQuery = $dbh->query('SELECT * FROM image WHERE room_id ='.$row_lastestAdd['id'].' LIMIT 1');
+                            $lastestAddImg = $lastestAddImgQuery->fetchall(PDO::FETCH_ASSOC);
+
                             echo '<div class="col-lg-3 mb-3">';
                                 echo '<div class="card">';
-                                    echo '<img src="'.$row_lastestAdd['img'][0].'" alt="" class="card-img-top">';
-                                    echo '<small>'.$row_lastestAdd['rname'].' - '.$row_lastestAdd['nb_traveler'].' - '.$row_lastestAdd['room.city'].'</small>';
+                                    foreach ($lastestAddImg as $row_lastestAddImg) {
+                                        if ($row_lastestAddImg['room_id'] === $row_lastestAdd['id'] ) {
+                                            
+                                            echo '<img src="'.$row_lastestAddImg['img'].'" alt="" class="card-img-top">';
+                                        } 
+                                    }
+                                    
+                                    echo '<small>'.$row_lastestAdd['rname'].' - '.$row_lastestAdd['nb_traveler'].' - '.$row_lastestAdd['city'].'</small>';
                                     echo '<div class="card-body">';
-                                        echo '<h5 class="card-title">'.$row_lastestAdd['room.title'].'</h5>';
-                                        echo '<p class="card-text">'.$row_lastestAdd['room.price'].'€ / nuit</p>';
-                                        echo '<a href="lodging_info.php?id='.$row_lastestAdd['room.id'].'" class="btn btn-outline-success btn-sm">Voir</a>';
+                                        echo '<h5 class="card-title">'.$row_lastestAdd['title'].'</h5>';
+                                        echo '<p class="card-text">'.$row_lastestAdd['price'].'€ / nuit</p>';
+                                        echo '<a href="lodging_info.php?id='.$row_lastestAdd['id'].'" class="btn btn-outline-success btn-sm">Voir</a>';
 
                                     echo '</div>';
                                 echo '</div>';
