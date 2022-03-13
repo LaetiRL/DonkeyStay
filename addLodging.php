@@ -177,7 +177,7 @@ if (isset($_POST['add']) && isset($_SESSION['name'])) {
 <section>
     <h1>Ajouter un logement</h1>
     <hr>
-    <form method="POST" class="d-flex" enctype="multipart/form-data">
+    <form method="POST" class="d-flex j-c" enctype="multipart/form-data">
         <div class="div-addform">
             <div class="row">
                 <div class="col">
