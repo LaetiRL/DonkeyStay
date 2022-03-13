@@ -41,7 +41,7 @@ $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
                 echo '<span>' . 'Prix/nuit: ' . $lodging['price'] . '€' . '</span>';
             echo '</div>';
         echo '</div>';
-
+        
         echo '<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
             <div class="modal-content">
@@ -54,7 +54,7 @@ $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">X Annuler</button>
-            <button type="button" class="btn btn-secondary"><a href="deleteLodging.php?id=' . $lodging['id'] . '">&#x2713; Confirmer</a></button>
+            <button type="button" class="btn btn-secondary"><a href="deleteLodging.php?id='.$lodging['id']. '">&#x2713; Confirmer</a></button>
           </div>
             </div>
         </div>

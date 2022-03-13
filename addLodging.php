@@ -118,11 +118,13 @@ if (isset($_POST['add']) && isset($_SESSION['name'])) {
 
         $room_id = $dbh->lastInsertId();
 
+        // input image start
         $targetDir = "img/logements/"; 
         $allowTypes = array('jpg','png','jpeg'); 
         
         $statusMsg = $errorMsg = $insertValuesSQL = $errorUpload = $errorUploadType = ''; 
-        $fileNames = array_filter($_FILES['img']['name']); 
+        $fileNames = array_filter($_FILES['img']['name']);
+         
         if(!empty($fileNames)){ 
             foreach($_FILES['img']['name'] as $key=>$val){ 
                 // File upload path 
@@ -183,7 +185,7 @@ if (isset($_POST['add']) && isset($_SESSION['name'])) {
             </div>
             <div class="row">
                 <div class="col">
-                    <label for="img">Images</label><small class="error"><?php if(isset($imgErr)) echo $imgErr ?></small>
+                    <label for="img">Images</label><small class="error"><?php if(isset($statusMsg)) echo $statusMsg ?></small>
                     <input type="file" id="img" name="img[]" multiple value="<?php if(isset($img)) echo $img ?>">
                     <!-- <label for="img">Images</label><small class="error"><?php if(isset($imgErr)) echo $imgErr ?></small>
                     <input type="text" class="form-control" id="img" name="img" value="<?php if(isset($img)) echo $img ?>"> -->
