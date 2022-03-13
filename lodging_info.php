@@ -128,10 +128,9 @@ $nbImg = count($images);
                 </div>
                 <div class="col-lg-4">
                     <div class="card">
-                        <form method="">
+                        <form method="post">
                             <h3><?php echo $lodgingInfos['price']."€/ nuit"?></h3>
                             <div class="row">
-
                                 <div class="col-lg-6">
                                     <label for="startDate">Départ:</label><br>
                                     <input type="date" id="startDate" />
@@ -141,7 +140,6 @@ $nbImg = count($images);
                                     <input type="date" id="endDate" />
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Voyageurs</label>
@@ -157,8 +155,22 @@ $nbImg = count($images);
                                     </select>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row m-i">
                                 <button class="btn btn-danger btn-block" type="submit" name="search">Réserver</button> 
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label col-10" for="pet_option"> Option animaux</label>
+                                <input class="form-check-input" type="checkbox" id="pet_option" name="pet_option">
+                                <span>+ 20€</span>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label col-10" for="cancel_option"> Assurance annulation</label>
+                                <input class="form-check-input" type="checkbox" id="cancel_option" name="cancel_option">
+                                <span>+ 2,5€</span>
+                            </div>
+                            <hr>
+                            <div>
+                                <span>Prix total: </span>
                             </div>
                         </form>
                     </div>

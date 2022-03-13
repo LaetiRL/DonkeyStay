@@ -125,7 +125,7 @@ if (isset($_POST['modify'])) {
 <section>
     <h1>Modifier un logement</h1>
     <hr>
-    <form method="POST" class="d-flex">
+    <form method="POST" class="d-flex j-c">
         <div class="div-addform">
             <div class="row">
                 <div class="col">
