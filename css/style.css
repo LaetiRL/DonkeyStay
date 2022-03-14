@@ -11141,7 +11141,14 @@ textarea.form-control-lg {
 
 .d-flex {
   display: flex;
+}
+
+.j-c {
   justify-content: center;
+}
+
+.m-i {
+  margin-inline: 1px;
 }
 
 .div-addform {
