@@ -15,6 +15,7 @@ $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
     <h1 class="mt-5">Mes logements</h1>
     <?php
     foreach ($lodgings as $lodging) {
+
         echo '<div class="container">';
             echo '<div class="d-flex">';
                 echo '<div class="mx-1">';
@@ -59,28 +60,29 @@ $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
         echo '</div>';
         
 
-        echo '<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Supprimer un logement</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    echo '<img src="' . $row_lastestAddImg['img'] . '" alt="" class="card-img-top">';
+                }
+            }
+        ?>
             </div>
-            <div class="modal-body">
-            Si vous confirmez, votre logement sera definitivement effacé
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">X Annuler</button>
-            <button type="button" class="btn btn-secondary"><a href="deleteLodging.php?id=' . $lodging['id'] . '">&#x2713; Confirmer</a></button>
-          </div>
+            <div>
+                <div><span><?php echo $lodging['hometype_id'] ?> : <?php echo $lodging['roomtype_id'] . " - " . $lodging['city'] ?></span></div>
+                <div>
+                    <h2><?php echo $lodging['title'] ?></h2>
+                </div>
+                <div><span><?php echo $lodging['capacity_id'] . " - " . $lodging['nb_bedroom'] . " - " . $lodging['nb_bathroom'] ?></span></div>
+                <div><span><?php echo $lodging['has_wifi'] . " - " . $lodging['has_kitchen'] ?></span></div>
+                <span><button type="button" class="btn btn-secondary"><a href="modifyLodging.php?id=<?php echo $lodging['id'] ?>">Modifier</a></button>
+                    <a href="deleteLodging.php?id=<?php echo $lodging['id']; ?>" onclick="return confirm('Etes vous sur ?');">Supprimer</a></span>
+                <span>Prix/nuit: <?php echo $lodging['price'] . "€" ?> </span>
             </div>
         </div>
-        </div>';
+    <?php
     }
-    echo '<span><a href="addLodging.php" class="bouton">+ Ajouter</a></span>';
     ?>
-</section>
+    <span><a href="addLodging.php" class="bouton">+ Ajouter</a></span>
 
+</section>
 
 <?php
 require "footer.php";
