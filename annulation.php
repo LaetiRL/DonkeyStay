@@ -23,7 +23,7 @@ require_once "header.php";
         <h2>Problèmes pendant votre voyage</h2>
         Si vous rencontrez des problèmes lorsque vous arrivez au logement et que l'hôte ne peut pas les résoudre rapidement, vous pouvez obtenir une protection en vertu de notre Politique de remboursement des voyageurs.
         Si vous avez des questions, veuillez envoyer un e-mail à DonkeyStay.com ou appeler le (034) 4713 – 135
-        Merci d'avoir choisi DonkeyStay
+        Merci d'avoir choisi DonkeyStay.
         Respectueusement votre,
         DonkeyStay
     </ul>

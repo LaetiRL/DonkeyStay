@@ -9,14 +9,14 @@
             </ul>
         </div>
         <div class="col-6 col-md">
-            <h4 class="h6">Termes et conditions</h4>
+            <h4 class="h6" >Termes et conditions</h4>
             <ul class="list-unstyled text-small">
                 <li><a class="text-muted" href="confidentialite.php">Politique de Confidentialité</a></li>
                 <li><a class="text-muted" href="terms.php">Conditions Générales</a></li>
             </ul>
         </div>
     </div>
-    <div style="text-align: center;">DonkeyStay.com - Copyright © 2022 - All rights reserved.</div>
+    <div class="footer">DonkeyStay.com - Copyright © 2022 - All rights reserved.</div>
 </footer>
 </body>
 
