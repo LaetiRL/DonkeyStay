@@ -95,7 +95,6 @@ svg {
 .navbar {
   background-color: rgba(0, 0, 0, 0.6);
 }
-<<<<<<< HEAD
 .view {
   margin: 100px;
 }
@@ -104,7 +103,9 @@ svg {
   text-align: center;
 }
 
-.footer {font-size: x-small; text-align: center;
+.footer {
+  font-size: x-small;
+  text-align: center;
 }
 
 a {
@@ -112,13 +113,13 @@ a {
   text-decoration: underline;
 }
 
-.logements{
+.logements {
   margin: 100px;
 }
 
-.equipments{
+.equipments {
   margin: 10px;
-=======
+}
 
 .button-submit-search-bar {
   display: flex;
@@ -126,12 +127,11 @@ a {
 }
 
 .btn-secondary {
-  background-color: #8F3673;
-  border-color: #8F3673;
+  background-color: #8f3673;
+  border-color: #8f3673;
 }
 
 .btn-secondary:hover {
   background-color: #379053;
   border-color: #379053;
->>>>>>> 1dffc72 (add autocomplete search bar)
 }
