@@ -8,7 +8,6 @@ $lodgingInfoQuery = $dbh->query("SELECT room.*,img,rname,hname,nb_traveler  FROM
 $lodgingInfos = $lodgingInfoQuery->fetch();
 
 
-
 $imageQuery = $dbh->query("SELECT * FROM image WHERE room_id = $idUrl ORDER BY RAND()");
 $images = $imageQuery->fetchAll(PDO::FETCH_ASSOC);
 $nbImg = count($images);
@@ -132,18 +131,18 @@ $nbImg = count($images);
                             <h3><?php echo $lodgingInfos['price']."€/ nuit"?></h3>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <label for="startDate">Départ:</label><br>
-                                    <input type="date" id="startDate" />
+                                    <label for="infoStartDate">Départ:</label><br>
+                                    <input type="date" id="infoStartDate" name="infoStartDate" min='<?= $lodgingInfos['start_dispo'] ?>' value='<?= $$lodgingInfos['end_dispo']; ?>'/>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="endDate">Retour:</label><br>
-                                    <input type="date" id="endDate" />
+                                    <label for="infoEndDate">Retour:</label><br>
+                                    <input type="date" id="infoEndDate" name="infoEndDate" min='<?= $currentDate; ?>' value='<?= $currentDate; ?>'/>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Voyageurs</label>
-                                    <select class="form-control" id="exampleFormControlSelect1">
+                                    <label for="selectTravelers">Voyageurs</label>
+                                    <select class="form-control" id="selectTravelers">
                                         <?php
                                             $capacityQuery = $dbh->query('SELECT * FROM capacity ORDER BY id');
                                             $capacity= $capacityQuery->fetchAll(PDO::FETCH_ASSOC);
@@ -156,7 +155,7 @@ $nbImg = count($images);
                                 </div>
                             </div>
                             <div class="row m-i">
-                                <button class="btn btn-danger btn-block" type="submit" name="search">Réserver</button> 
+                                <button class="btn btn-danger btn-block" type="submit" name="booking">Réserver</button> 
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label col-10" for="pet_option"> Option animaux</label>
@@ -170,7 +169,69 @@ $nbImg = count($images);
                             </div>
                             <hr>
                             <div>
-                                <span>Prix total: </span>
+                                <span>Prix total: </span><span id="totalPrice"></span>
+                                <script>
+                                    function getPrice(infoStartDate, infoEndDate, price, petOption, cancelOption) {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "_totalPrice.php",
+                                            data: {
+                                                infoStartDate: infoStartDate,
+                                                infoEndDate: infoEndDate,
+                                                price: price,
+                                                petOption: petOption ? 1 : 0,
+                                                cancelOption: cancelOption ? 1 : 0,
+                                            },
+                                            success: function(data) {
+                                                console.log("SUCCESS ", data);
+                                                $('#totalPrice').html(data);
+
+                                            },
+                                            error: function() {
+                                                console.log("Error ", data);
+                                                $('#totalPrice').html("Désolé, aucun résultat trouvé.");
+                                            }
+                                        })
+                                    }
+
+                                    $(document).ready(function() {
+                                        $("#infoEndDate").change(function() {
+                                            getPrice(
+                                                $("#infoStartDate").val(),
+                                                $("#infoEndDate").val(),
+                                                <?php echo $lodgingInfos['price']; ?>,
+                                                document.getElementById("pet_option").checked,
+                                                document.getElementById("cancel_option").checked
+                                            );
+                                        })
+                                    })
+
+                                    $(document).ready(function() {
+                                        $("#pet_option").change(function() {
+                                            getPrice(
+                                                $("#infoStartDate").val(),
+                                                $("#infoEndDate").val(),
+                                                <?php echo $lodgingInfos['price']; ?>,
+                                                document.getElementById("pet_option").checked,
+                                                document.getElementById("cancel_option").checked 
+                                            );
+                                            console.log(document.getElementById("pet_option").checked);
+                                    
+                                        })
+                                    })
+                                    $(document).ready(function() {
+                                        $("#cancel_option").change(function() {
+                                            getPrice(
+                                                $("#infoStartDate").val(),
+                                                $("#infoEndDate").val(),
+                                                <?php echo $lodgingInfos['price']; ?>,
+                                                document.getElementById("pet_option").checked,
+                                                document.getElementById("cancel_option").checked
+                                            );
+                                            console.log(document.getElementById("cancel_option").checked);
+                                        })
+                                    })
+                                </script>
                             </div>
                         </form>
                     </div>
