@@ -4,13 +4,10 @@ require_once "header.php";
 <div class="view">
     <p>
     <h1>Politique de confidentialité</h1>
-    La Politique de confidentialité d'DonkeyStay décrit vos droits en matière de protection de la vie privée, le type d'informations personnelles collectées et la manière dont nous les utilisons et les communiquons.
-<br>
-Dernière mise à jour : 10 février 2022
-
-DonkeyStay a pour objectif de créer des liens entre les personnes pour un monde plus ouvert et inclusif. Autrement dit, créer un monde où chacun peut se sentir chez soi partout. Nous sommes une communauté qui repose sur la confiance. Et pour créer un rapport de confiance, il est fondamental de faire preuve de transparence quant à la manière dont nous utilisons vos informations et protégeons votre vie privée.
-
+    <ul> Politique de confidentialité d'DonkeyStay décrit vos droits en matière de protection de la vie privée, le type d'informations personnelles collectées et la manière dont nous les utilisons et les communiquons.
+Dernière mise à jour : 10 février 2022 DonkeyStay a pour objectif de créer des liens entre les personnes pour un monde plus ouvert et inclusif. Autrement dit, créer un monde où chacun peut se sentir chez soi partout. Nous sommes une communauté qui repose sur la confiance. Et pour créer un rapport de confiance, il est fondamental de faire preuve de transparence quant à la manière dont nous utilisons vos informations et protégeons votre vie privée.
 Cette Politique de confidentialité décrit comment DonkeyStay, Inc. et ses sociétés affiliées (« nous », « nos » ou « DonkeyStay ») traitent les informations personnelles relatives à votre utilisation de la plate-forme DonkeyStay. En fonction de l'endroit où vous vivez et de ce que vous faites sur la plate-forme DonkeyStay, les pages supplémentaires indiquées ci-dessous et concernant la confidentialité pourraient s'appliquer à vous. Veuillez cliquer sur les liens et consulter les informations supplémentaires décrivant la façon dont nous traitons les informations personnelles pour ces régions et ces services.
+</ul>
 <br>
     <ul>
     1.  DÉFINITIONS
