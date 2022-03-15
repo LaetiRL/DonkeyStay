@@ -132,7 +132,7 @@ $nbImg = count($images);
                             <div class="row">
                                 <div class="col-lg-6">
                                     <label for="infoStartDate">Départ:</label><br>
-                                    <input type="date" id="infoStartDate" name="infoStartDate" min='<?= $lodgingInfos['start_dispo'] ?>' value='<?= $$lodgingInfos['end_dispo']; ?>'/>
+                                    <input type="date" id="infoStartDate" name="infoStartDate" min='<?= $currentDate; ?>' value='<?= $currentDate; ?>'/>
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="infoEndDate">Retour:</label><br>
