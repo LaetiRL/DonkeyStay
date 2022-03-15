@@ -95,6 +95,7 @@ svg {
 .navbar {
   background-color: rgba(0, 0, 0, 0.6);
 }
+<<<<<<< HEAD
 .view {
   margin: 100px;
 }
@@ -117,4 +118,20 @@ a {
 
 .equipments{
   margin: 10px;
+=======
+
+.button-submit-search-bar {
+  display: flex;
+  justify-content: end;
+}
+
+.btn-secondary {
+  background-color: #8F3673;
+  border-color: #8F3673;
+}
+
+.btn-secondary:hover {
+  background-color: #379053;
+  border-color: #379053;
+>>>>>>> 1dffc72 (add autocomplete search bar)
 }

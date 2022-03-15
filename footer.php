@@ -18,6 +18,14 @@
     </div>
     <div class="footer">DonkeyStay.com - Copyright © 2022 - All rights reserved.</div>
 </footer>
+<!-- search bar autocomplete -->
+<script type="text/javascript">
+    $(function() {
+        $("#search").autocomplete({
+            source: 'ajax-db-search.php',
+        });
+    });
+</script>
 </body>
 
 </html>
