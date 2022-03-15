@@ -79,8 +79,9 @@ require_once 'header.php';
                                     </select>
                                 </div>
                             </div>
-                            <button class="btn btn-danger btn-block" type="submit" name="search">Chercher</button>
-                            <span>
+                            <div class="button-submit-search-bar">
+                                <button class="btn btn-secondary" type="submit" name="search">Chercher</button>
+                            </div>
                         </form>
                     </div>
                 </div>
