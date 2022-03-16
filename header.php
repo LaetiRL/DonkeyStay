@@ -42,7 +42,12 @@ if (isset($_POST['validate'])) {
     <!-- AJAX and Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
+
+    <!-- jquery -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
 </head>
 
 <body>
@@ -106,15 +111,13 @@ if (isset($_POST['validate'])) {
                     <div class="modal-body">
                         <form method="POST">
                             <div class="mb-3">
-                                <label class="form-label">Adresse email</label>
                                 <input type="text" class="form-control" id="email" name="email" placeholder="email" />
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Mot de passe</label>
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" />
                             </div>
                             <div class="modal-footer d-block">
-                                <button type="submit" class="btn btn-warning float-end" name="validate">Connexion</button>
+                                <button type="submit" class="btn btn-secondary float-end" name="validate">Connexion</button>
                             </div>
                         </form>
                     </div>

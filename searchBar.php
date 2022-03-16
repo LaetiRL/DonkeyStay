@@ -51,7 +51,7 @@ require_once 'header.php';
                         <form action="" method="POST" autocomplete="off">
                             <div class="row">
                                 <div class="form-group">
-                                    <input type="text" class="form-control w-100 br0" id="request" name="request" aria-describedby="locationInputHelp" placeholder="Ville ...">
+                                    <input type="text" class="form-control w-100 br0" id="search" name="search" aria-describedby="locationInputHelp" placeholder="Ville ...">
                                 </div>
                             </div>
                             <div class="row">
@@ -79,8 +79,9 @@ require_once 'header.php';
                                     </select>
                                 </div>
                             </div>
-                            <button class="btn btn-danger btn-block" type="submit" name="search">Chercher</button>
-                            <span>
+                            <div class="button-submit-search-bar">
+                                <button class="btn btn-secondary" type="submit" name="search">Chercher</button>
+                            </div>
                         </form>
                     </div>
                 </div>
