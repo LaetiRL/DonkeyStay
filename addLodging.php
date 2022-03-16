@@ -12,6 +12,7 @@ $has_kitchen = 0;
 $has_aircon = 0;
 
 if (isset($_POST['add']) && isset($_SESSION['name'])) {
+   
     $homeTypeId = $_POST['home_type'];
     $roomTypeId = $_POST['room_type'];
     $userId = $_SESSION['user_id'];
@@ -20,7 +21,7 @@ if (isset($_POST['add']) && isset($_SESSION['name'])) {
     } else {
         $titleErr = " * champ obligatoire";
     }
-   /*  if (!empty($_POST['img'])) {
+    /* if (!empty($_POST['img'])) {
         $img = $_POST['img'];
     } else {
         $imgErr = " * champ obligatoire";
@@ -90,7 +91,36 @@ if (isset($_POST['add']) && isset($_SESSION['name'])) {
     } elseif (is_numeric($_POST['price']) == false) {
         $priceErr = " * veuillez n'entrer que des chiffres";
     }
+    if (count($_FILES['img']['name']) < 5) {
+        $imgErr = " * minimum 5 images";
+    } elseif (count($_FILES['img']['name']) > 19)  {
+        $imgErr = " * maximum 20 images";
+    }
 
+    $targetDir = "img/logements/"; 
+    $allowTypes = array('jpg','png','jpeg'); 
+
+    $statusMsg = $errorMsg = $insertValuesSQL = $errorUpload = $errorUploadType = ''; 
+    $fileNames = array_filter($_FILES['img']['name']); 
+
+    if(!empty($fileNames)){
+        foreach($_FILES['img']['name'] as $key=>$val){ 
+            // File upload path 
+            $fileName = basename($_FILES['img']['name'][$key]); 
+            $targetFilePath = $targetDir . $fileName; 
+            
+            // Check whether file type is valid 
+            $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION); 
+            if(in_array($fileType, $allowTypes)){ 
+                // Upload file to server 
+                
+            }else{ 
+                $imgErr = ' '.$_FILES['img']['name'][$key].' | '."Format d'image invalide. Formats attendus: jpg, jpeg, png."; 
+            } 
+        } 
+    }
+
+    
     if (
         !isset($titleErr) && !isset($imgErr) && !isset($capacityErr)
         && !isset($nb_bedroomErr) && !isset($nb_bathroomErr) && !isset($descriptionErr)
@@ -120,55 +150,26 @@ if (isset($_POST['add']) && isset($_SESSION['name'])) {
 
         $queryInsert->execute();
 
-        $room_id = $dbh->lastInsertId();
-
-        $targetDir = "img/logements/"; 
-        $allowTypes = array('jpg','png','jpeg'); 
+        $room_id = $dbh->lastInsertId();        
         
-        $statusMsg = $errorMsg = $insertValuesSQL = $errorUpload = $errorUploadType = ''; 
-        $fileNames = array_filter($_FILES['img']['name']); 
         if(!empty($fileNames)){ 
-            foreach($_FILES['img']['name'] as $key=>$val){ 
-                // File upload path 
-                $fileName = basename($_FILES['img']['name'][$key]); 
-                $targetFilePath = $targetDir . $fileName; 
-                
-                // Check whether file type is valid 
-                $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION); 
-                if(in_array($fileType, $allowTypes)){ 
-                    // Upload file to server 
-                    if(move_uploaded_file($_FILES["img"]["tmp_name"][$key], $targetFilePath)){ 
-                        // Image db insert sql 
-                        $insertValuesSQL .= "('".$targetDir.$fileName."',".$room_id."),"; 
-                    }else{ 
-                        $errorUpload .= $_FILES['img']['name'][$key].' | '; 
-                    } 
-                }else{ 
-                    $errorUploadType .= $_FILES['img']['name'][$key].' | '; 
-                } 
+           
+            if(move_uploaded_file($_FILES["img"]["tmp_name"][$key], $targetFilePath)){ 
+                // Image db insert sql 
+                $insertValuesSQL .= "('".$targetDir.$fileName."',".$room_id."),"; 
+            }else{ 
+                $imgErr = $_FILES['img']['name'][$key].' | '."Erreur lors du téléversement"; 
             } 
             
-            // Error message 
-            $errorUpload = !empty($errorUpload)?'Upload Error: '.trim($errorUpload, ' | '):''; 
-            $errorUploadType = !empty($errorUploadType)?'File Type Error: '.trim($errorUploadType, ' | '):''; 
-            $errorMsg = !empty($errorUpload)?'<br/>'.$errorUpload.'<br/>'.$errorUploadType:'<br/>'.$errorUploadType; 
-            
-            if(!empty($insertValuesSQL)){ 
+            if(!empty($insertValuesSQL) && !isset($imgErr)){ 
                 $insertValuesSQL = trim($insertValuesSQL, ','); 
                 // Insert image file name into database 
                 $insert = $dbh->query("INSERT INTO image (img, room_id) VALUES $insertValuesSQL"); 
-                if($insert){ 
-                    $statusMsg = "Files are uploaded successfully.".$errorMsg; 
-                }else{ 
-                    $statusMsg = "Sorry, there was an error uploading your file."; 
-                } 
-            }else{ 
-                $statusMsg = "Upload failed! ".$errorMsg; 
-            } 
-        }else{ 
-            $statusMsg = 'Please select a file to upload.'; 
-        } 
-    
+                if($insert === false){ 
+                    $imgErr = "Désolé, l'insertion dans la database à échouée"; 
+                }
+            }
+        }
         echo "<script type='text/javascript'>document.location.replace('lodging.php');</script>";
     }
 } 
@@ -186,12 +187,22 @@ if (isset($_POST['add']) && isset($_SESSION['name'])) {
                 </div>
             </div>
             <div class="row">
-                <div class="col">
-                    <label for="img">Images</label><small class="error"><?php if(isset($imgErr)) echo $imgErr ?></small>
-                    <input type="file" id="img" name="img[]" multiple value="<?php if(isset($img)) echo $img ?>">
-                    <!-- <label for="img">Images</label><small class="error"><?php if(isset($imgErr)) echo $imgErr ?></small>
-                    <input type="text" class="form-control" id="img" name="img" value="<?php if(isset($img)) echo $img ?>"> -->
+                <div class="container-fluid">
+                    <div class="col">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label for="img">Images</label><small class="error" id="imgErr"><?php if(isset($imgErr)) {echo $imgErr;}; if(isset($statusMsg)) {echo $statusMsg;}?></small>
+                                    <input type="file" name="img[]" id="img" multiple class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <div id="image_preview"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <script src="_preview.js"></script>
             </div>
             <div class="row">
                 <div class="col">

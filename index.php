@@ -140,8 +140,8 @@ if (isset($_POST['search'])) {
                         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                     </svg>
                     <div class="card-body pl-0">
-                        <h5 class="card-title">24/7 customer support</h5>
-                        <p class="card-text">Day or night, we’re here for you. Talk to our support team from anywhere in the world, any hour of day.</p>
+                        <h5 class="card-title">Assistance client 24h/24 et 7j/7</h5>
+                        <p class="card-text">De jour comme de nuit, nous sommes là pour vous. Parlez à notre équipe d'assistance de n'importe où dans le monde, à n'importe quelle heure de la journée.</p>
                     </div>
                 </div>
             </div>
@@ -152,8 +152,8 @@ if (isset($_POST['search'])) {
                         <path d="M0 0h24v24H0z" fill="none" />
                     </svg>
                     <div class="card-body pl-0">
-                        <h5 class="card-title">Global hospitality standards</h5>
-                        <p class="card-text">Guests review their hosts after each stay. All hosts must maintain a minimum rating and our hospitality standards to be on Airbnb.</p>
+                        <h5 class="card-title">Normes mondiales d'accueil</h5>
+                        <p class="card-text">Les clients évaluent leurs hôtes après chaque séjour. Tous les hôtes doivent maintenir une note minimale et nos normes d'hospitalité pour être sur DonkeyStay.</p>
                     </div>
                 </div>
             </div>
@@ -167,8 +167,8 @@ if (isset($_POST['search'])) {
                         </g>
                     </svg>
                     <div class="card-body pl-0">
-                        <h5 class="card-title">5-star hosts</h5>
-                        <p class="card-text">From fresh-pressed sheets to tips on where to get the best brunch, our hosts are full of local hospitality.</p>
+                        <h5 class="card-title">Hôtes 5 étoiles</h5>
+                        <p class="card-text">Des draps fraîchement pressés aux conseils pour trouver le meilleur brunch, nos hôtes sont pleins d'hospitalité locale.</p>
                     </div>
                 </div>
             </div>

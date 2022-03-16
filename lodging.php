@@ -11,7 +11,7 @@ $lodgingQuery->execute();
 $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<section>
+<section class="logements">
     <h1 class="mt-5">Mes logements</h1>
     <?php
     foreach ($lodgings as $lodging) {
@@ -29,44 +29,39 @@ $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
             }
         }
     ?>
-
-        </div>
         <div>
             <div><span><?php echo $lodging['hname'] . " - " . $lodging['rname'] . " - " . $lodging['city'] ?></span></div>
-            <div>
-                <h2><?php echo $lodging['title'] ?></h2>
-            </div>
-            <div><small><?php echo $lodging['nb_traveler'] . " - Chambre(s): " . $lodging['nb_bedroom'] . " - Sdb(s): " . $lodging['nb_bathroom'] ?></small></div>
+            <div><h2><?php echo $lodging['title'] ?></h2></div>
+            <div class="equipments"><small><?php echo $lodging['nb_traveler'] . " - Chambre(s): " . $lodging['nb_bedroom'] . " - Sdb(s): " . $lodging['nb_bathroom'] ?></small></div>
             <small>Equipement(s):
                 <?php
 
-                if ($lodging['has_tv'] === 1) {
-                    echo " TV ";
-                }
-                if ($lodging['has_wifi'] === 1) {
-                    echo " Wifi ";
-                }
-                if ($lodging['has_kitchen'] === 1) {
-                    echo " Cuisine ";
-                }
-                if ($lodging['has_aircon'] === 1) {
-                    echo " Climatisation ";
-                }
+                    if ($lodging['has_tv'] === 1) {
+                        echo " TV ";
+                    }
+                    if ($lodging['has_wifi'] === 1) {
+                        echo " Wifi ";
+                    }
+                    if ($lodging['has_kitchen'] === 1) {
+                        echo " Cuisine ";
+                    }
+                    if ($lodging['has_aircon'] === 1) {
+                        echo " Climatisation ";
+                    }
                 ?>
                 <br>
-                <span><button type="button" class="btn btn-secondary"><a href="modifyLodging.php?id=<?php echo $lodging['id'] ?>">Modifier</a></button>
-                    <a href="deleteLodging.php?id=<?php echo $lodging['id']; ?>" onclick="return confirm('Etes vous sur ?');">Supprimer</a></span>
+                <span style="padding-bottom: 50px;"><button type="button" class="btn btn-secondary"><a href="modifyLodging.php?id=<?php echo $lodging['id'] ?>">Modifier</a></button></span> 
+                <span><button type="button" class="btn btn-danger"><a href="deleteLodging.php?id=<?php echo $lodging['id']; ?>" onclick="return confirm('Etes vous sur ?');">Supprimer</a></button></span>
                 <span>Prix/nuit: <?php echo $lodging['price'] . "€" ?> </span>
-        </div>
+            </small>
         </div>
         <hr>
-        </div>
-
     <?php
     }
     ?>
-    <span><a href="addLodging.php" class="bouton">+ Ajouter</a></span>
-
+    <span><button type="button" class="btn btn-primary"><a href="addLodging.php" >Ajouter un logement</a></button</span>
+       
+    
 </section>
 
 <?php
