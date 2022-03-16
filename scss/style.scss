@@ -96,6 +96,7 @@ svg {
 .navbar {
   background-color: rgba(0, 0, 0, 0.6);
 }
+
 .view {
   margin: 100px;
 }
@@ -179,4 +180,8 @@ a {
 .btn-secondary:hover {
   background-color: #379053;
   border-color: #379053;
+}
+
+.calendar-othermonth {
+  opacity: 0.3;
 }

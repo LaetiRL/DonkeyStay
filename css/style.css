@@ -11293,5 +11293,9 @@ a {
   border-color: #379053;
 
 }
+  
+.calendar-othermonth {
+  opacity: 0.3;
+}
 
 /*# sourceMappingURL=style.css.map */
