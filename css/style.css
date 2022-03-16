@@ -11213,4 +11213,8 @@ svg {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
+.calendar-othermonth {
+  opacity: 0.3;
+}
+
 /*# sourceMappingURL=style.css.map */
