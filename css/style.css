@@ -584,7 +584,7 @@ progress {
   color: #6c757d;
 }
 .blockquote-footer::before {
-  content: "— ";
+  content: "— ";
 }
 
 .img-fluid {
@@ -11278,6 +11278,7 @@ a {
 .img-div:hover .middle {
   opacity: 1;
 
+}
 .button-submit-search-bar {
   display: flex;
   justify-content: end;
@@ -11296,6 +11297,45 @@ a {
   
 .calendar-othermonth {
   opacity: 0.3;
+}
+.img-div {
+  position: relative;
+  width: 24%;
+  float: left;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  height: 175px;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  max-width: auto;
+  transition: 0.5s ease;
+  backface-visibility: hidden;
+  height: 100%;
+}
+
+.middle {
+  transition: 0.5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.img-div:hover .image {
+  opacity: 0.3;
+}
+
+.img-div:hover .middle {
+  opacity: 1;
 }
 
 /*# sourceMappingURL=style.css.map */
