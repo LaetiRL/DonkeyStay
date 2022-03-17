@@ -1,5 +1,5 @@
 <?php
-$titleWeb ='En savoir plus';
+$titleWeb = 'En savoir plus';
 require "searchBar.php";
 
 $idUrl = $_GET['id'];
@@ -12,236 +12,243 @@ $imageQuery = $dbh->query("SELECT * FROM image WHERE room_id = $idUrl ORDER BY R
 $images = $imageQuery->fetchAll(PDO::FETCH_ASSOC);
 $nbImg = count($images);
 
-
+$startDispo = new DateTime($lodgingInfos['start_dispo']);
+$endDispo = new DateTime($lodgingInfos['end_dispo']);
 
 ?>
-
-    <section>
-
-        <div class="container">
-            <h1><?php echo $lodgingInfos['title']?></h1>
-            <small><?php echo $lodgingInfos['city'].", disponible du ".$lodgingInfos['start_dispo']." au ".$lodgingInfos['end_dispo']?></small>
-            <!-- start user lodging gallery -->
-            <div class="row">
-                <div class="col-md-4 mt-3 col-lg-6">
-                    <img src="<?php echo $lodgingInfos['img']?>" class="img-fluid w-100 h-100" alt="image">
-                </div>
-                <div class="col-md-4 col-lg-6">
-                    <div class="row">
-                        <div class="col-md-4 mt-3 col-lg-6">
-                            <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                                <div class="carousel-inner lodging-img">
-                                    <?php
-                                        echo '<div class="carousel-item h-100 active" data-bs-interval="4000">';
-                                            echo '<img src="'.$images[rand(0, $nbImg - 1)]['img'].'" class="d-block w-100 h-100" alt="pyramide du Louvre">';
-                                        echo '</div>';
-                                        foreach ($images as $image) {
-                                            echo '<div class="carousel-item h-100" data-bs-interval="4000">';
-                                                echo '<img src="'.$images[rand(0, $nbImg - 1)]['img'].'" class="d-block w-100 h-100" alt="calanque de Marseille">';
-                                            echo '</div>';
-                                        }
-                                    ?>
-                                </div>  
-                            </div>
-                        </div>
-                        <div class="col-md-4 mt-3 col-lg-6">
-                            <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                                <div class="carousel-inner lodging-img">
-                                    <?php
-                                        echo '<div class="carousel-item h-100 active" data-bs-interval="3000">';
-                                            echo '<img src="'.$images[rand(0, $nbImg - 1)]['img'].'" class="d-block w-100 h-100" alt="pyramide du Louvre">';
-                                        echo '</div>';
-                                        foreach ($images as $image) {
-                                            echo '<div class="carousel-item h-100" data-bs-interval="3000">';
-                                                echo '<img src="'.$images[rand(0, $nbImg - 1)]['img'].'" class="d-block w-100 h-100" alt="calanque de Marseille">';
-                                            echo '</div>';
-                                        }
-                                    ?>
+<section>
+    <div class="container">
+        <h1><?php echo $lodgingInfos['title'] ?></h1>
+        <small><?php echo $lodgingInfos['city'] . ", disponible du " . $startDispo->format('d/m/Y') . " au " . $endDispo->format('d/m/Y') ?></small>
+        <!-- start user lodging gallery -->
+        <div class="row">
+            <div class="col-md-4 mt-3 col-lg-6">
+                <img src="<?php echo $lodgingInfos['img'] ?>" class="img-fluid w-100 h-100" alt="image">
+            </div>
+            <div class="col-md-4 col-lg-6">
+                <div class="row">
+                    <div class="col-md-4 mt-3 col-lg-6">
+                        <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                            <div class="carousel-inner lodging-img">
+                                <div class="carousel-item h-100 active" data-bs-interval="4000">';
+                                    <img src="<?php echo $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="pyramide du Louvre">
                                 </div>
+                                <?php
+                                foreach ($images as $image) {
+                                ?>
+                                    <div class="carousel-item h-100" data-bs-interval="4000">';
+                                        <img src="<?php echo $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="calanque de Marseille">
+                                    </div>
+                                <?php
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4 mt-3 col-lg-6">
-                            <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                                <div class="carousel-inner lodging-img">
-                                    <?php
-                                        echo '<div class="carousel-item h-100 active" data-bs-interval="5000">';
-                                            echo '<img src="'.$images[rand(0, $nbImg - 1)]['img'].'" class="d-block w-100 h-100" alt="pyramide du Louvre">';
-                                        echo '</div>';
-                                        foreach ($images as $image) {
-                                            echo '<div class="carousel-item h-100" data-bs-interval="5000">';
-                                                echo '<img src="'.$images[rand(0, $nbImg - 1)]['img'].'" class="d-block w-100 h-100" alt="calanque de Marseille">';
-                                            echo '</div>';
-                                        }
-                                    ?>
+                    <div class="col-md-4 mt-3 col-lg-6">
+                        <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                            <div class="carousel-inner lodging-img">
+                                <div class="carousel-item h-100 active" data-bs-interval="3000">
+                                    <img src="<?php $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="pyramide du Louvre">
                                 </div>
+                                <?php
+                                foreach ($images as $image) {
+                                ?>
+                                    <div class="carousel-item h-100" data-bs-interval="3000">
+                                        <img src="<?php echo $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="calanque de Marseille">
+                                    </div>
+                                <?php
+                                }
+                                ?>
                             </div>
                         </div>
-                        <div class="col-md-4 mt-3 col-lg-6">
-                            <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                                <div class="carousel-inner lodging-img">
-                                    <?php
-                                        echo '<div class="carousel-item active h-100" data-bs-interval="6000">';
-                                            echo '<img src="'.$images[rand(0, $nbImg - 1)]['img'].'" class="d-block w-100 h-100" alt="pyramide du Louvre">';
-                                        echo '</div>';
-                                        foreach ($images as $image) {
-                                            echo '<div class="carousel-item h-100" data-bs-interval="6000">';
-                                                echo '<img src="'.$images[rand(0, $nbImg - 1)]['img'].'" class="d-block w-100 h-100" alt="calanque de Marseille">';
-                                            echo '</div>';
-                                        }
-                                    ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mt-3 col-lg-6">
+                        <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                            <div class="carousel-inner lodging-img">
+                                <div class="carousel-item h-100 active" data-bs-interval="5000">
+                                    <img src="<?php echo $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="pyramide du Louvre">
                                 </div>
+                                <?php
+                                foreach ($images as $image) {
+                                ?>
+                                    <div class="carousel-item h-100" data-bs-interval="5000">
+                                        <img src="<?php $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="calanque de Marseille">
+                                    </div>
+                                <?php
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-3 col-lg-6">
+                        <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                            <div class="carousel-inner lodging-img">
+                                <div class="carousel-item active h-100" data-bs-interval="6000">
+                                    <img src="<?php echo $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="pyramide du Louvre">
+                                </div>
+                                <?php
+                                foreach ($images as $image) {
+                                ?>
+                                    <div class="carousel-item h-100" data-bs-interval="6000">
+                                        <img src="<?php $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="calanque de Marseille">
+                                    </div>
+                                <?php
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- end user lodging gallery -->
         </div>
+        <!-- end user lodging gallery -->
+    </div>
 
-        <div class="container mt-4">
-            <div class="row">
-                <div class="col-lg-8">
-                    <h2><?php echo $lodgingInfos['hname'].": ".$lodgingInfos['rname']?></h2>
-                    <small><?php echo "Capacité: ".$lodgingInfos['nb_traveler']." - Chambre(s): ".$lodgingInfos['nb_bedroom']." - Salle(s) de bain: ".$lodgingInfos['nb_bathroom']?></small>
-                    <hr>
-                    <p><?php echo $lodgingInfos['description']?></p>
-                    <hr>
-                    <small>Equipement(s): 
-                        <?php 
-                            if ($lodgingInfos['has_tv'] === 1) {
-                                echo " TV ";
-                            }
-                            if ($lodgingInfos['has_wifi'] === 1) {
-                                echo " Wifi ";
-                            }
-                            if ($lodgingInfos['has_kitchen'] === 1) {
-                                echo " Cuisine ";
-                            }
-                            if ($lodgingInfos['has_aircon'] === 1) {
-                                echo " Climatisation ";
-                            }
-                        ?>
-                    </small>
-                </div>
-                <div class="col-lg-4">
-                    <div class="card">
-                        <form method="post">
-                            <h3><?php echo $lodgingInfos['price']."€/ nuit"?></h3>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <label for="infoStartDate">Départ:</label><br>
-                                    <input type="date" id="infoStartDate" name="infoStartDate" min='<?= $currentDate; ?>' value='<?= $currentDate; ?>'/>
-                                </div>
-                                <div class="col-lg-6">
-                                    <label for="infoEndDate">Retour:</label><br>
-                                    <input type="date" id="infoEndDate" name="infoEndDate" min='<?= $currentDate; ?>' value='<?= $currentDate; ?>'/>
-                                </div>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2><?php echo $lodgingInfos['hname'] . ": " . $lodgingInfos['rname'] ?></h2>
+                <small><?php echo "Capacité: " . $lodgingInfos['nb_traveler'] . " - Chambre(s): " . $lodgingInfos['nb_bedroom'] . " - Salle(s) de bain: " . $lodgingInfos['nb_bathroom'] ?></small>
+                <hr>
+                <p><?php echo $lodgingInfos['description'] ?></p>
+                <hr>
+                <small>Equipement(s):
+                    <?php
+                    if ($lodgingInfos['has_tv'] === 1) {
+                        echo " TV ";
+                    }
+                    if ($lodgingInfos['has_wifi'] === 1) {
+                        echo " Wifi ";
+                    }
+                    if ($lodgingInfos['has_kitchen'] === 1) {
+                        echo " Cuisine ";
+                    }
+                    if ($lodgingInfos['has_aircon'] === 1) {
+                        echo " Climatisation ";
+                    }
+                    ?>
+                </small>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <form method="post">
+                        <h3><?php echo $lodgingInfos['price'] . "€/ nuit" ?></h3>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label for="infoStartDate">Départ:</label><br>
+                                <input type="date" id="infoStartDate" name="infoStartDate" min='<?= $currentDate; ?>' value='<?= $currentDate; ?>' />
                             </div>
-                            <div class="row">
-                                <div class="form-group">
-                                    <label for="selectTravelers">Voyageurs</label>
-                                    <select class="form-control" id="selectTravelers">
-                                        <?php
-                                            $capacityQuery = $dbh->query('SELECT * FROM capacity ORDER BY id');
-                                            $capacity= $capacityQuery->fetchAll(PDO::FETCH_ASSOC);
+                            <div class="col-lg-6">
+                                <label for="infoEndDate">Retour:</label><br>
+                                <input type="date" id="infoEndDate" name="infoEndDate" min='<?= $currentDate; ?>' value='<?= $currentDate; ?>' />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="selectTravelers">Voyageurs</label>
+                                <select class="form-control" id="selectTravelers">
+                                    <?php
+                                    $capacityQuery = $dbh->query('SELECT * FROM capacity ORDER BY id');
+                                    $capacity = $capacityQuery->fetchAll(PDO::FETCH_ASSOC);
 
-                                            foreach ($capacity as $row_capacity) {
-                                                echo '<option value="'.$row_capacity['id'].'">'.$row_capacity['nb_traveler'].'</option>';
-                                            }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row m-i">
-                                <button class="btn btn-danger btn-block" type="submit" name="booking">Réserver</button> 
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label col-10" for="pet_option"> Option animaux</label>
-                                <input class="form-check-input" type="checkbox" id="pet_option" name="pet_option">
-                                <span>+ 20€</span>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label col-10" for="cancel_option"> Assurance annulation</label>
-                                <input class="form-check-input" type="checkbox" id="cancel_option" name="cancel_option">
-                                <span>+ 2,5€</span>
-                            </div>
-                            <hr>
-                            <div>
-                                <span>Prix total: </span><span id="totalPrice"></span>
-                                <script>
-                                    function getPrice(infoStartDate, infoEndDate, price, petOption, cancelOption) {
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "_totalPrice.php",
-                                            data: {
-                                                infoStartDate: infoStartDate,
-                                                infoEndDate: infoEndDate,
-                                                price: price,
-                                                petOption: petOption ? 1 : 0,
-                                                cancelOption: cancelOption ? 1 : 0,
-                                            },
-                                            success: function(data) {
-                                                console.log("SUCCESS ", data);
-                                                $('#totalPrice').html(data);
-
-                                            },
-                                            error: function() {
-                                                console.log("Error ", data);
-                                                $('#totalPrice').html("Désolé, aucun résultat trouvé.");
-                                            }
-                                        })
+                                    foreach ($capacity as $row_capacity) {
+                                        echo '<option value="' . $row_capacity['id'] . '">' . $row_capacity['nb_traveler'] . '</option>';
                                     }
-
-                                    $(document).ready(function() {
-                                        $("#infoEndDate").change(function() {
-                                            getPrice(
-                                                $("#infoStartDate").val(),
-                                                $("#infoEndDate").val(),
-                                                <?php echo $lodgingInfos['price']; ?>,
-                                                document.getElementById("pet_option").checked,
-                                                document.getElementById("cancel_option").checked
-                                            );
-                                        })
-                                    })
-
-                                    $(document).ready(function() {
-                                        $("#pet_option").change(function() {
-                                            getPrice(
-                                                $("#infoStartDate").val(),
-                                                $("#infoEndDate").val(),
-                                                <?php echo $lodgingInfos['price']; ?>,
-                                                document.getElementById("pet_option").checked,
-                                                document.getElementById("cancel_option").checked 
-                                            );
-                                            console.log(document.getElementById("pet_option").checked);
-                                    
-                                        })
-                                    })
-                                    $(document).ready(function() {
-                                        $("#cancel_option").change(function() {
-                                            getPrice(
-                                                $("#infoStartDate").val(),
-                                                $("#infoEndDate").val(),
-                                                <?php echo $lodgingInfos['price']; ?>,
-                                                document.getElementById("pet_option").checked,
-                                                document.getElementById("cancel_option").checked
-                                            );
-                                            console.log(document.getElementById("cancel_option").checked);
-                                        })
-                                    })
-                                </script>
+                                    ?>
+                                </select>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="row m-i">
+                            <button class="btn btn-danger btn-block" type="submit" name="booking">Réserver</button>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label col-10" for="pet_option"> Option animaux</label>
+                            <input class="form-check-input" type="checkbox" id="pet_option" name="pet_option">
+                            <span>+ 20€</span>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label col-10" for="cancel_option"> Assurance annulation</label>
+                            <input class="form-check-input" type="checkbox" id="cancel_option" name="cancel_option">
+                            <span>+ 2,5€</span>
+                        </div>
+                        <hr>
+                        <div>
+                            <span>Prix total: </span><span id="totalPrice"></span>
+                            <script>
+                                function getPrice(infoStartDate, infoEndDate, price, petOption, cancelOption) {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "_totalPrice.php",
+                                        data: {
+                                            infoStartDate: infoStartDate,
+                                            infoEndDate: infoEndDate,
+                                            price: price,
+                                            petOption: petOption ? 1 : 0,
+                                            cancelOption: cancelOption ? 1 : 0,
+                                        },
+                                        success: function(data) {
+                                            console.log("SUCCESS ", data);
+                                            $('#totalPrice').html(data);
+
+                                        },
+                                        error: function() {
+                                            console.log("Error ", data);
+                                            $('#totalPrice').html("Désolé, aucun résultat trouvé.");
+                                        }
+                                    })
+                                }
+
+                                $(document).ready(function() {
+                                    $("#infoEndDate").change(function() {
+                                        getPrice(
+                                            $("#infoStartDate").val(),
+                                            $("#infoEndDate").val(),
+                                            <?php echo $lodgingInfos['price']; ?>,
+                                            document.getElementById("pet_option").checked,
+                                            document.getElementById("cancel_option").checked
+                                        );
+                                    })
+                                })
+
+                                $(document).ready(function() {
+                                    $("#pet_option").change(function() {
+                                        getPrice(
+                                            $("#infoStartDate").val(),
+                                            $("#infoEndDate").val(),
+                                            <?php echo $lodgingInfos['price']; ?>,
+                                            document.getElementById("pet_option").checked,
+                                            document.getElementById("cancel_option").checked
+                                        );
+                                        console.log(document.getElementById("pet_option").checked);
+
+                                    })
+                                })
+                                $(document).ready(function() {
+                                    $("#cancel_option").change(function() {
+                                        getPrice(
+                                            $("#infoStartDate").val(),
+                                            $("#infoEndDate").val(),
+                                            <?php echo $lodgingInfos['price']; ?>,
+                                            document.getElementById("pet_option").checked,
+                                            document.getElementById("cancel_option").checked
+                                        );
+                                        console.log(document.getElementById("cancel_option").checked);
+                                    })
+                                })
+                            </script>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        
-    </section>
+    </div>
 
-    <hr>
+</section>
+
+<hr>
 <?php
 require "footer.php";
 ?>

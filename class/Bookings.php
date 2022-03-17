@@ -11,4 +11,14 @@ class Bookings {
         $results = $stm->fetchAll(PDO::FETCH_ASSOC);
         return $results;
     }
+
+    /* public function getBookingDays (\DateTime $start, \DateTime $end): array
+    {
+        $bookingsMonth = $this->getBookingsBetween($start, $end);
+        $date = [];
+        foreach ($bookingsMonth as $bookingMonth) {
+            $date[]
+        }
+
+    } */
 }

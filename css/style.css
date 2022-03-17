@@ -11277,6 +11277,7 @@ a {
 
 .img-div:hover .middle {
   opacity: 1;
+}
 
 }
 .button-submit-search-bar {
@@ -11292,9 +11293,8 @@ a {
 .btn-secondary:hover {
   background-color: #379053;
   border-color: #379053;
-
 }
-  
+
 .calendar-othermonth {
   opacity: 0.3;
 }
@@ -11336,6 +11336,10 @@ a {
 
 .img-div:hover .middle {
   opacity: 1;
+}
+
+.booking {
+  background-color: red;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,35 +1,82 @@
 <?php
-$titleWeb = "Mes Réservation";
-require_once "header.php";
-require_once "class/Month.php";
-require_once "class/Bookings.php";
 
-$bookings = new Bookings;
-$month = new Month($_GET['month'] ?? null, $_GET['year'] ?? null);
-$start = $month->getStartingDay();
-$start = $start->format('N') === '1' ? $start : $month->getStartingDay()->modify('last monday');
-$weeks = $month->getWeeks();
-$end = (clone $start)->modify('+' . (6 + 7 * ($weeks - 1)). ' days');
-$bookings = $bookings->getBookingsBetween($start, $end);
-var_dump($bookings);
+$titleWeb = "Mes Réservations";
+require 'header.php';
+require_once '_secured.php';
+$user_id = $_SESSION['user_id'];
+
+
+$resaQueryFutur = "SELECT room.*, booking.* FROM booking INNER JOIN room ON booking.room_id = room.id WHERE booking.user_id =:userId AND start_date > NOW()";
+
+$stmFutur = $dbh->prepare($resaQueryFutur);
+$stmFutur->bindValue(":userId", $user_id, PDO::PARAM_INT);
+$stmFutur->execute();
+$futurResas = $stmFutur->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<h1><?= $month->toString() ?></h1>
-<div class="d-flex">
-    <a href="reservation.php?month=<?php echo $month->previousMonth()->month; ?>&year=<?php echo $month->previousMonth()->year; ?>" class="btn btn-secondary ms-3">&lt</a>
-    <a href="reservation.php?month=<?php echo $month->nextMonth()->month; ?>&year=<?php echo $month->nextMonth()->year; ?>" class="btn btn-secondary ms-3">&gt</a>
-</div>
-<table>
-    <?php for ($i = 0; $i < $weeks; $i++): ?>
-    <tr>
-        <?php foreach ($month->days as $k => $day):
-            $date = (clone $start)->modify("+" . ($k + $i * 7) . " days");
-            $bookingsC = $bookings[$date->format('Y-m-d')] ?? [];
+<section class="logements">
+    <h1>Mes Réservations</h1>
+    <a href="/reservation.php"><button type="button" class="btn btn-primary">À venir</button></a>
+    <a href="/historical.php"><button type="button" class="btn btn-secondary">Historique</button></a>
+    <h2 class="mt-5">Mes prochaines réservations</h2>
+    <div class="d-flex">
+        <div class="mx-1">
+            <?php
+
+            foreach ($futurResas as $futurResa) {
+
+                $startDate = new DateTime($futurResa['start_date']);
+                $endDate = new DateTime($futurResa['end_date']);
+
+                $lastestAddImgQuery = $dbh->query('SELECT * FROM image WHERE room_id =' . $futurResa['room_id'] . ' LIMIT 1');
+                $lastestAddImg = $lastestAddImgQuery->fetchall(PDO::FETCH_ASSOC);
+
+                foreach ($lastestAddImg as $row_lastestAddImg) {
+                    if ($row_lastestAddImg['room_id'] === $futurResa['room_id']) {
+
+                        echo '<img src="' . $row_lastestAddImg['img'] . '" alt="" class="card-img-top">';
+                    }
+                }
             ?>
-        <td class="<?php echo $month->withinMonth($date) ? '' : 'calendar-othermonth'; ?>">
-            <div><?php echo $date->format('d'); ?></div>
-        </td>
-    <?php endforeach; ?>        
-    </tr>
-    <?php endfor; ?>
-</table>
+                <div>
+                    <div><span><?php echo "Du " .  $startDate->format('d/m/Y') . " au " . $endDate->format('d/m/Y') . " - " . $futurResa['city'] ?></span></div>
+                    <div>
+                        <h2><?php echo $futurResa['title'] ?></h2>
+                    </div>
+                    <div class="equipments"><small><?php echo "Prix/nuit" . $futurResa['price'] . "€ - Chambre(s): " . $futurResa['nb_bedroom'] . " - Sdb(s): " . $futurResa['nb_bathroom'] ?></small></div>
+                    <small>Equipement(s):
+                        <?php
+
+                        if ($futurResa['has_tv'] === 1) {
+                            echo " TV ";
+                        }
+                        if ($futurResa['has_wifi'] === 1) {
+                            echo " Wifi ";
+                        }
+                        if ($futurResa['has_kitchen'] === 1) {
+                            echo " Cuisine ";
+                        }
+                        if ($futurResa['has_aircon'] === 1) {
+                            echo " Climatisation ";
+                        }
+                        ?>
+                        <br>
+                        <span style="padding-bottom: 50px;"><a href="modifyReservation.php?id=<?php echo $futurResa['id'] ?><button type=" button class="btn btn-secondary">Modifier</button></a></span>
+                        <span><a href="deleteReservation.php?id=<?php echo $futurResa['id']; ?>" onclick="return confirm('Etes vous sur ?');"><button type="button" class="btn btn-danger">Supprimer</button></a></span>
+                        <span>Prix: <?php echo $futurResa['total_price'] . "€" ?> </span>
+                    </small>
+                </div>
+                <hr>
+            <?php
+            }
+            ?>
+        </div>
+    </div>
+</section>
+
+
+
+
+<?php
+require_once 'footer.php';
+?>
