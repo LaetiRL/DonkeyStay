@@ -1,6 +1,8 @@
 <?php
+
 $titleWeb = "Mes logements";
-require "header.php";
+require_once 'header.php';
+require_once '_secured.php';
 $user_id = $_SESSION['user_id'];
 
 $lodgingQuery = $dbh->prepare("SELECT room.*,rname,hname,nb_traveler FROM room INNER JOIN roomtype ON roomtype.id = room.roomtype_id INNER JOIN hometype ON hometype.id = room.hometype_id INNER JOIN capacity ON capacity.id = room.capacity_id WHERE room.user_id =:userId");

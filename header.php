@@ -1,5 +1,5 @@
 <?php
-require_once "pdo.php";
+require_once 'pdo.php';
 
 if (isset($_POST['validate'])) {
     if (isset($_POST['email']) && isset($_POST['password'])) {
@@ -87,7 +87,7 @@ if (isset($_POST['validate'])) {
                         </li>
                         <li class="nav-item ms-auto">
                             <?php if (isset($_SESSION['name']) && !empty($_SESSION['name'])) {
-                                echo "<a class='nav-link active' href='#'>Mes Voyages</a>";
+                                echo "<a class='nav-link active' href='/reservation.php'>Mes Réservation</a>";
                             } ?>
                         </li>
                         <li class="nav-item ms-auto">
