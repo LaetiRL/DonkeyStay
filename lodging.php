@@ -15,55 +15,56 @@ $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
 
 <section class="logements">
     <h1 class="mt-5">Mes logements</h1>
-    <?php
-    foreach ($lodgings as $lodging) {
+    <div class="d-flex">
+        <div class="mx-1">
+            <?php
+            foreach ($lodgings as $lodging) {
 
-        echo '<div class="container">';
-        echo '<div class="d-flex">';
-        echo '<div class="mx-1">';
-        $lastestAddImgQuery = $dbh->query('SELECT * FROM image WHERE room_id =' . $lodging['id'] . ' LIMIT 1');
-        $lastestAddImg = $lastestAddImgQuery->fetchall(PDO::FETCH_ASSOC);
+                $lastestAddImgQuery = $dbh->query('SELECT * FROM image WHERE room_id =' . $lodging['id'] . ' LIMIT 1');
+                $lastestAddImg = $lastestAddImgQuery->fetchall(PDO::FETCH_ASSOC);
 
-        foreach ($lastestAddImg as $row_lastestAddImg) {
-            if ($row_lastestAddImg['room_id'] === $lodging['id']) {
+                foreach ($lastestAddImg as $row_lastestAddImg) {
+                    if ($row_lastestAddImg['room_id'] === $lodging['id']) {
 
-                echo '<img src="' . $row_lastestAddImg['img'] . '" alt="" class="card-img-top">';
+                        echo '<img src="' . $row_lastestAddImg['img'] . '" alt="" class="card-img-top">';
+                    }
+                }
+            ?>
+                <div>
+                    <div><span><?php echo $lodging['hname'] . " - " . $lodging['rname'] . " - " . $lodging['city'] ?></span></div>
+                    <div>
+                        <h2><?php echo $lodging['title'] ?></h2>
+                    </div>
+                    <div class="equipments"><small><?php echo $lodging['nb_traveler'] . " - Chambre(s): " . $lodging['nb_bedroom'] . " - Sdb(s): " . $lodging['nb_bathroom'] ?></small></div>
+                    <small>Equipement(s):
+                        <?php
+
+                        if ($lodging['has_tv'] === 1) {
+                            echo " TV ";
+                        }
+                        if ($lodging['has_wifi'] === 1) {
+                            echo " Wifi ";
+                        }
+                        if ($lodging['has_kitchen'] === 1) {
+                            echo " Cuisine ";
+                        }
+                        if ($lodging['has_aircon'] === 1) {
+                            echo " Climatisation ";
+                        }
+                        ?>
+                        <br>
+                        <span style="padding-bottom: 50px;"><button type="button" class="btn btn-secondary"><a href="modifyLodging.php?id=<?php echo $lodging['id'] ?>">Modifier</a></button></span>
+                        <span><button type="button" class="btn btn-danger"><a href="deleteLodging.php?id=<?php echo $lodging['id']; ?>" onclick="return confirm('Etes vous sur ?');">Supprimer</a></button></span>
+                        <span>Prix/nuit: <?php echo $lodging['price'] . "€" ?> </span>
+                    </small>
+                </div>
+                <hr>
+            <?php
             }
-        }
-    ?>
-        <div>
-            <div><span><?php echo $lodging['hname'] . " - " . $lodging['rname'] . " - " . $lodging['city'] ?></span></div>
-            <div><h2><?php echo $lodging['title'] ?></h2></div>
-            <div class="equipments"><small><?php echo $lodging['nb_traveler'] . " - Chambre(s): " . $lodging['nb_bedroom'] . " - Sdb(s): " . $lodging['nb_bathroom'] ?></small></div>
-            <small>Equipement(s):
-                <?php
-
-                    if ($lodging['has_tv'] === 1) {
-                        echo " TV ";
-                    }
-                    if ($lodging['has_wifi'] === 1) {
-                        echo " Wifi ";
-                    }
-                    if ($lodging['has_kitchen'] === 1) {
-                        echo " Cuisine ";
-                    }
-                    if ($lodging['has_aircon'] === 1) {
-                        echo " Climatisation ";
-                    }
-                ?>
-                <br>
-                <span style="padding-bottom: 50px;"><button type="button" class="btn btn-secondary"><a href="modifyLodging.php?id=<?php echo $lodging['id'] ?>">Modifier</a></button></span> 
-                <span><button type="button" class="btn btn-danger"><a href="deleteLodging.php?id=<?php echo $lodging['id']; ?>" onclick="return confirm('Etes vous sur ?');">Supprimer</a></button></span>
-                <span>Prix/nuit: <?php echo $lodging['price'] . "€" ?> </span>
-            </small>
+            ?>
+            <span><button type="button" class="btn btn-primary"><a href="addLodging.php">Ajouter un logement</a></button</span>
         </div>
-        <hr>
-    <?php
-    }
-    ?>
-    <span><button type="button" class="btn btn-primary"><a href="addLodging.php" >Ajouter un logement</a></button</span>
-       
-    
+    </div>
 </section>
 
 <?php

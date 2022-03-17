@@ -19,63 +19,64 @@ $futurResas = $stmFutur->fetchAll(PDO::FETCH_ASSOC);
     <a href="/reservation.php"><button type="button" class="btn btn-primary">À venir</button></a>
     <a href="/historical.php"><button type="button" class="btn btn-secondary">Historique</button></a>
     <h2 class="mt-5">Mes prochaines réservations</h2>
-    <?php
-    foreach ($futurResas as $futurResa) {
+    <div class="d-flex">
+        <div class="mx-1">
+            <?php
 
-        $startDate = new DateTime($futurResa['start_date']);
-        $endDate = new DateTime($futurResa['end_date']);
+            foreach ($futurResas as $futurResa) {
 
-        echo '<div class="container">';
-        echo '<div class="d-flex">';
-        echo '<div class="mx-1">';
-        $lastestAddImgQuery = $dbh->query('SELECT * FROM image WHERE room_id =' . $futurResa['room_id'] . ' LIMIT 1');
-        $lastestAddImg = $lastestAddImgQuery->fetchall(PDO::FETCH_ASSOC);
+                $startDate = new DateTime($futurResa['start_date']);
+                $endDate = new DateTime($futurResa['end_date']);
 
-        foreach ($lastestAddImg as $row_lastestAddImg) {
-            if ($row_lastestAddImg['room_id'] === $futurResa['room_id']) {
+                $lastestAddImgQuery = $dbh->query('SELECT * FROM image WHERE room_id =' . $futurResa['room_id'] . ' LIMIT 1');
+                $lastestAddImg = $lastestAddImgQuery->fetchall(PDO::FETCH_ASSOC);
 
-                echo '<img src="' . $row_lastestAddImg['img'] . '" alt="" class="card-img-top">';
+                foreach ($lastestAddImg as $row_lastestAddImg) {
+                    if ($row_lastestAddImg['room_id'] === $futurResa['room_id']) {
+
+                        echo '<img src="' . $row_lastestAddImg['img'] . '" alt="" class="card-img-top">';
+                    }
+                }
+            ?>
+                <div>
+                    <div><span><?php echo "Du " .  $startDate->format('d/m/Y') . " au " . $endDate->format('d/m/Y') . " - " . $futurResa['city'] ?></span></div>
+                    <div>
+                        <h2><?php echo $futurResa['title'] ?></h2>
+                    </div>
+                    <div class="equipments"><small><?php echo "Prix/nuit" . $futurResa['price'] . "€ - Chambre(s): " . $futurResa['nb_bedroom'] . " - Sdb(s): " . $futurResa['nb_bathroom'] ?></small></div>
+                    <small>Equipement(s):
+                        <?php
+
+                        if ($futurResa['has_tv'] === 1) {
+                            echo " TV ";
+                        }
+                        if ($futurResa['has_wifi'] === 1) {
+                            echo " Wifi ";
+                        }
+                        if ($futurResa['has_kitchen'] === 1) {
+                            echo " Cuisine ";
+                        }
+                        if ($futurResa['has_aircon'] === 1) {
+                            echo " Climatisation ";
+                        }
+                        ?>
+                        <br>
+                        <span style="padding-bottom: 50px;"><a href="modifyReservation.php?id=<?php echo $futurResa['id'] ?><button type=" button class="btn btn-secondary">Modifier</button></a></span>
+                        <span><a href="deleteReservation.php?id=<?php echo $futurResa['id']; ?>" onclick="return confirm('Etes vous sur ?');"><button type="button" class="btn btn-danger">Supprimer</button></a></span>
+                        <span>Prix: <?php echo $futurResa['total_price'] . "€" ?> </span>
+                    </small>
+                </div>
+                <hr>
+            <?php
             }
-        }
-    ?>
-        <div>
-            <div><span><?php echo $startDate->format('d/m/Y') . " - " . $endDate->format('d/m/Y') . " - " . $futurResa['city'] ?></span></div>
-            <div>
-                <h2><?php echo $futurResa['title'] ?></h2>
-            </div>
-            <div class="equipments"><small><?php echo "Prix/nuit" . $futurResa['price'] . "€ - Chambre(s): " . $futurResa['nb_bedroom'] . " - Sdb(s): " . $futurResa['nb_bathroom'] ?></small></div>
-            <small>Equipement(s):
-                <?php
-
-                if ($futurResa['has_tv'] === 1) {
-                    echo " TV ";
-                }
-                if ($futurResa['has_wifi'] === 1) {
-                    echo " Wifi ";
-                }
-                if ($futurResa['has_kitchen'] === 1) {
-                    echo " Cuisine ";
-                }
-                if ($futurResa['has_aircon'] === 1) {
-                    echo " Climatisation ";
-                }
-                ?>
-                <br>
-                <span style="padding-bottom: 50px;"><a href="modifyReservation.php?id=<?php echo $futurResa['id'] ?><button type="button class="btn btn-secondary">Modifier</button></a></span>
-                <span><a href="deleteReservation.php?id=<?php echo $futurResa['id']; ?>" onclick="return confirm('Etes vous sur ?');"><button type="button" class="btn btn-danger">Supprimer</button></a></span>
-                <span>Prix: <?php echo $futurResa['total_price'] . "€" ?> </span>
-            </small>
+            ?>
         </div>
-        <hr>
-    <?php
-    }
-    ?>
+    </div>
+</section>
 
 
 
 
-
-
-    <?php
-    require_once 'footer.php';
-    ?>
+<?php
+require_once 'footer.php';
+?>
