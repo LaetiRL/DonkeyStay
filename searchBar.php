@@ -38,11 +38,6 @@ require_once 'header.php';
         </div> <!-- / .container -->
 
         <!-- SearchBar -->
-        <?php
-
-        $currentDate = date('Y-m-d');
-        $minimumDepartureDate = date('Y-m-d', strtotime(date('Y-m-d') . ' + 1 days'));
-        ?>
         <div class="container search-bar">
             <div class="row">
                 <div class="col-sm-5">

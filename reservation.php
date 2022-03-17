@@ -6,7 +6,7 @@ require_once '_secured.php';
 $user_id = $_SESSION['user_id'];
 
 
-$resaQueryFutur = "SELECT room.*, booking.* FROM booking INNER JOIN room ON booking.room_id = room.id WHERE booking.user_id =:userId AND start_date > NOW()";
+$resaQueryFutur = "SELECT room.*, booking.* FROM booking INNER JOIN room ON booking.room_id = room.id WHERE booking.user_id =:userId AND end_date > NOW() ORDER BY start_date";
 
 $stmFutur = $dbh->prepare($resaQueryFutur);
 $stmFutur->bindValue(":userId", $user_id, PDO::PARAM_INT);
@@ -39,11 +39,11 @@ $futurResas = $stmFutur->fetchAll(PDO::FETCH_ASSOC);
                 }
             ?>
                 <div>
-                    <div><span><?php echo "Du " .  $startDate->format('d/m/Y') . " au " . $endDate->format('d/m/Y') . " - " . $futurResa['city'] ?></span></div>
+                    <div><?php echo "Du " .  $startDate->format('d/m/Y') . " au " . $endDate->format('d/m/Y') . " - " . $futurResa['city'] ?></div>
                     <div>
                         <h2><?php echo $futurResa['title'] ?></h2>
                     </div>
-                    <div class="equipments"><small><?php echo "Prix/nuit" . $futurResa['price'] . "€ - Chambre(s): " . $futurResa['nb_bedroom'] . " - Sdb(s): " . $futurResa['nb_bathroom'] ?></small></div>
+                    <div><small><?php echo "Prix/nuit : " . $futurResa['price'] . "€ - Chambre(s) : " . $futurResa['nb_bedroom'] . " - Sdb(s) : " . $futurResa['nb_bathroom'] ?></small></div>
                     <small>Equipement(s):
                         <?php
 
@@ -61,8 +61,8 @@ $futurResas = $stmFutur->fetchAll(PDO::FETCH_ASSOC);
                         }
                         ?>
                         <br>
-                        <span style="padding-bottom: 50px;"><a href="modifyReservation.php?id=<?php echo $futurResa['id'] ?><button type=" button class="btn btn-secondary">Modifier</button></a></span>
-                        <span><a href="deleteReservation.php?id=<?php echo $futurResa['id']; ?>" onclick="return confirm('Etes vous sur ?');"><button type="button" class="btn btn-danger">Supprimer</button></a></span>
+                        <span style="padding-bottom: 50px;"><a href="modifyReservation.php?id=<?php echo $futurResa['id']; ?>"><button type="button" class="btn btn-secondary">Modifier</button></a></span>
+                        <span><a href="deleteReservation.php?id=<?php echo $futurResa['id']; ?>" onclick="return confirm('Supprimer définitivement la réservation ?');"><button type="button" class="btn btn-danger">Supprimer</button></a></span>
                         <span>Prix: <?php echo $futurResa['total_price'] . "€" ?> </span>
                     </small>
                 </div>

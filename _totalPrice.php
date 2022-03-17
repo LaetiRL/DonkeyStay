@@ -28,5 +28,5 @@ function totalPrice($infoStartDate, $infoEndDate, $price) {
     return $totalPrice;
 }
 
-echo totalPrice($infoStartDate, $infoEndDate, $price)."€";
+echo totalPrice($infoStartDate, $infoEndDate, $price);
 

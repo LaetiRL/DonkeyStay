@@ -1,14 +1,16 @@
 <?php
-$titleWeb = 'En savoir plus';
-require_once 'searchBar.php';
+$titleWeb = 'Modifier ma Réservation';
+require_once 'header.php';
+require_once '_secured.php';
 
 $idUrl = $_GET['id'];
 
-$lodgingInfoQuery = $dbh->query("SELECT room.*,img,rname,hname,nb_traveler  FROM room INNER JOIN image ON image.room_id = room.id INNER JOIN roomtype ON roomtype.id = room.roomtype_id INNER JOIN hometype ON hometype.id = room.hometype_id INNER JOIN capacity ON capacity.id = room.capacity_id WHERE room.id = $idUrl");
+$lodgingInfoQuery = $dbh->query("SELECT booking.*, room.*,img,rname,hname,nb_traveler  FROM room INNER JOIN booking ON booking.room_id = room.id INNER JOIN image ON image.room_id = room.id INNER JOIN roomtype ON roomtype.id = room.roomtype_id INNER JOIN hometype ON hometype.id = room.hometype_id INNER JOIN capacity ON capacity.id = room.capacity_id WHERE booking.id = $idUrl");
 $lodgingInfos = $lodgingInfoQuery->fetch();
 
+$img = $lodgingInfos['room_id'];
 
-$imageQuery = $dbh->query("SELECT * FROM image WHERE room_id = $idUrl ORDER BY RAND()");
+$imageQuery = $dbh->query("SELECT * FROM image WHERE room_id = $img ORDER BY RAND()");
 $images = $imageQuery->fetchAll(PDO::FETCH_ASSOC);
 $nbImg = count($images);
 
@@ -16,7 +18,7 @@ $startDispo = new DateTime($lodgingInfos['start_dispo']);
 $endDispo = new DateTime($lodgingInfos['end_dispo']);
 
 ?>
-<section>
+<section class="logements">
     <div class="container">
         <h1><?php echo $lodgingInfos['title'] ?></h1>
         <small><?php echo $lodgingInfos['city'] . ", disponible du " . $startDispo->format('d/m/Y') . " au " . $endDispo->format('d/m/Y') ?></small>
@@ -108,9 +110,7 @@ $endDispo = new DateTime($lodgingInfos['end_dispo']);
     </div>
     <?php
 
-if (isset($_POST['booking']) && !isset($_SESSION['name'])) {
-    $error = " * Veuillez vous connecter";
-}
+
 if (isset($_POST['booking']) && isset($_SESSION['name'])) {
     $user_id = $_SESSION['user_id'];
     $room_id = $lodgingInfos['id'];
@@ -128,18 +128,19 @@ if (isset($_POST['booking']) && isset($_SESSION['name'])) {
 
     if ($total_price != 0 && isset($_SESSION['user_id'])) {
 
-        $queryBooking = $dbh->prepare("INSERT INTO booking (`user_id`, `room_id`, `start_date`, `end_date`, `nb_person`,`total_price`, `booking_date`, `create_date`, `update_date`, `pet_option`, `cancel_option`) VALUES ($user_id, $room_id, :start_date, :end_date, :travelers, :total_price, NOW(), NOW(), NOW(), :pet_option, :cancel_option)");
+        $queryBooking = $dbh->prepare("UPDATE booking SET start_date =:start_date, end_date =:end_date, nb_person =:travelers, total_price =:total_price, update_date = NOW(), pet_option =:pet_option, cancel_option =:cancel_option WHERE id =:idUrl");
 
         $queryBooking->bindValue(":start_date", $start_date, PDO::PARAM_STR);
         $queryBooking->bindValue(":end_date", $end_date, PDO::PARAM_STR);
         $queryBooking->bindValue(":travelers", $travelers, PDO::PARAM_INT);
         $queryBooking->bindValue(":total_price", $total_price, PDO::PARAM_STR);
+        $queryBooking->bindValue(":idUrl", $idUrl, PDO::PARAM_INT);
         $queryBooking->bindValue(":pet_option", $pet_option, PDO::PARAM_INT);
         $queryBooking->bindValue(":cancel_option", $cancel_option, PDO::PARAM_INT);
 
         $queryBooking->execute();
 
-        echo "<script type='text/javascript'>document.location.replace('index.php');</script>";
+        echo "<script type='text/javascript'>document.location.replace('reservation.php');</script>";
     }
 }
 
@@ -177,11 +178,11 @@ if (isset($_POST['booking']) && isset($_SESSION['name'])) {
                         <div class="row">
                             <div class="col-lg-6">
                                 <label for="infoStartDate">Départ:</label><br>
-                                <input type="date" id="infoStartDate" name="infoStartDate" min='<?= $currentDate; ?>' value='<?= $currentDate; ?>' />
+                                <input type="date" id="infoStartDate" name="infoStartDate" min='<?= $currentDate; ?>' value='<?= $lodgingInfos['start_date'] ?>' />
                             </div>
                             <div class="col-lg-6">
                                 <label for="infoEndDate">Retour:</label><br>
-                                <input type="date" id="infoEndDate" name="infoEndDate" min='<?= $currentDate; ?>' value='<?= $currentDate; ?>' />
+                                <input type="date" id="infoEndDate" name="infoEndDate" min='<?= $currentDate; ?>' value='<?= $lodgingInfos['end_date'] ?>' />
                             </div>
                         </div>
                         <div class="row">
@@ -201,20 +202,21 @@ if (isset($_POST['booking']) && isset($_SESSION['name'])) {
                         </div>
                         <div class="form-check">
                             <label class="form-check-label col-10" for="pet_option"> Option animaux</label>
-                            <input class="form-check-input" type="checkbox" id="pet_option" name="pet_option">
+                            <input class="form-check-input" type="checkbox" id="pet_option" name="pet_option" <?php if ($lodgingInfos['pet_option'] == 1) { ?> checked <?php } ?>>
                             <span>+ 20€</span>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label col-10" for="cancel_option"> Assurance annulation</label>
-                            <input class="form-check-input" type="checkbox" id="cancel_option" name="cancel_option">
+                            <input class="form-check-input" type="checkbox" id="cancel_option" name="cancel_option" <?php if ($lodgingInfos['cancel_option'] == 1) { ?> checked <?php } ?>>
                             <span>+ 2,5€</span>
                         </div>
                         <div class="row m-i">
-                            <button class="btn btn-danger btn-block" type="submit" name="booking" onclick="return confirm('Valider la réservation ?');">Réserver</button>
+                            <button class="btn btn-danger btn-block" type="submit" name="booking" onclick="return confirm('Valider la réservation ?');">Modifier</button>
                         </div>
                         <hr>
+                        <div>Prix total avant modification : <?php echo $lodgingInfos['total_price'] ?> €</div>
                         <div>
-                            <span>Prix total: </span><span id="totalPrice"></span>
+                            <span>Prix total après modification : </span><span id="totalPrice"></span>
                             <script>
                                 function getPrice(infoStartDate, infoEndDate, price, petOption, cancelOption) {
                                     $.ajax({

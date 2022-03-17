@@ -8,7 +8,6 @@ if (isset($_POST['search'])) {
         echo "Veuillez remplir au moins 1 champs";
     } else {
 ?>
-
         <section>
             <div>
                 <div class="container">
@@ -59,20 +58,21 @@ if (isset($_POST['search'])) {
 
                         foreach ($rooms as $room) {
 
-                            $lastestAddImgQuery = $dbh->query('SELECT * FROM image WHERE room_id =' . $room['id'] . ' LIMIT 1');
-                            $lastestAddImg = $lastestAddImgQuery->fetchall(PDO::FETCH_ASSOC);
+                            $startDateSearch = new DateTime($room['start_dispo']);
+                            $endDateSearch = new DateTime($room['end_dispo']);
+                            
+                            $ImgSearchQuery = $dbh->query('SELECT * FROM image WHERE room_id =' . $room['id'] . ' LIMIT 1');
+                            $ImgSearchList = $ImgSearchQuery->fetchall(PDO::FETCH_ASSOC);
                         ?>
 
                             <div class="col-lg-3 mb-3">
                                 <div class="card">
 
                                     <?php
-                                    foreach ($lastestAddImg as $row_lastestAddImg) {
-                                        if ($row_lastestAddImg['room_id'] === $room['id']) {
-                                    ?>
+                                    foreach ($ImgSearchList as $ImgSearch) {
+                                        if ($ImgSearch['room_id'] === $room['id']) {
 
-                                            <img src="<?php $row_lastestAddImg['img'] ?>" alt="" class="card-img-top">
-                                    <?php
+                                            echo '<img src="' . $ImgSearch['img'] . '" alt="" class="card-img-top">';
                                         }
                                     }
                                     ?>
@@ -80,7 +80,8 @@ if (isset($_POST['search'])) {
                                     <small><?php echo $room['rname'] . ' - ' . $room['nb_traveler'] . ' - ' . $room['city'] ?></small>
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo $room['title'] ?></h5>
-                                        <p class="card-text"><?php $room['price'] . '€ / nuit' ?></p>
+                                        <p><?php echo "Disponibilités : <br>" . $startDateSearch->format('d/m/Y') . " au " .  $endDateSearch->format('d/m/Y') ?></p>
+                                        <p class="card-text"><?php echo $room['price'] . '€ / nuit' ?></p>
                                         <a href="lodging_info.php?id=<?php echo $room['id'] ?>" class="btn btn-outline-success btn-sm">Voir</a>
 
                                     </div>
@@ -107,6 +108,9 @@ if (isset($_POST['search'])) {
 
                         foreach ($lastestAdd as $row_lastestAdd) {
 
+                            $startDateAdd = new DateTime($row_lastestAdd['start_dispo']);
+                            $endDateAdd = new DateTime($row_lastestAdd['end_dispo']);
+
                             $lastestAddImgQuery = $dbh->query('SELECT * FROM image WHERE room_id =' . $row_lastestAdd['id'] . ' LIMIT 1');
                             $lastestAddImg = $lastestAddImgQuery->fetchall(PDO::FETCH_ASSOC);
                         ?>
@@ -126,6 +130,7 @@ if (isset($_POST['search'])) {
                                     <small><?php echo $row_lastestAdd['rname'] . ' - ' . $row_lastestAdd['nb_traveler'] . ' - ' . $row_lastestAdd['city'] ?></small>
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo $row_lastestAdd['title'] ?></h5>
+                                        <p><?php echo "Disponibilités : <br>" . $startDateAdd->format('d/m/Y') . " au " .  $endDateAdd->format('d/m/Y') ?></p>
                                         <p class="card-text"><?php echo $row_lastestAdd['price'] . '€ / nuit ' ?></p>
                                         <a href="lodging_info.php?id=<?php echo $row_lastestAdd['id'] ?>" class="btn btn-outline-success btn-sm">Voir</a>
 

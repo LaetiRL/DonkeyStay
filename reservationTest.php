@@ -16,8 +16,8 @@ var_dump($bookings);
 
 <h1><?= $month->toString() ?></h1>
 <div class="d-flex">
-    <a href="reservation.php?month=<?php echo $month->previousMonth()->month; ?>&year=<?php echo $month->previousMonth()->year; ?>" class="btn btn-secondary ms-3">&lt</a>
-    <a href="reservation.php?month=<?php echo $month->nextMonth()->month; ?>&year=<?php echo $month->nextMonth()->year; ?>" class="btn btn-secondary ms-3">&gt</a>
+    <a href="reservationTest.php?month=<?php echo $month->previousMonth()->month; ?>&year=<?php echo $month->previousMonth()->year; ?>" class="btn btn-secondary ms-3">&lt</a>
+    <a href="reservationTest.php?month=<?php echo $month->nextMonth()->month; ?>&year=<?php echo $month->nextMonth()->year; ?>" class="btn btn-secondary ms-3">&gt</a>
 </div>
 <table>
     <th>L</th>
