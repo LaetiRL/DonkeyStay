@@ -1,10 +1,7 @@
 <?php
 $titleWeb = 'Modifier un livre';
 require_once 'header.php';
-
-if(!isset($_SESSION['name'])) {
-    echo "<script type='text/javascript'>document.location.replace('index.php');</script>";
-}
+require_once '_secured.php';
 
 $lodgingId = $_GET['id'];
 

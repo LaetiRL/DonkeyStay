@@ -1,10 +1,7 @@
 <?php
 $titleWeb = "Ajouter un logement";
 require_once "header.php";
-
-if(!isset($_SESSION['name'])) {
-    echo "<script type='text/javascript'>document.location.replace('index.php');</script>";
-}
+require_once '_secured.php';
 
 $has_tv = 0;
 $has_wifi = 0;
