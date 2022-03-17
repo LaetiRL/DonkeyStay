@@ -53,8 +53,8 @@ $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
                         }
                         ?>
                         <br>
-                        <span style="padding-bottom: 50px;"><button type="button" class="btn btn-secondary"><a href="modifyLodging.php?id=<?php echo $lodging['id'] ?>">Modifier</a></button></span>
-                        <span><button type="button" class="btn btn-danger"><a href="deleteLodging.php?id=<?php echo $lodging['id']; ?>" onclick="return confirm('Etes vous sur ?');">Supprimer</a></button></span>
+                        <span style="padding-bottom: 50px;"><a href="modifyLodging.php?id=<?php echo $lodging['id'] ?>"><button type="button" class="btn btn-secondary">Modifier</button></a></span>
+                        <span><a href="deleteLodging.php?id=<?php echo $lodging['id']; ?>" onclick="return confirm('Supprimer définitivement le logement ?');"><button type="button" class="btn btn-danger">Supprimer</button></a></span>
                         <span>Prix/nuit: <?php echo $lodging['price'] . "€" ?> </span>
                     </small>
                 </div>
@@ -62,7 +62,7 @@ $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
             <?php
             }
             ?>
-            <span><button type="button" class="btn btn-primary"><a href="addLodging.php">Ajouter un logement</a></button</span>
+            <span><a href="addLodging.php"><button type="button" class="btn btn-primary">Ajouter un logement</button></a></span>
         </div>
     </div>
 </section>

@@ -178,7 +178,7 @@ if (isset($_POST['modify'])) {
 
 ?>
 
-<section>
+<section class="logements">
     <h1>Modifier un logement</h1>
     <hr>
     <form method="POST" class="d-flex j-c" enctype="multipart/form-data">
