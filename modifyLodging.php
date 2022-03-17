@@ -33,7 +33,7 @@ foreach ($lodgings as $lodging) :
     $lodgingStartDispo = $lodging->start_dispo;
     $lodgingEndDispo = $lodging->end_dispo;
     $lodgingPrice = $lodging->price;
-    $lodgingImg = $lodging->img;
+   //$lodgingImg = $lodging->img;
 endforeach;
 
 if (isset($_POST['modify'])) {
@@ -41,7 +41,6 @@ if (isset($_POST['modify'])) {
     $roomTypeId = $_POST['room_type'];
     $userId = $_SESSION['user_id'];
     $title = $_POST['title'];
-    $img = $_POST['img'];
     $adress = $_POST['adress'];
     $city = $_POST['city'];
     $description = $_POST['description'];
@@ -87,37 +86,97 @@ if (isset($_POST['modify'])) {
     } else {
         $has_aircon = 0;
     }
+    
+    if (count($_FILES['img']['name']) < 5) {
+        $imgErr = " * minimum 5 images";
+    } elseif (count($_FILES['img']['name']) > 19)  {
+        $imgErr = " * maximum 20 images";
+    }
 
-    $queryUpdate = $dbh->prepare("UPDATE room SET roomtype_id =:roomTypeId, hometype_id =:homeTypeId, title =:title, capacity_id =:capacity_id, nb_bedroom =:nb_bedroom, nb_bathroom =:nb_bathroom, description =:description, has_tv =:has_tv, has_wifi =:has_wifi, has_kitchen =:has_kitchen, has_aircon =:has_aircon, adress =:adress, city =:city, start_dispo =:start_dispo, end_dispo =:end_dispo, price =:price WHERE id =:lodgingId");
+    if (
+        !isset($titleErr) && !isset($imgErr) && !isset($capacityErr)
+        && !isset($nb_bedroomErr) && !isset($nb_bathroomErr) && !isset($descriptionErr)
+        && !isset($adressErr) && !isset($cityErr) && !isset($start_dispoErr)
+        && !isset($end_dispoErr) && !isset($priceErr)
+    ) {
 
-    $queryUpdate->bindValue(":roomTypeId", $roomTypeId, PDO::PARAM_INT);
-    $queryUpdate->bindValue(":homeTypeId", $homeTypeId, PDO::PARAM_INT);
-    $queryUpdate->bindValue(":title", $title, PDO::PARAM_STR);
-    $queryUpdate->bindValue(":capacity_id", $capacity_id, PDO::PARAM_INT);
-    $queryUpdate->bindValue(":nb_bedroom", $nb_bedroom, PDO::PARAM_INT);
-    $queryUpdate->bindValue(":nb_bathroom", $nb_bathroom, PDO::PARAM_INT);
-    $queryUpdate->bindValue(":description", $description, PDO::PARAM_STR);
-    $queryUpdate->bindValue(":has_tv", $has_tv, PDO::PARAM_STR);
-    $queryUpdate->bindValue(":has_wifi", $has_wifi, PDO::PARAM_STR);
-    $queryUpdate->bindValue(":has_kitchen", $has_kitchen, PDO::PARAM_STR);
-    $queryUpdate->bindValue(":has_aircon", $has_aircon, PDO::PARAM_STR);
-    $queryUpdate->bindValue(":adress", $adress, PDO::PARAM_STR);
-    $queryUpdate->bindValue(":city", $city, PDO::PARAM_STR);
-    $queryUpdate->bindValue(":start_dispo", $start_dispo, PDO::PARAM_STR);
-    $queryUpdate->bindValue(":end_dispo", $end_dispo, PDO::PARAM_STR);
-    $queryUpdate->bindValue(":price", $price, PDO::PARAM_STR);
-    $queryUpdate->bindValue(":lodgingId", $lodgingId, PDO::PARAM_INT);
+        $queryUpdate = $dbh->prepare("UPDATE room SET roomtype_id =:roomTypeId, hometype_id =:homeTypeId, title =:title, capacity_id =:capacity_id, nb_bedroom =:nb_bedroom, nb_bathroom =:nb_bathroom, description =:description, has_tv =:has_tv, has_wifi =:has_wifi, has_kitchen =:has_kitchen, has_aircon =:has_aircon, adress =:adress, city =:city, start_dispo =:start_dispo, end_dispo =:end_dispo, price =:price WHERE id =:lodgingId");
 
-    $queryUpdate->execute();
+        $queryUpdate->bindValue(":roomTypeId", $roomTypeId, PDO::PARAM_INT);
+        $queryUpdate->bindValue(":homeTypeId", $homeTypeId, PDO::PARAM_INT);
+        $queryUpdate->bindValue(":title", $title, PDO::PARAM_STR);
+        $queryUpdate->bindValue(":capacity_id", $capacity_id, PDO::PARAM_INT);
+        $queryUpdate->bindValue(":nb_bedroom", $nb_bedroom, PDO::PARAM_INT);
+        $queryUpdate->bindValue(":nb_bathroom", $nb_bathroom, PDO::PARAM_INT);
+        $queryUpdate->bindValue(":description", $description, PDO::PARAM_STR);
+        $queryUpdate->bindValue(":has_tv", $has_tv, PDO::PARAM_STR);
+        $queryUpdate->bindValue(":has_wifi", $has_wifi, PDO::PARAM_STR);
+        $queryUpdate->bindValue(":has_kitchen", $has_kitchen, PDO::PARAM_STR);
+        $queryUpdate->bindValue(":has_aircon", $has_aircon, PDO::PARAM_STR);
+        $queryUpdate->bindValue(":adress", $adress, PDO::PARAM_STR);
+        $queryUpdate->bindValue(":city", $city, PDO::PARAM_STR);
+        $queryUpdate->bindValue(":start_dispo", $start_dispo, PDO::PARAM_STR);
+        $queryUpdate->bindValue(":end_dispo", $end_dispo, PDO::PARAM_STR);
+        $queryUpdate->bindValue(":price", $price, PDO::PARAM_STR);
+        $queryUpdate->bindValue(":lodgingId", $lodgingId, PDO::PARAM_INT);
 
-    $queryUpdateImg = $dbh->prepare("UPDATE image SET img =:img WHERE room_id =:lodgingId");
+        $queryUpdate->execute();
 
-    $queryUpdateImg->bindValue(":img", $img, PDO::PARAM_STR);
-    $queryUpdateImg->bindValue(":lodgingId", $lodgingId, PDO::PARAM_INT);
+       /*  $queryUpdateImg = $dbh->prepare("UPDATE image SET img =:img WHERE room_id =:lodgingId");
 
-    $queryUpdateImg->execute();
+        $queryUpdateImg->bindValue(":img", $img, PDO::PARAM_STR);
+        $queryUpdateImg->bindValue(":lodgingId", $lodgingId, PDO::PARAM_INT);
 
-    echo "<script type='text/javascript'>document.location.replace('lodging.php');</script>";
+        $queryUpdateImg->execute(); */
+
+        $targetDir = "img/logements/"; 
+        $allowTypes = array('jpg','png','jpeg');
+
+        $statusMsg = $errorMsg = $insertValuesSQL = $errorUpload = $errorUploadType = ''; 
+        $fileNames = array_filter($_FILES['img']['name']);
+
+        $selectImgQuery = $dbh->query("SELECT * FROM image");
+        $selectImg = $selectImgQuery->fetchAll(PDO::FETCH_ASSOC);
+        
+        foreach($selectImg as $selectImgRow){
+            if ($selectImgRow['room_id'] === $lodgingId) {
+                $deleteImgQuery = $dbh->query("DELETE FROM image WHERE room_id = $lodgingId");   
+            }
+        }
+    
+        if(!empty($fileNames)){ 
+            foreach($_FILES['img']['name'] as $key=>$val){ 
+                // File upload path 
+                $fileName = basename($_FILES['img']['name'][$key]); 
+                $targetFilePath = $targetDir . $fileName; 
+                
+                // Check whether file type is valid 
+                $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION); 
+                if(in_array($fileType, $allowTypes)){ 
+                // Upload file to server 
+                    if(move_uploaded_file($_FILES["img"]["tmp_name"][$key], $targetFilePath)){ 
+                        // Image db insert sql 
+                        $insertValuesSQL .= "('".$targetDir.$fileName."',".$lodgingId."),"; 
+                    }else{ 
+                        $imgErr = $_FILES['img']['name'][$key].' | '."Erreur lors du téléversement"; 
+                    }  
+                }else{ 
+                    $imgErr = ' '.$_FILES['img']['name'][$key].' | '."Format d'image invalide. Formats attendus: jpg, jpeg, png."; 
+                    return $imgErr;
+                }   
+            } 
+            
+            if(!empty($insertValuesSQL) && !isset($imgErr)){ 
+                $insertValuesSQL = trim($insertValuesSQL, ','); 
+                // Insert image file name into database 
+                $insert = $dbh->query("INSERT INTO image (img, room_id) VALUES $insertValuesSQL"); 
+                if($insert === false){ 
+                    $imgErr = "Désolé, l'insertion dans la base de données à échouée"; 
+                }
+            }
+        }
+        echo "<script type='text/javascript'>document.location.replace('lodging.php');</script>";
+    }
 }
 
 ?>
@@ -125,7 +184,7 @@ if (isset($_POST['modify'])) {
 <section>
     <h1>Modifier un logement</h1>
     <hr>
-    <form method="POST" class="d-flex j-c">
+    <form method="POST" class="d-flex j-c" enctype="multipart/form-data">
         <div class="div-addform">
             <div class="row">
                 <div class="col">
@@ -134,11 +193,25 @@ if (isset($_POST['modify'])) {
                 </div>
             </div>
             <div class="row">
-                <div class="col">
-                    <label for="img">Images</label>
-                    <input type="text" class="form-control" id="img" name="img" value="<?php echo $lodgingImg ?>">
+                <div class="container-fluid">
+                    <div class="col">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label for="img">Images</label><small class="error" id="imgErr"><?php if(isset($imgErr)) {echo $imgErr;}; if(isset($statusMsg)) {echo $statusMsg;}?></small>
+                                    <input type="file" name="img[]" id="img" multiple class="form-control" >
+                                </div>
+                                <div class="form-group">
+                                    <div id="image_preview"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <script src="_preview.js"></script>
             </div>
+            <!-- <label for="img">Images</label>
+            <input type="text" class="form-control" id="img" name="img" value="<?php echo $lodgingImg ?>"> -->
             <div class="row">
                 <div class="col">
                     <label for="home_type">Logement</label>

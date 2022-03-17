@@ -6,13 +6,25 @@ $(document).ready(function () {
 
 		$('#image_preview').html("");
 		var total_file = document.getElementById("img").files;
+		console.log(total_file[0].name);
+	
 		if (!total_file.length) return;
 		for (var i = 0; i < total_file.length; i++) {
 			if (total_file.length > 20 || total_file.length < 5) {
 				return false;
 			} else {
-				fileArr.push(total_file[i]);
-				$('#image_preview').append("<div class='img-div' id='img-div" + i + "'><img src='" + URL.createObjectURL(event.target.files[i]) + "' class='img-responsive image img-thumbnail' title='" + total_file[i].name + "'><div class='middle'><button id='action-icon' value='img-div" + i + "' class='btn btn-danger' role='" + total_file[i].name + "'><i class='fa fa-trash'></i></button></div></div>");
+			
+				let ext = $("#img").val().split('.').pop();
+				if (ext === 'jpg' || ext === 'jpeg' || ext === 'png') {
+					fileArr.push(total_file[i]);
+					$('#image_preview').append("<div class='img-div' id='img-div" + i + "'><img src='" + URL.createObjectURL(event.target.files[i]) + "' class='img-responsive image img-thumbnail' title='" + total_file[i].name + "'><div class='middle'><button id='action-icon' value='img-div" + i + "' class='btn btn-danger' role='" + total_file[i].name + "'><i class='fa fa-trash'></i></button></div></div>");
+				} else {
+					let message = document.querySelector('#imgErr');
+					message.textContent = " * Format d'image invalide. Formats attendus: jpg, jpeg, png.";
+					setTimeout(function () {
+						$("#imgErr").hide();
+					}, 10000);
+				}
 			}
 		}
 	});

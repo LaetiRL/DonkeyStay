@@ -21,11 +21,6 @@ if (isset($_POST['add']) && isset($_SESSION['name'])) {
     } else {
         $titleErr = " * champ obligatoire";
     }
-    /* if (!empty($_POST['img'])) {
-        $img = $_POST['img'];
-    } else {
-        $imgErr = " * champ obligatoire";
-    } */
     if (!empty($_POST['capacity']) && is_numeric($_POST['capacity'])) {
         $capacity_id = $_POST['capacity'];
     } elseif (empty($_POST['capacity'])) {
@@ -96,30 +91,8 @@ if (isset($_POST['add']) && isset($_SESSION['name'])) {
     } elseif (count($_FILES['img']['name']) > 19)  {
         $imgErr = " * maximum 20 images";
     }
-
-    $targetDir = "img/logements/"; 
-    $allowTypes = array('jpg','png','jpeg'); 
-
-    $statusMsg = $errorMsg = $insertValuesSQL = $errorUpload = $errorUploadType = ''; 
-    $fileNames = array_filter($_FILES['img']['name']); 
-
-    if(!empty($fileNames)){
-        foreach($_FILES['img']['name'] as $key=>$val){ 
-            // File upload path 
-            $fileName = basename($_FILES['img']['name'][$key]); 
-            $targetFilePath = $targetDir . $fileName; 
-            
-            // Check whether file type is valid 
-            $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION); 
-            if(in_array($fileType, $allowTypes)){ 
-                // Upload file to server 
-                
-            }else{ 
-                $imgErr = ' '.$_FILES['img']['name'][$key].' | '."Format d'image invalide. Formats attendus: jpg, jpeg, png."; 
-            } 
-        } 
-    }
-
+    
+    
     
     if (
         !isset($titleErr) && !isset($imgErr) && !isset($capacityErr)
@@ -150,15 +123,35 @@ if (isset($_POST['add']) && isset($_SESSION['name'])) {
 
         $queryInsert->execute();
 
-        $room_id = $dbh->lastInsertId();        
+        $room_id = $dbh->lastInsertId();
+
+        $targetDir = "img/logements/"; 
+        $allowTypes = array('jpg','png','jpeg');
+
+        $statusMsg = $errorMsg = $insertValuesSQL = $errorUpload = $errorUploadType = ''; 
+        $fileNames = array_filter($_FILES['img']['name']);   
+            
         
         if(!empty($fileNames)){ 
-           
-            if(move_uploaded_file($_FILES["img"]["tmp_name"][$key], $targetFilePath)){ 
-                // Image db insert sql 
-                $insertValuesSQL .= "('".$targetDir.$fileName."',".$room_id."),"; 
-            }else{ 
-                $imgErr = $_FILES['img']['name'][$key].' | '."Erreur lors du téléversement"; 
+            foreach($_FILES['img']['name'] as $key=>$val){ 
+                // File upload path 
+                $fileName = basename($_FILES['img']['name'][$key]); 
+                $targetFilePath = $targetDir . $fileName; 
+                
+                // Check whether file type is valid 
+                $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION); 
+                if(in_array($fileType, $allowTypes)){ 
+                // Upload file to server 
+                    if(move_uploaded_file($_FILES["img"]["tmp_name"][$key], $targetFilePath)){ 
+                        // Image db insert sql 
+                        $insertValuesSQL .= "('".$targetDir.$fileName."',".$room_id."),"; 
+                    }else{ 
+                        $imgErr = $_FILES['img']['name'][$key].' | '."Erreur lors du téléversement"; 
+                    }  
+                }else{ 
+                    $imgErr = ' '.$_FILES['img']['name'][$key].' | '."Format d'image invalide. Formats attendus: jpg, jpeg, png."; 
+                    return $imgErr;
+                }   
             } 
             
             if(!empty($insertValuesSQL) && !isset($imgErr)){ 
@@ -166,7 +159,7 @@ if (isset($_POST['add']) && isset($_SESSION['name'])) {
                 // Insert image file name into database 
                 $insert = $dbh->query("INSERT INTO image (img, room_id) VALUES $insertValuesSQL"); 
                 if($insert === false){ 
-                    $imgErr = "Désolé, l'insertion dans la database à échouée"; 
+                    $imgErr = "Désolé, l'insertion dans la base de données à échouée"; 
                 }
             }
         }
