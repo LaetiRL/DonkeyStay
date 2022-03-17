@@ -24,11 +24,11 @@ $PastResas = $stmPast->fetchAll(PDO::FETCH_ASSOC);
         echo '<div class="container">';
         echo '<div class="d-flex">';
         echo '<div class="mx-1">';
-        $lastestAddImgQuery = $dbh->query('SELECT * FROM image WHERE room_id =' . $PastResa['id'] . ' LIMIT 1');
+        $lastestAddImgQuery = $dbh->query('SELECT * FROM image WHERE room_id =' . $PastResa['room_id'] . ' LIMIT 1');
         $lastestAddImg = $lastestAddImgQuery->fetchall(PDO::FETCH_ASSOC);
 
         foreach ($lastestAddImg as $row_lastestAddImg) {
-            if ($row_lastestAddImg['room_id'] === $PastResa['id']) {
+            if ($row_lastestAddImg['room_id'] === $PastResa['room_id']) {
 
                 echo '<img src="' . $row_lastestAddImg['img'] . '" alt="" class="card-img-top">';
             }
