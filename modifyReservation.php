@@ -1,6 +1,6 @@
 <?php
 $titleWeb = 'Modifier ma Réservation';
-require_once 'header.php';
+require_once 'searchBar.php';
 require_once '_secured.php';
 
 $idUrl = $_GET['id'];
@@ -24,7 +24,7 @@ $endDispo = new DateTime($lodgingInfos['end_dispo']);
         <small><?php echo $lodgingInfos['city'] . ", disponible du " . $startDispo->format('d/m/Y') . " au " . $endDispo->format('d/m/Y') ?></small>
         <!-- start user lodging gallery -->
         <div class="row">
-            <div class="col-md-4 mt-3 col-lg-6">
+            <div class="col-md-4 mt-3 col-lg-6 lodging-img-lg">
                 <img src="<?php echo $lodgingInfos['img'] ?>" class="img-fluid w-100 h-100" alt="image">
             </div>
             <div class="col-md-4 col-lg-6">
@@ -50,14 +50,14 @@ $endDispo = new DateTime($lodgingInfos['end_dispo']);
                     <div class="col-md-4 mt-3 col-lg-6">
                         <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
                             <div class="carousel-inner lodging-img">
-                                <div class="carousel-item h-100 active" data-bs-interval="3000">
-                                    <img src="<?php $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="photo du logement">
+                                <div class="carousel-item h-100 active" data-bs-interval="5000">
+                                    <img src="<?php echo $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="pyramide du Louvre">
                                 </div>
                                 <?php
                                 foreach ($images as $image) {
                                 ?>
-                                    <div class="carousel-item h-100" data-bs-interval="3000">
-                                        <img src="<?php echo $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="photo du logement">
+                                    <div class="carousel-item h-100" data-bs-interval="5000">
+                                        <img src="<?php echo $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="calanque de Marseille">
                                     </div>
                                 <?php
                                 }
@@ -70,14 +70,14 @@ $endDispo = new DateTime($lodgingInfos['end_dispo']);
                     <div class="col-md-4 mt-3 col-lg-6">
                         <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
                             <div class="carousel-inner lodging-img">
-                                <div class="carousel-item h-100 active" data-bs-interval="5000">
-                                    <img src="<?php echo $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="photo du logement">
+                                <div class="carousel-item h-100 active" data-bs-interval="6000">
+                                    <img src="<?php echo $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="pyramide du Louvre">
                                 </div>
                                 <?php
                                 foreach ($images as $image) {
                                 ?>
-                                    <div class="carousel-item h-100" data-bs-interval="5000">
-                                        <img src="<?php $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="photo du logement">
+                                    <div class="carousel-item h-100" data-bs-interval="6000">
+                                        <img src="<?php echo $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="calanque de Marseille">
                                     </div>
                                 <?php
                                 }
@@ -88,14 +88,14 @@ $endDispo = new DateTime($lodgingInfos['end_dispo']);
                     <div class="col-md-4 mt-3 col-lg-6">
                         <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
                             <div class="carousel-inner lodging-img">
-                                <div class="carousel-item active h-100" data-bs-interval="6000">
-                                    <img src="<?php echo $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="photo du logement">
+                                <div class="carousel-item h-100 active" data-bs-interval="3000">
+                                    <img src="<?php echo $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="pyramide du Louvre">
                                 </div>
                                 <?php
                                 foreach ($images as $image) {
                                 ?>
-                                    <div class="carousel-item h-100" data-bs-interval="6000">
-                                        <img src="<?php $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="photo du logement">
+                                    <div class="carousel-item h-100" data-bs-interval="3000">
+                                        <img src="<?php echo $images[rand(0, $nbImg - 1)]['img'] ?>" class="d-block w-100 h-100" alt="calanque de Marseille">
                                     </div>
                                 <?php
                                 }
@@ -211,7 +211,7 @@ if (isset($_POST['booking']) && isset($_SESSION['name'])) {
                             <span>+ 2,5€</span>
                         </div>
                         <div class="row m-i">
-                            <button class="btn btn-danger btn-block" type="submit" name="booking" onclick="return confirm('Valider la réservation ?');">Modifier</button>
+                            <button class="btn btn-primary btn-block" type="submit" name="booking" onclick="return confirm('Valider la réservation ?');">Modifier</button>
                         </div>
                         <hr>
                         <div>Prix total avant modification : <?php echo $lodgingInfos['total_price'] ?> €</div>

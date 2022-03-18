@@ -15,24 +15,25 @@ $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
 
 <section class="container">
     <h1 class="h2-index">Mes logements</h1>
-    <div>
-        <div class="mx-1 lodging-d-flex">
-            <div class="lodging-img-lg">
-                <?php
-                foreach ($lodgings as $lodging) {
+    <div class="d-flex">
+        <div class="mx-1 lodging-d-flex-div">
+            
+        
+            <?php
+            foreach ($lodgings as $lodging) {
 
-                    $lastestAddImgQuery = $dbh->query('SELECT * FROM image WHERE room_id =' . $lodging['id'] . ' LIMIT 1');
-                    $lastestAddImg = $lastestAddImgQuery->fetchall(PDO::FETCH_ASSOC);
+                $lastestAddImgQuery = $dbh->query('SELECT * FROM image WHERE room_id =' . $lodging['id'] . ' LIMIT 1');
+                $lastestAddImg = $lastestAddImgQuery->fetchall(PDO::FETCH_ASSOC);
 
-                    foreach ($lastestAddImg as $row_lastestAddImg) {
-                        if ($row_lastestAddImg['room_id'] === $lodging['id']) {
+                foreach ($lastestAddImg as $row_lastestAddImg) {
+                    if ($row_lastestAddImg['room_id'] === $lodging['id']) {
 
-                            echo '<img src="' . $row_lastestAddImg['img'] . '" alt="" class="d-block w-100 h-100">';
-                        }
+                        echo '<div class="lodging-d-flex"><div class="lodging-img-lg col-md-4 mt-3 col-lg-6"><img src="' . $row_lastestAddImg['img'] . '" alt="" class="d-block w-100 h-100"></div>';
                     }
-                ?>
-            </div>
-            <div class="lodging-img-lg lodging-d-flex-div">
+                }
+            ?>
+            
+            <div class="lodging-img-lg lodging-d-flex-div col-md-4 mt-3 col-lg-6 pl">
                 <div>
                     <div><span><?php echo $lodging['hname'] . " - " . $lodging['rname'] . " - " . $lodging['city'] ?></span></div>
                     <div>
@@ -69,13 +70,14 @@ $lodgings = $lodgingQuery->fetchAll(PDO::FETCH_ASSOC);
             </div>
             
             <?php
+                echo '</div>';
                 }
             ?>
-            
+         
         </div>
-        <hr>
-        <span class="button-submit-search-bar"><a href="addLodging.php"><button type="button" class="btn btn-secondary">Ajouter un logement</button></a></span>
     </div>
+    <hr>
+    <span class="button-submit-search-bar"><a href="addLodging.php"><button type="button" class="btn btn-secondary">Ajouter un logement</button></a></span>
 </section>
 <hr>
 

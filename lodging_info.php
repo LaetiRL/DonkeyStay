@@ -210,11 +210,7 @@ if (isset($_POST['booking']) && isset($_SESSION['name'])) {
                             <span>+ 2,5€</span>
                         </div>
                         <div class="row m-i">
-<<<<<<< HEAD
-                            <button class="btn btn-danger btn-block" type="submit" name="booking" onclick="return confirm('Valider la réservation ?');">Réserver</button>
-=======
                             <button class="btn btn-primary btn-block" type="submit" name="booking">Réserver</button>
->>>>>>> b5e6b1f (adding scss final)
                         </div>
                         <hr>
                         <div>

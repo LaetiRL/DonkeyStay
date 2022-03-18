@@ -11337,6 +11337,18 @@ a {
   border-color: #0993ac;
 }
 
+.btn-secondary-2 {
+  background-color: #0993ac;
+  border-color: #0993ac;
+  color: white;
+}
+
+.btn-secondary-2:hover {
+  background-color: #00becc;
+  border-color: #00becc;
+  color: white;
+}
+
 #card > * {
   margin-bottom: 10px;
 }
@@ -11360,6 +11372,10 @@ a {
 
 .mt-addLodging {
   margin-top: 100px;
+}
+
+.pl {
+  padding-left: 15px;
 }
 
 /*# sourceMappingURL=style.css.map */

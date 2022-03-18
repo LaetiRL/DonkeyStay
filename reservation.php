@@ -17,12 +17,12 @@ $futurResas = $stmFutur->fetchAll(PDO::FETCH_ASSOC);
 <section>
     <h1 class="h2-index mb-4">Mes Réservations</h1>
     <div class="d-flex j-c">
-        <a href="/reservation.php"><button type="button" class="btn btn-secondary mx-2">À venir</button></a>
+        <a href="/reservation.php"><button type="button" class="btn btn-secondary-2 mx-2">À venir</button></a>
         <a href="/historical.php"><button type="button" class="btn btn-secondary mx-2">Historique</button></a>
     </div>
     <h2 class="mt-5 h2-index">Mes prochaines réservations</h2>
-    <div class="d-flex">
-        <div class="mx-1">
+    <div class="container d-flex">
+        <div class="mx-1 lodging-d-flex-div">
             <?php
 
             foreach ($futurResas as $futurResa) {
@@ -36,10 +36,11 @@ $futurResas = $stmFutur->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($lastestAddImg as $row_lastestAddImg) {
                     if ($row_lastestAddImg['room_id'] === $futurResa['room_id']) {
 
-                        echo '<img src="' . $row_lastestAddImg['img'] . '" alt="" class="card-img-top">';
+                        echo '<div class="lodging-d-flex"><div class="lodging-img-lg col-md-4 mt-3 col-lg-6"><img src="' . $row_lastestAddImg['img'] . '" alt="" class="d-block w-100 h-100"></div>';
                     }
                 }
             ?>
+            <div class="lodging-img-lg lodging-d-flex-div col-md-4 mt-3 col-lg-6 pl">
                 <div>
                     <div><?php echo "Du " .  $startDate->format('d/m/Y') . " au " . $endDate->format('d/m/Y') . " - " . $futurResa['city'] ?></div>
                     <div>
@@ -63,16 +64,23 @@ $futurResas = $stmFutur->fetchAll(PDO::FETCH_ASSOC);
                         }
                         ?>
                         <br>
-                        <span style="padding-bottom: 50px;"><a href="modifyReservation.php?id=<?php echo $futurResa['id']; ?>"><button type="button" class="btn btn-secondary">Modifier</button></a></span>
-                        <span><a href="deleteReservation.php?id=<?php echo $futurResa['id']; ?>" onclick="return confirm('Supprimer définitivement la réservation ?');"><button type="button" class="btn btn-danger">Supprimer</button></a></span>
-                        <span>Prix: <?php echo $futurResa['total_price'] . "€" ?> </span>
                     </small>
                 </div>
-                <hr>
+                <div class="lodging-d-flex">
+                    <div>
+                        <span style="padding-bottom: 50px;"><a href="modifyReservation.php?id=<?php echo $futurResa['id']; ?>"><button type="button" class="btn btn-secondary">Modifier</button></a></span>
+                        <span><a href="deleteReservation.php?id=<?php echo $futurResa['id']; ?>" onclick="return confirm('Supprimer définitivement la réservation ?');"><button type="button" class="btn btn-danger">Supprimer</button></a></span>
+                    </div>
+                    <span>Prix: <?php echo $futurResa['total_price'] . "€" ?> </span>
+                </div>
+            </div>
+                
             <?php
-            }
+                echo '</div>';
+                }
             ?>
         </div>
+        <hr>
     </div>
 </section>
 
