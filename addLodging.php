@@ -181,7 +181,7 @@ if (isset($_POST['add']) && isset($_SESSION['name'])) {
                         <div class="panel">
                             <div class="panel-body">
                                 <div class="form-group">
-                                    <label for="img">Images</label><small class="error" id="imgErr"><?php if(isset($imgErr)) {echo $imgErr;}; if(isset($statusMsg)) {echo $statusMsg;}?></small>
+                                    <label for="img">Images (Formats : jpg, jpeg, png)</label><small class="error" id="imgErr"><?php if(isset($imgErr)) {echo $imgErr;}; if(isset($statusMsg)) {echo $statusMsg;}?></small>
                                     <input type="file" name="img[]" id="img" multiple class="form-control">
                                 </div>
                                 <div class="form-group">

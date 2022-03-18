@@ -21,7 +21,7 @@
 <!-- search bar autocomplete -->
 <script type="text/javascript">
     $(function() {
-        $("#search").autocomplete({
+        $("#request").autocomplete({
             source: 'ajax-db-search.php',
         });
     });
