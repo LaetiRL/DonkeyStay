@@ -166,8 +166,7 @@ if (isset($_POST['add']) && isset($_SESSION['name'])) {
 ?>
 
 <section>
-    <h1>Ajouter un logement</h1>
-    <hr>
+    <h1 class="h2-index mt-addLodging">Ajouter un logement</h1>
     <form method="POST" class="d-flex j-c" enctype="multipart/form-data">
         <div class="div-addform">
             <div class="row">
@@ -273,7 +272,7 @@ if (isset($_POST['add']) && isset($_SESSION['name'])) {
             <div class="row">
                 <div class="col">
                     <label for="start_dispo">Première disponibilité</label><small class="error"><?php if(isset($start_dispoErr)) echo $start_dispoErr ?></small><br>
-                    <input type="date" id="start_dispo" name="start_dispo" value="<?php if(isset($start_dispo)) echo $start_dispo ?>">
+                    <input type="date"  id="start_dispo" name="start_dispo" value="<?php if(isset($start_dispo)) echo $start_dispo ?>">
                 </div>
                 <div class="col">
                     <label for="end_dispo">Dernière disponibilité</label><small class="error"><?php if(isset($end_dispoErr)) echo $end_dispoErr ?></small><br>
@@ -284,12 +283,12 @@ if (isset($_POST['add']) && isset($_SESSION['name'])) {
                     <input type="text" class="form-control" id="price" name="price" value="<?php if(isset($price)) echo $price ?>">
                 </div>
             </div>
-            <button type="submit" name="add">+ Ajouter</button>
+            <div class="button-submit-search-bar mt-3">
+                <button type="submit" name="add" class="btn btn-primary">+ Ajouter</button>
+            </div>
         </div>
     </form>
-
-    <style>
-        body {
-            background-color: lightgrey;
-        }
-    </style>
+<hr>
+<?php
+require_once 'footer.php';
+?>

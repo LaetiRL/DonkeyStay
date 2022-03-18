@@ -120,7 +120,7 @@ if (isset($_POST['validate'])) {
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" />
                             </div>
                             <div class="modal-footer d-block">
-                                <button type="submit" class="btn btn-secondary float-end" name="validate">Connexion</button>
+                                <button type="submit" class="btn btn-primary float-end" name="validate">Connexion</button>
                             </div>
                         </form>
                     </div>

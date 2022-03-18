@@ -78,11 +78,11 @@ if (isset($_POST['search'])) {
                                     ?>
 
                                     <small><?php echo $room['rname'] . ' - ' . $room['nb_traveler'] . ' - ' . $room['city'] ?></small>
-                                    <div class="card-body">
-                                        <h5 class="card-title"><?php echo $room['title'] ?></h5>
-                                        <p><?php echo "Disponibilités : <br>" . $startDateSearch->format('d/m/Y') . " au " .  $endDateSearch->format('d/m/Y') ?></p>
+                                    <div id="card">
+                                        <h3 class="card-title"><?php echo $room['title'] ?></h3>
+                                        <p class="card-text"><?php echo "Du : <br>" . $startDateSearch->format('d/m/Y') . " au " .  $endDateSearch->format('d/m/Y') ?></p>
                                         <p class="card-text"><?php echo $room['price'] . '€ / nuit' ?></p>
-                                        <a href="lodging_info.php?id=<?php echo $room['id'] ?>" class="btn btn-outline-success btn-sm">Voir</a>
+                                        <div class="button-submit-search-bar"><a href="lodging_info.php?id=<?php echo $room['id'] ?>" class="btn btn-secondary">Voir</a></div>
 
                                     </div>
                                 </div>
@@ -127,13 +127,12 @@ if (isset($_POST['search'])) {
                                     }
                                     ?>
 
-                                    <small><?php echo $row_lastestAdd['rname'] . ' - ' . $row_lastestAdd['nb_traveler'] . ' - ' . $row_lastestAdd['city'] ?></small>
-                                    <div class="card-body">
-                                        <h5 class="card-title"><?php echo $row_lastestAdd['title'] ?></h5>
-                                        <p><?php echo "Disponibilités : <br>" . $startDateAdd->format('d/m/Y') . " au " .  $endDateAdd->format('d/m/Y') ?></p>
+                                    <small class="mb-2"><?php echo $row_lastestAdd['rname'] . ' - ' . $row_lastestAdd['nb_traveler'] . ' - ' . $row_lastestAdd['city'] ?></small>
+                                    <div id="card">
+                                        <h3 class="h3 card-title"><?php echo $row_lastestAdd['title'] ?></h3>
+                                        <p class="card-text"><?php echo "Du : <br>" . $startDateAdd->format('d/m/Y') . " au " .  $endDateAdd->format('d/m/Y') ?></p>
                                         <p class="card-text"><?php echo $row_lastestAdd['price'] . '€ / nuit ' ?></p>
-                                        <a href="lodging_info.php?id=<?php echo $row_lastestAdd['id'] ?>" class="btn btn-outline-success btn-sm">Voir</a>
-
+                                        <div class="button-submit-search-bar"><a href="lodging_info.php?id=<?php echo $row_lastestAdd['id'] ?>" class="btn btn-secondary">Voir</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +146,7 @@ if (isset($_POST['search'])) {
 
         <section>
             <div class="container-fluid container py-3 mt-4">
-                <h2 class="h3">Voyager avec DonkeyStay</h2>
+                <h2 class="h2-index ">Voyager avec DonkeyStay</h2>
                 <div class="row mt-4">
                     <div class="col-md-4">
                         <div class="card mb-3 border-0">
@@ -156,7 +155,7 @@ if (isset($_POST['search'])) {
                                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                             </svg>
                             <div class="card-body pl-0">
-                                <h5 class="card-title">Assistance client 24h/24 et 7j/7</h5>
+                                <h3 class="h3 card-title">Assistance client 24h/24 et 7j/7</h3>
                                 <p class="card-text">De jour comme de nuit, nous sommes là pour vous. Parlez à notre équipe d'assistance de n'importe où dans le monde, à n'importe quelle heure de la journée.</p>
                             </div>
                         </div>
@@ -168,8 +167,8 @@ if (isset($_POST['search'])) {
                                 <path d="M0 0h24v24H0z" fill="none" />
                             </svg>
                             <div class="card-body pl-0">
-                                <h5 class="card-title">Normes mondiales d'accueil</h5>
-                                <p class="card-text">Les clients évaluent leurs hôtes après chaque séjour. Tous les hôtes doivent maintenir une note minimale et nos normes d'hospitalité pour être sur DonkeyStay.</p>
+                                <h3 class="h3 card-title">Normes mondiales d'accueil</h3>
+                                <p class="card-text">Tous les hôtes sont contrôlés et doivent maintenir nos normes d'hospitalité pour être sur DonkeyStay.</p>
                             </div>
                         </div>
                     </div>
@@ -183,8 +182,8 @@ if (isset($_POST['search'])) {
                                 </g>
                             </svg>
                             <div class="card-body pl-0">
-                                <h5 class="card-title">Hôtes 5 étoiles</h5>
-                                <p class="card-text">Des draps fraîchement pressés aux conseils pour trouver le meilleur brunch, nos hôtes sont pleins d'hospitalité locale.</p>
+                                <h3 class="h3 card-title">Hôtes 5 étoiles</h3>
+                                <p class="card-text">Des draps fraîchement lavés aux conseils pour trouver le meilleur brunch, nos hôtes sont pleins d'hospitalité !</p>
                             </div>
                         </div>
                     </div>
