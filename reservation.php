@@ -1,7 +1,7 @@
 <?php
 
 $titleWeb = "Mes Réservations";
-require 'header.php';
+require 'searchBar.php';
 require_once '_secured.php';
 $user_id = $_SESSION['user_id'];
 
@@ -14,11 +14,13 @@ $stmFutur->execute();
 $futurResas = $stmFutur->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<section class="logements">
-    <h1>Mes Réservations</h1>
-    <a href="/reservation.php"><button type="button" class="btn btn-primary">À venir</button></a>
-    <a href="/historical.php"><button type="button" class="btn btn-secondary">Historique</button></a>
-    <h2 class="mt-5">Mes prochaines réservations</h2>
+<section>
+    <h1 class="h2-index mb-4">Mes Réservations</h1>
+    <div class="d-flex j-c">
+        <a href="/reservation.php"><button type="button" class="btn btn-secondary mx-2">À venir</button></a>
+        <a href="/historical.php"><button type="button" class="btn btn-secondary mx-2">Historique</button></a>
+    </div>
+    <h2 class="mt-5 h2-index">Mes prochaines réservations</h2>
     <div class="d-flex">
         <div class="mx-1">
             <?php
