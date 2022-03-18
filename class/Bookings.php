@@ -1,9 +1,10 @@
 <?php
 
-class Bookings {
+class Bookings
+{
 
-    
-    public function getBookingsBetween (\DateTime $start, \DateTime $end): array
+
+    public function getBookingsBetween(\DateTime $start, \DateTime $end): array
     {
         $dbh = new PDO('mysql:dbname=DonkeyStay;host=127.0.0.1', 'root', '');
         $sql = "SELECT * FROM booking WHERE start_date BETWEEN '{$start->format('Y-m-d')}' AND '{$end->format('Y-m-d')}'";
@@ -11,14 +12,5 @@ class Bookings {
         $results = $stm->fetchAll(PDO::FETCH_ASSOC);
         return $results;
     }
-
-    /* public function getBookingDays (\DateTime $start, \DateTime $end): array
-    {
-        $bookingsMonth = $this->getBookingsBetween($start, $end);
-        $date = [];
-        foreach ($bookingsMonth as $bookingMonth) {
-            $date[]
-        }
-
-    } */
+    
 }

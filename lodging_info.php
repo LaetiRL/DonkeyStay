@@ -1,6 +1,8 @@
 <?php
 $titleWeb = 'En savoir plus';
 require_once 'searchBar.php';
+require_once "class/Month.php";
+require_once "class/Bookings.php";
 
 $idUrl = $_GET['id'];
 
@@ -107,43 +109,76 @@ $endDispo = new DateTime($lodgingInfos['end_dispo']);
         <!-- end user lodging gallery -->
     </div>
     <?php
+    require_once "class/Month.php";
+    require_once "class/Bookings.php";
 
-if (isset($_POST['booking']) && !isset($_SESSION['name'])) {
-    $error = " * Veuillez vous connecter";
-}
-if (isset($_POST['booking']) && isset($_SESSION['name'])) {
-    $user_id = $_SESSION['user_id'];
-    $room_id = $lodgingInfos['id'];
-    $start_date = $_POST['infoStartDate'];
-    $end_date = $_POST['infoEndDate'];
-    $start_date_calc = new DateTime($_POST['infoStartDate']);
-    $end_date_calc = new DateTime($_POST['infoEndDate']);
-    $nb_night = ($end_date_calc ->diff($start_date_calc))->format('%a');
-    $pet_option_calc = !empty($_POST['pet_option']) ? 20 : 0;
-    $cancel_option_calc = !empty($_POST['cancel_option']) ? 2.5 : 0;
-    $total_price = ($nb_night * $lodgingInfos['price']) + $pet_option_calc + $cancel_option_calc;
-    $pet_option = !empty($_POST['pet_option']) ? 1 : 0;
-    $cancel_option = !empty($_POST['cancel_option']) ? 1 : 0;
-    $travelers = $_POST['selectTravelers'];
+    $bookings = new Bookings;
+    $month = new Month($_GET['month'] ?? null, $_GET['year'] ?? null);
+    $start = $month->getStartingDay();
+    $start = $start->format('N') === '1' ? $start : $month->getStartingDay()->modify('last monday');
+    $weeks = $month->getWeeks();
+    $end = (clone $start)->modify('+' . (6 + 7 * ($weeks - 1)) . ' days');
+    $bookings = $bookings->getBookingsBetween($start, $end);
 
-    if ($total_price != 0 && isset($_SESSION['user_id'])) {
+    foreach ($bookings as $booking) {
+        $start_resa = date_create($booking['start_date']);
+        $end_resa = date_create($booking['end_date']);
+        $interval = DateInterval::createFromDateString('1 day');
+        $date_resa = new DatePeriod($start_resa, $interval,  $end_resa);
+        $tableau = [];
 
-        $queryBooking = $dbh->prepare("INSERT INTO booking (`user_id`, `room_id`, `start_date`, `end_date`, `nb_person`,`total_price`, `booking_date`, `create_date`, `update_date`, `pet_option`, `cancel_option`) VALUES ($user_id, $room_id, :start_date, :end_date, :travelers, :total_price, NOW(), NOW(), NOW(), :pet_option, :cancel_option)");
+        foreach ($date_resa as $date) {
 
-        $queryBooking->bindValue(":start_date", $start_date, PDO::PARAM_STR);
-        $queryBooking->bindValue(":end_date", $end_date, PDO::PARAM_STR);
-        $queryBooking->bindValue(":travelers", $travelers, PDO::PARAM_INT);
-        $queryBooking->bindValue(":total_price", $total_price, PDO::PARAM_STR);
-        $queryBooking->bindValue(":pet_option", $pet_option, PDO::PARAM_INT);
-        $queryBooking->bindValue(":cancel_option", $cancel_option, PDO::PARAM_INT);
-
-        $queryBooking->execute();
-
-        echo "<script type='text/javascript'>document.location.replace('index.php');</script>";
+            $tableau[] = $date->format('Y-m-d');
+        }
     }
-}
+    if (empty($tableau)) {
+        $tableau = [];
+    }
 
-?>
+
+
+    if (isset($_POST['booking']) && !isset($_SESSION['name'])) {
+        $error = " * Veuillez vous connecter";
+    }
+
+    if (isset($_POST['booking']) && isset($_SESSION['name'])) {
+        $user_id = $_SESSION['user_id'];
+        $room_id = $lodgingInfos['id'];
+        $start_date = $_POST['infoStartDate'];
+        $end_date = $_POST['infoEndDate'];
+        $start_date_calc = new DateTime($_POST['infoStartDate']);
+        $end_date_calc = new DateTime($_POST['infoEndDate']);
+        $nb_night = ($end_date_calc->diff($start_date_calc))->format('%a');
+        $pet_option_calc = !empty($_POST['pet_option']) ? 20 : 0;
+        $cancel_option_calc = !empty($_POST['cancel_option']) ? 2.5 : 0;
+        $total_price = ($nb_night * $lodgingInfos['price']) + $pet_option_calc + $cancel_option_calc;
+        $pet_option = !empty($_POST['pet_option']) ? 1 : 0;
+        $cancel_option = !empty($_POST['cancel_option']) ? 1 : 0;
+        $travelers = $_POST['selectTravelers'];
+
+        if (!in_array($start_date, $tableau) && !in_array($end_date, $tableau)) {
+
+            if ($total_price != 0 && isset($_SESSION['user_id'])) {
+
+                $queryBooking = $dbh->prepare("INSERT INTO booking (`user_id`, `room_id`, `start_date`, `end_date`, `nb_person`,`total_price`, `booking_date`, `create_date`, `update_date`, `pet_option`, `cancel_option`) VALUES ($user_id, $room_id, :start_date, :end_date, :travelers, :total_price, NOW(), NOW(), NOW(), :pet_option, :cancel_option)");
+
+                $queryBooking->bindValue(":start_date", $start_date, PDO::PARAM_STR);
+                $queryBooking->bindValue(":end_date", $end_date, PDO::PARAM_STR);
+                $queryBooking->bindValue(":travelers", $travelers, PDO::PARAM_INT);
+                $queryBooking->bindValue(":total_price", $total_price, PDO::PARAM_STR);
+                $queryBooking->bindValue(":pet_option", $pet_option, PDO::PARAM_INT);
+                $queryBooking->bindValue(":cancel_option", $cancel_option, PDO::PARAM_INT);
+
+                $queryBooking->execute();
+
+                echo "<script type='text/javascript'>document.location.replace('index.php');</script>";
+            }
+        }
+        $dateErr = 'Les dates choisies ne sont pas disponibles';
+    }
+
+    ?>
 
     <div class="container mt-4">
         <div class="row">
@@ -169,6 +204,33 @@ if (isset($_POST['booking']) && isset($_SESSION['name'])) {
                     }
                     ?>
                 </small>
+                <br><br>
+                <h4><?= $month->toString() ?></h4>
+                <div class="d-flex">
+                    <a href="lodging_info.php?id=<?php echo $idUrl ?>&month=<?php echo $month->previousMonth()->month; ?>&year=<?php echo $month->previousMonth()->year; ?>" class="btn ms-3">&lt</a>
+                    <a href="lodging_info.php?id=<?php echo $idUrl ?>&month=<?php echo $month->nextMonth()->month; ?>&year=<?php echo $month->nextMonth()->year; ?>" class="btn ms-3">&gt</a>
+                </div>
+                <table>
+                    <th>L</th>
+                    <th>M</th>
+                    <th>M</th>
+                    <th>J</th>
+                    <th>V</th>
+                    <th>S</th>
+                    <th>D</th>
+                    <?php for ($i = 0; $i < $weeks; $i++) : ?>
+                        <tr>
+                            <?php foreach ($month->days as $k => $day) :
+                                $date = (clone $start)->modify("+" . ($k + $i * 7) . " days");
+                                $bookingsC = $bookings[$date->format('Y-m-d')] ?? [];
+                            ?>
+                                <td class="<?php echo $month->withinMonth($date) ? '' : 'calendar-othermonth '; ?><?php echo in_array($date->format('Y-m-d'), $tableau) ? 'calendar-resa' : ''; ?>">
+                                    <div><?php echo $date->format('d'); ?></div>
+                                </td>
+                            <?php endforeach; ?>
+                        </tr>
+                    <?php endfor; ?>
+                </table>
             </div>
             <div class="col-lg-4">
                 <div class="card">
@@ -184,6 +246,7 @@ if (isset($_POST['booking']) && isset($_SESSION['name'])) {
                                 <input type="date" id="infoEndDate" name="infoEndDate" min='<?= $currentDate; ?>' value='<?= $currentDate; ?>' />
                             </div>
                         </div>
+                        <p class="error"><?php if (isset($dateErr)) echo $dateErr ?></p>
                         <div class="row">
                             <div class="form-group">
                                 <label for="selectTravelers">Voyageurs</label>
