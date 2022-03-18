@@ -11300,14 +11300,13 @@ a {
   opacity: 1;
 }
 
-.booking {
-  background-color: red;
-}
+.button-submit-search-bar {
+  display: flex;
+  justify-content: end;
 
 .btn-primary {
   background-color: #D11950;
   border-color: #D11950;
-}
 
 .btn-primary:hover {
   background-color: #a00b49;
@@ -11326,6 +11325,20 @@ a {
   background-color: #a00b49;
   border-color: #a00b49;
 }
+
+.calendar-resa {
+  background-color: red;
+}
+
+.img-div {
+  position: relative;
+  width: 24%;
+  float: left;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  height: 175px;
 
 .btn-secondary {
   background-color: #00becc;
@@ -11361,5 +11374,4 @@ a {
 .mt-addLodging {
   margin-top: 100px;
 }
-
 /*# sourceMappingURL=style.css.map */
