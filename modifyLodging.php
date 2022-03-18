@@ -178,9 +178,8 @@ if (isset($_POST['modify'])) {
 
 ?>
 
-<section class="logements">
-    <h1>Modifier un logement</h1>
-    <hr>
+<section>
+    <h1 class="h2-index mt-addLodging">Modifier un logement</h1>
     <form method="POST" class="d-flex j-c" enctype="multipart/form-data">
         <div class="div-addform">
             <div class="row">
@@ -299,18 +298,13 @@ if (isset($_POST['modify'])) {
                     <input type="text" class="form-control" id="price" name="price" value="<?php echo $lodgingPrice ?>">
                 </div>
             </div>
-            <button type="submit" name="modify">Modifier</button>
+            <div class="button-submit-search-bar mt-3">
+                <button type="submit" name="modify" class="btn btn-primary">Modifier</button>
+            </div>
         </div>
     </form>
 
-    <style>
-        body {
-            background-color: lightgrey;
-        }
-    </style>
-</section>
-
-
+<hr>
 <?php
 require_once 'footer.php';
 ?>

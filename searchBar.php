@@ -41,11 +41,11 @@ require_once 'header.php';
         <div class="container search-bar">
             <div class="row">
                 <div class="col-sm-5">
-                    <div class="card border-0">
-                        <h1 class="h3 mb-3">Trouvez votre hébergement partout en France avec DonkeyStay</h1>
+                    <div class="card card-search border-0">
+                        <h1 class="h1 mb-3">Trouvez votre hébergement partout en France avec DonkeyStay</h1>
                         <form action="" method="POST" autocomplete="off">
                             <div class="row">
-                                <div class="form-group">
+                                <div class="form-group mt-3">
                                     <input type="text" class="form-control w-100 br0" id="request" name="request" aria-describedby="locationInputHelp" placeholder="Ville ...">
                                 </div>
                             </div>
@@ -60,8 +60,7 @@ require_once 'header.php';
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Voyageurs</label>
+                                <div class="form-group mt-3">
                                     <select class="form-control" id="exampleFormControlSelect1" name="capacity">
                                         <?php
                                         $capacityQuery = $dbh->query('SELECT * FROM capacity ORDER BY id');
@@ -75,7 +74,7 @@ require_once 'header.php';
                                 </div>
                             </div>
                             <div class="button-submit-search-bar">
-                                <button class="btn btn-secondary" type="submit" name="search">Chercher</button>
+                                <button class="btn btn-primary" type="submit" name="search">Chercher</button>
                             </div>
                         </form>
                     </div>
